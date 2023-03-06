@@ -1,4 +1,3 @@
-SQL
 CREATE TABLE officer (
 	badge_number INT,
 	o_name VARCHAR(40),
@@ -71,7 +70,7 @@ CREATE TABLE payment_history(
     payment_date DATE,
     payment_time TIME, 
     fine_amount INT, 
-    amount_paid INT 
+    amount_paid INT, 
    
 PRIMARY KEY (case_id, payment_date, payment_time),
 FOREIGN KEY (case_id) REFERENCES crime(case_id) );
