@@ -12,6 +12,7 @@ VALUES
     (9, 'Nelson', 'Mike', '864 Elm St', 'Orlando', 'FL', 91293, 901234567, 'y', 'y'),
     (10, 'Martin', 'Andy', '123 Pine St', 'Miami', 'FL', 33542, 789012345, 'n', 'y');
 
+
 INSERT INTO alias
     (alias_id, c_id, alias)
 VALUES 
@@ -84,3 +85,37 @@ VALUES
     (9, 9, 6, '2013-01-17', '2017-01-15', 4, "p"),
     (10, 10, 4, '2015-06-17', '2027-06-15', 3, "p"),
     (11, 2, 10, '2017-06-17', '2021-06-15', 1, "h");
+
+
+-- o_status:
+-- i: inactive
+-- a: active
+INSERT INTO officer
+    (badge_number, o_last, o_first, o_precinct, o_phone_number, o_status)
+VALUES
+    (1231, 'Gonzalez', 'Sofia', 3, 987654321, 'a'),
+    (5322, 'Singh', 'Arjun', 3, 123456789, 'i'),
+    (2433, 'Kim', 'Ji-Hyun', 4, 456789123, 'a'),
+    (6544, 'Lopez', 'Eva', 7, 789123456, 'i'),
+    (9865, 'Patel', 'Amit', 9, 234567891, 'a'),
+    (6123, 'Lee', 'Jae', 13, 567891234, 'i'),
+    (7123, 'Ramirez', 'Gabriela', 7, 891234567, 'a'),
+    (8234, 'Tran', 'Linh', 9, 345678912, 'i'),
+    (9123, 'Chen', 'Wei', 13, 678912345, 'a'),
+    (1052, 'Rodriguez', 'Diego', 4, 912345678, 'i');
+
+
+INSERT INTO crime_officer
+    (case_id, badge_number)
+VALUES 
+    (1, 1231),
+    (2, 5322),
+    (3, 6544),
+    (4, 9865),
+    (5, 7123),
+    (6, 6544),
+    (7, 6123),
+    (8, 8234),
+    (9, 1052),
+    (10, 2433),
+    (11, 9123);
