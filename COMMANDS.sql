@@ -9,6 +9,8 @@ BEGIN
     AND c_city = city;
 END$$
 
+--CALL searchByCity('New York');
+
 
 --Search for criminal info by zipcode
 CREATE OR REPLACE PROCEDURE searchByZipCode(zipcode VARCHAR(64))
@@ -19,19 +21,28 @@ BEGIN
     AND c_zip = zipcode;
 END$$
 
+--CALL searchByZipCode('43210')
+
+
 --Count number of active officers
 CREATE OR REPLACE FUNCTION count_officers() RETURNS INT
 BEGIN
-  RETURN (SELECT COUNT (badge_number)
+  RETURN (SELECT COUNT(badge_number)
           FROM officer
           WHERE o_status = 'a');
 END$$
 
+--SET @officer_count = count_officers();
+--SELECT @officer_count;
+
+
 --Make a payment
-CREATE OR REPLACE PROCEDURE make_payment(crimeid INT, chargeid INT, payment DECIMAL, paydate DATE)
+CREATE OR REPLACE PROCEDURE make_payment(chargeid INT, crimeid INT, payment DECIMAL, paydate DATE)
 BEGIN
   UPDATE charge
   SET amount_paid = amount_paid + payment, payment_date = paydate
-  WHERE case_id = crimeid
-  AND charge_id = chargeid;
+  WHERE charge_id = chargeid
+  AND case_id = crimeid;
 END$$
+
+--CALL make_payment(2142, 1, 999, '2023-10-15');
