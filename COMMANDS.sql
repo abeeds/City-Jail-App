@@ -3,7 +3,7 @@ DELIMITER $$
 --Search for criminal info by city
 CREATE OR REPLACE PROCEDURE searchByCity(city VARCHAR(64))
 BEGIN
-	SELECT c_last, c_first, c_city, c_state, code_desc, start_date, end_date
+	SELECT c_last, c_first, c_city, c_state, start_date, end_date
     FROM criminal, sentence
     WHERE criminal.c_id = sentence.c_id
     AND c_city = city;
@@ -13,10 +13,10 @@ END$$
 --Search for criminal info by zipcode
 CREATE OR REPLACE PROCEDURE searchByZipCode(zipcode VARCHAR(64))
 BEGIN
-	SELECT c_last, c_first, c_city, c_state, code_desc, start_date, end_date
+	SELECT c_last, c_first, c_city, c_state, start_date, end_date
     FROM criminal, sentence
     WHERE criminal.c_id = sentence.c_id
-    AND c_zip = zip;
+    AND c_zip = zipcode;
 END$$
 
 --Count number of active officers
