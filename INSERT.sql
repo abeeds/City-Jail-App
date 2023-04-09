@@ -11,3 +11,17 @@ VALUES
     (8, 'Doe', 'Anthony', '135 Oak St', 'Pittsburgh', 'PA', 23532, 890123456, 'n', 'n'),
     (9, 'Nelson', 'Mike', '864 Elm St', 'Orlando', 'FL', 91293, 901234567, 'y', 'y'),
     (10, 'Martin', 'Andy', '123 Pine St', 'Miami', 'FL', 33542, 789012345, 'n', 'y');
+
+INSERT INTO alias
+    (alias_id, c_id, alias)
+VALUES 
+    (1, 1, "Clown"),
+    (2, 1, "Joker"), 
+    (3, 2, "Donkey"),
+    (4, 3, "Shrek"),
+    (5, 4, "Gold"),
+    (6, 5, "Silver"),
+    (7, 7, "Big Guy"),
+    (8, 8, "Chicken Little"),
+    (9, 8, "Elmo"),
+    (10, 10, "Cookie Monster");
