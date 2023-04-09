@@ -66,6 +66,7 @@ CREATE TABLE officer(
 CREATE TABLE crime_officer(
     case_id INT,
     badge_number INT,
+    PRIMARY KEY (case_id, badge_number),
     FOREIGN KEY (case_id) REFERENCES crime(case_id),
     FOREIGN KEY (badge_number) REFERENCES officer(badge_number));
 
