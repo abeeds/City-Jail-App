@@ -46,3 +46,21 @@ BEGIN
 END$$
 
 --CALL make_payment(2142, 1, 999, '2023-10-15');
+
+
+-- Trigger ensures alias_ids continue incrementing properly
+CREATE OR REPLACE TRIGGER properAliasID
+BEFORE INSERT ON alias
+FOR EACH ROW
+BEGIN
+    DECLARE max_alias_id INT;
+    SELECT MAX(alias_id) INTO max_alias_id FROM alias;
+    
+    -- if table is empty, alias id = 1
+    IF max_alias_id IS NULL THEN
+        SET NEW.alias_id = 1;
+    -- otherwise, increment by 1 from the highest alias id
+    ELSE    
+        SET NEW.alias_id = max_alias_id + 1;
+    END IF;
+END $$
