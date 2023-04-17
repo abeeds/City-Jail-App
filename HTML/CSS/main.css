@@ -1,3 +1,4 @@
+/*  */
 body {
     background: white;
     color: #ffffff;
@@ -36,5 +37,6 @@ img[tag="profile"]:hover, img[tag="help"]:hover{
     background-color: #0e1d45;
 }
 
-
-
+h1, label {
+    color: #0e1d45;
+}
