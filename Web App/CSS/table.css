@@ -1,0 +1,11 @@
+table, th, td {
+    border: 2px solid;
+    color: black;
+    text-align: center;
+}
+
+.row-labels th {
+    border-color: black;
+    background-color: #0a67be;
+    color: white;
+}
