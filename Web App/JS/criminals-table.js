@@ -16,39 +16,21 @@ var dummy_data = [
 var table = document.getElementById("Criminals");
 
 for (var i = 0; i < dummy_data.length; i++) {
-    // add new row
     var row = table.insertRow(i + 1);
-    var cell0 = row.insertCell(0); // c_id
-    var cell1 = row.insertCell(1); // c_last
-    var cell2 = row.insertCell(2); // c_first
-    var cell3 = row.insertCell(3); // c_street
-    var cell4 = row.insertCell(4); // c_city
-    var cell5 = row.insertCell(5); // c_state
-    var cell6 = row.insertCell(6); // c_zip
-    var cell7 = row.insertCell(7); // c_phone_num
-    var cell8 = row.insertCell(8); // V_status
-    var cell9 = row.insertCell(9); // P_status
 
-    cell0.innerHTML =  dummy_data[i][0]; 
-    cell1.innerHTML =  dummy_data[i][1]; 
-    cell2.innerHTML =  dummy_data[i][2]; 
-    cell3.innerHTML =  dummy_data[i][3]; 
-    cell4.innerHTML =  dummy_data[i][4];
-    cell5.innerHTML =  dummy_data[i][5];
-    cell6.innerHTML =  dummy_data[i][6];
-    cell7.innerHTML =  dummy_data[i][7];
-
-    // For readability
-    if(dummy_data[i][8] == "y") {
-        cell8.innerHTML = "yes"
-    }
-    if(dummy_data[i][8] == "n") {
-        cell8.innerHTML = "no"
-    }
-    if(dummy_data[i][9] == "y") {
-        cell9.innerHTML = "yes"
-    }
-    if(dummy_data[i][9] == "n") {
-        cell9.innerHTML = "no"
+    for (var j = 0; j < dummy_data[i].length; j++) {
+        var cell = row.insertCell(j);
+        
+        if(j == 8 || j == 9) {
+            if(dummy_data[i][j] == "y") {
+                cell.innerHTML = "Yes";
+            }
+            if(dummy_data[i][j] == "n") {
+                cell.innerHTML = "No";
+            }
+        }
+        else {
+            cell.innerHTML = dummy_data[i][j];
+        }
     }
 }
