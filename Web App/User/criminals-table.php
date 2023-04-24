@@ -88,6 +88,7 @@
             </div>
 
             <?php 
+              // When a field is submitted, it will run this code
               if($_GET){
                 $db = connectToDB_guest();
               makeTable_criminal($_GET["name"], $_GET["city"], $_GET["state"], $_GET["zip"], $db);
