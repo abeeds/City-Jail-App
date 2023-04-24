@@ -19,7 +19,7 @@
               </button>
               <div class="container">
                 <!-- Should lead to whatever the homepage is-->
-                <a class="navbar-brand mr-4" href=""><strong>City Jail</strong></a>
+                <a class="navbar-brand mr-4" href="criminals-table.php"><strong>City Jail</strong></a>
                 </button>
                 <!-- Navbar Toggler -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
                 <!-- Main Navigation Pages -->
                 <div class="collapse navbar-collapse" id="navbarToggle">
                   <div class="navbar-nav mr-auto">
-                    <a class="nav-item nav-link" href="">Criminals</a>
+                    <a class="nav-item nav-link" href="criminals-table.php">Criminals</a>
                     <a class="nav-item nav-link" href="">Crimes</a>
                     <a class="nav-item nav-link" href="">Charges</a>
                     <a class="nav-item nav-link" href="">Sentences</a>
