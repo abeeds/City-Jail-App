@@ -1,5 +1,7 @@
 DELIMITER $$
 
+
+
 -- Search for criminal info by city
 CREATE OR REPLACE PROCEDURE searchByCity(city VARCHAR(64))
 BEGIN
@@ -8,6 +10,8 @@ BEGIN
     WHERE criminal.c_id = sentence.c_id
     AND c_city = city;
 END$$
+
+
 
 -- CALL searchByCity('New York');
 
@@ -23,6 +27,14 @@ END$$
 
 -- CALL searchByZipCode('43210')
 
+-- General search function
+CREATE OR REPLACE FUNCTION searchCriminal(crim_name VARCHAR(41), crim_city VARCHAR(64), crim_state VARCHAR(2), )
+BEGIN
+    RETURN (SELECT * FROM criminal c,
+            WHERE CONCAT(c.c_first, ' ', c.c_last) LIKE CONCAT('%', crim_name, '%')
+            AND c.c_city LIKE CONCAT('%', crim_city, '%')
+            AND c.state LIKE CONCAT('%', crim_state, '%'));
+END$$
 
 -- Count number of active officers
 CREATE OR REPLACE FUNCTION count_officers() RETURNS INT

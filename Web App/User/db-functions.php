@@ -1,4 +1,16 @@
 <?php
+
+// safety feature
+// removes possibility of typing in SQL code into the form
+function removeInvalid(&$string){
+    $INVALID_CHARS =
+        [",", "?", "!", ":", ";",
+         "+", "<", ">", "%", "~",
+        "€", "$", "[", "]", "{", "}", "(", ")",
+        "@", "&", "#", "*", "„", "'", '"'];
+    $string = str_replace($INVALID_CHARS, "", $string);
+}
+
 function connectToDB_guest() {
     $servername = "localhost"; 
     $username = "guest";
@@ -14,6 +26,24 @@ function connectToDB_guest() {
 
 function makeTable_criminal($name, $city, $state, $zip, $database=NULL) {
     // making upper most row with labels
+    removeInvalid($name);
+    removeInvalid($city);
+    removeInvalid($state);
+
+    echo "<p> Showing Results For: </p>";
+    if($name !== "") {
+        echo "<p> Name: " . $name . "</p>";
+    }
+    if($city !== "") {
+        echo "<p> City: " . $city . "</p>";
+    }
+    if($state !== "") {
+        echo "<p> State: " . $state . "</p>";
+    }
+    if($zip !== "") {    
+        echo "<p> Zip Code: " . $zip . "</p>";
+    }
+
     echo 
     "<table id=\"Criminals\">
     <!-- Row with labels for each column -->
@@ -21,11 +51,9 @@ function makeTable_criminal($name, $city, $state, $zip, $database=NULL) {
         <th>ID</th>
         <th>Last</th>
         <th>First Name</th>
-        <th>Street</th>
         <th>City</th>
         <th>State</th>
         <th>Zip Code</th>
-        <th>Phone Number</th>
         <th>Violent Offender Status</th>
         <th>Probation Status</th>
         </tr>";
@@ -38,20 +66,13 @@ function makeTable_criminal($name, $city, $state, $zip, $database=NULL) {
         // add WHERE clause as long as one field is present
         if($name !== "" || $city !== "" || $state !== "" || $zip !== "") {
             $aQuery .= " WHERE ";
-            $aQuery .= "CONCAT(c.c_first, c.c_last) LIKE '%" . $name . "%' AND ";
+            $aQuery .= "CONCAT(c.c_first, ' ',  c.c_last) LIKE '%" . $name . "%' AND ";
             $aQuery .= "c.c_city LIKE '%" . $city . "%' " ;
-            if($city !== "") {
-                $aQuery .= "OR c.c_city = '" . $city . "'" ;
-            }
-            
             $aQuery .= " AND c.c_state LIKE '%" . $state . "%'" ;
-            if($state !== "") {
-                $aQuery .= " OR c.c_state = '" . $state . "'" ;
+            if($zip !== -1) {
+                $aQuery .= " AND c.c_zip = " . $zip;
             }
-            
-            if($zip !== "") {
-                $aQuery .= " AND c.c_zip = " . $zip . ";";
-            }
+            $aQuery .= ";";
         }
 
         $result = $database->query($aQuery);
@@ -61,11 +82,9 @@ function makeTable_criminal($name, $city, $state, $zip, $database=NULL) {
                 echo "<th>" . $row["c_id"] . "</th>";
                 echo "<th>" . $row["c_last"] . "</th>";
                 echo "<th>" . $row["c_first"] . "</th>";
-                echo "<th>" . $row["c_street"] . "</th>";
                 echo "<th>" . $row["c_city"] . "</th>";
                 echo "<th>" . $row["c_state"] . "</th>";
                 echo "<th>" . $row["c_zip"] . "</th>";
-                echo "<th>" . $row["c_phone_num"] . "</th>";
                 if($row["V_status"] === "y") {
                     echo "<th>" . "Yes" . "</th>";
                 }

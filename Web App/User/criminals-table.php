@@ -66,15 +66,15 @@
                   <form>
                     <div class="form-group">
                       <label for="name">Name</label>
-                      <input id="name" type="text" name="name"/>
+                      <input id="name" type="text" name="name" maxlength="41"/>
                     </div>
                     <div class="form-group">
                       <label for="city">City</label>
-                      <input id="city" type="text" name="city"/>
+                      <input id="city" type="text" name="city" maxlength="64"/>
                     </div>
                     <div class="form-group">
                       <label for="state">State</label>
-                      <input id="state" type="text" name="state"/>
+                      <input id="state" type="text" name="state" maxlength="2"/>
                     </div>
                     <div class="form-group">
                       <label for="zip">Zip Code</label>
