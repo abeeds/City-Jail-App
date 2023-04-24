@@ -8,7 +8,6 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="../CSS/main.css">
-        <link rel="stylesheet" type="text/css" href="../CSS/login.css">
 
         <title>City Jail</title>
     </head>
@@ -19,7 +18,7 @@
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="container">
-                <!-- Should lead to whatever the homepage is -->
+                <!-- Should lead to whatever the homepage is-->
                 <a class="navbar-brand mr-4" href=""><strong>City Jail</strong></a>
                 </button>
                 <!-- Navbar Toggler -->
@@ -43,7 +42,7 @@
                     </a>
                     
                     
-                    <a href="login.html">
+                    <a href="login.php">
                       <img tag="profile" src="../../Images/profile.png" alt="Log In">
                     </a>
 
@@ -51,38 +50,13 @@
                 </div>
               </div>
             </nav>
-
-            
-            
-
           </header>
-          <center>
-            <div class="form">
-              <div class="form-panel one">
-                <div class="form-header">
-                  <h1>Account Login</h1>
-                </div>
-                  <form>
-                    <div class="form-group">
-                      <label for="username">Username</label>
-                      <input id="username" type="text" name="username" required="required"/>
-                    </div>
-                    <div class="form-group">
-                      <label for="password">Password</label>
-                      <input id="password" type="password" name="password" required="required"/>
-                    </div>
-                    <div class="form-group">
-                      <label class="form-remember">
-                        <input type="checkbox"/>Remember Me
-                      </label><a class="form-recovery" href="#">Forgot Password?</a>
-                    </div>
-                    <div class="form-group">
-                      <button type="submit">LOG IN</button>
-                    </div>
-                  </form>
-              </div>
-            </div>
-          </center>
+
+        <!-- START WRITING HERE -->
+        <center>
+                
+        </center>
+
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

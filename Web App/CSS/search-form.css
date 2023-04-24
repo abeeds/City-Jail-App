@@ -1,0 +1,62 @@
+.form {
+  position: relative;
+  background: #FFFFFF;
+  width: 600px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin: 100px auto 10px;
+}
+
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 0 20px;
+}
+
+.form-group input {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  display: block;
+  background: rgba(0, 0, 0, 0.1);
+  width: 100%;
+  border: 0;
+  border-radius: 4px;
+  padding: 12px 20px;
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 500;
+}
+
+.form-group button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  background: #4285F4;
+  width: 100%;
+  border: 0;
+  border-radius: 4px;
+  padding: 12px 20px;
+  color: #FFFFFF;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.form-group .form-remember {
+  font-size: 12px;
+  font-weight: 400;
+}
+.form-group .form-remember input[type=checkbox] {
+  display: inline-block;
+  width: auto;
+  margin: 0 10px 0 0;
+}
+.form-group .form-recovery {
+  color: #4285F4;
+  font-size: 12px;
+  text-decoration: none;
+}
+.form-panel {
+  padding: 60px 60px 60px 60px;
+  box-sizing: border-box;
+}
