@@ -13,6 +13,7 @@ function formatInput(&$string){
     $string = trim($string, " ");
 }
 
+// returns the MYSQL connection if success
 function connectToDB_guest() {
     $servername = "localhost"; 
     $username = "guest";
