@@ -1,3 +1,7 @@
+<?php 
+  // This file holds the functions used
+  include "db-functions.php"
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,7 +14,9 @@
         <link rel="stylesheet" type="text/css" href="../CSS/main.css">
         <link rel="stylesheet" type="text/css" href="../CSS/table.css">
         <link rel="stylesheet" type="text/css" href="../CSS/search-form.css">
-        <?php include "db-functions.php" ?>
+
+        
+
 
 
         <title>City Jail</title>

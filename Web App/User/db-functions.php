@@ -26,16 +26,20 @@ function connectToDB_guest() {
     return $conn;
 }
 
+
+// This function will make the criminals table
 function makeTable_criminal($name, $city, $state, $zip, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
         return;
     }
 
-    // making upper most row with labels
+    // Ensure that no improper characters are being used
     formatInput($name);
     formatInput($city);
     formatInput($state);
+
+    // Display the search prompt
     echo "<p> Showing Results For: <br>";
     if($name !== "") {
         echo "Name: " . $name . "<br>";
@@ -49,10 +53,9 @@ function makeTable_criminal($name, $city, $state, $zip, $database=NULL) {
     if($zip !== "") {
         echo "Zip Code: " . $zip . "<br>";
     }
-
     echo "</p>";
 
-    // row with labels
+    // Initialize table
     echo    "<table id=\"Criminals\">
                 <tr class=\"row-labels\">
                     <th>ID</th>
@@ -64,10 +67,12 @@ function makeTable_criminal($name, $city, $state, $zip, $database=NULL) {
                     <th>Violent Offender Status</th>
                     <th>Probation Status</th>
                 </tr>";
-    $aQuery = "SELECT * FROM criminal c";
-    
 
-    // add WHERE clause as long as one field is present
+    
+    // will show everything if no fields are entered
+    $aQuery = "SELECT * FROM criminal c";
+
+    // Add to query if any fields are entered
     if($name !== "" || $city !== "" || $state !== "" || $zip !== "") {
         $aQuery .= " WHERE ";
         $aQuery .= "CONCAT(c.c_first, ' ',  c.c_last) LIKE '%" . $name . "%' AND ";
@@ -79,6 +84,8 @@ function makeTable_criminal($name, $city, $state, $zip, $database=NULL) {
         $aQuery .= ";";
     }
 
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
     $result = $database->query($aQuery);
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
@@ -107,8 +114,5 @@ function makeTable_criminal($name, $city, $state, $zip, $database=NULL) {
         }
     }
     echo "</table>";
-    
-  
-  
 }
 ?>
