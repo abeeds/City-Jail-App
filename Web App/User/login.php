@@ -30,7 +30,7 @@
                 <div class="collapse navbar-collapse" id="navbarToggle">
                   <div class="navbar-nav mr-auto">
                     <a class="nav-item nav-link" href="criminals.php">Criminals</a>
-                    <a class="nav-item nav-link" href="">Crimes</a>
+                    <a class="nav-item nav-link" href="crimes.php">Crimes</a>
                     <a class="nav-item nav-link" href="">Charges</a>
                     <a class="nav-item nav-link" href="">Sentences</a>
                     <a class="nav-item nav-link" href="">Appeals</a>
