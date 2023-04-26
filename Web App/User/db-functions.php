@@ -161,14 +161,14 @@ function makeTable_crime($caseid, $classification, $datecharged, $appealstat, $d
     $aQuery = "SELECT * FROM crime c";
 
     // Add to query if any fields are entered
-    if($caseid !== "" || $classification !== "" || $datecharged !== "" || $appealstat !== "") {
+    //if($caseid !== "" || $classification !== "" || $datecharged !== "" || $appealstat !== "") {
         $aQuery .= " WHERE ";
         $aQuery .= "c.case_id LIKE '%" . $caseid . "%' AND ";
         $aQuery .= "c.classification LIKE '%" . $classification . "%' " ;
         $aQuery .= " AND c.date_charged LIKE '%" . $datecharged . "%'" ;
         $aQuery .= " AND c.appeal_status LIKE '%" . $appealstat . "%'" ;
         $aQuery .= ";";
-    }
+    //}
 
     // adds a row to the HTML for each row on the table
     // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
