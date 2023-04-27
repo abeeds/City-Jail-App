@@ -184,4 +184,79 @@ function makeTable_crime($cname, $classification, $datecharged, $database=NULL) 
     }
     echo "</table>";
 }
+
+function makeTable_sentences($name, $start_date, $end_date, $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    // Ensure that no improper characters are being used
+    formatInput($name);
+
+    // Display the search prompt
+    echo "<p> Showing Results For: <br>";
+    if($name !== "") {
+        echo "Name: " . $name . "<br>";
+    }
+    if($start_date !== "") {
+        echo "Start Date: " . $start_date . "<br>";
+    }
+    if($end_date !== "") {
+        echo "End Date: " . $end_date . "<br>";
+    }
+    echo "</p>";
+
+    // Initialize table
+    echo    "<table id=\"Sentences\">
+                <tr class=\"row-labels\">
+                    <th>ID</th>
+                    <th>Last</th>
+                    <th>First</th>
+                    <th>Sentence ID</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Number of Violations</th>
+                    <th>Type</th>
+                </tr>";
+
+
+    // will show everything if no fields are entered
+    $aQuery = "SELECT * FROM sentence s, criminal c";
+
+    // Add to query if any fields are entered
+    $aQuery .= "WHERE c.c_id = s.c_id";
+    $aQuery .= "CONCAT(c.c_first, ' ',  c.c_last) LIKE '%" . $name . "%' ";
+    $aQuery .= "AND s.start_date LIKE '%" . $start_date . "%' " ;
+    $aQuery .= "AND s.end_date LIKE '%" . $end_date . "%'" ;
+    $aQuery .= ";";
+
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    $result = $database->query($aQuery);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<th>" . $row["c_id"] . "</th>";
+            echo "<th>" . $row["c_last"] . "</th>";
+            echo "<th>" . $row["c_first"] . "</th>";
+            echo "<th>" . $row["s_id"] . "</th>";
+            echo "<th>" . $row["start_date"] . "</th>";
+            echo "<th>" . $row["end_date"] . "</th>";
+            echo "<th>" . $row["num_violations"] . "</th>";
+            if($row["type"] === "j") {
+                echo "<th>" . "Jail" . "</th>";
+            }
+            else if($row["type"] === "h"){
+                echo "<th>" . "House Arrest" . "</th>";
+            }
+            else {
+                echo "<th>" . "Probation" . "</th>";
+            }
+
+            echo "</tr>";
+        }
+    }
+    echo "</table>";
+}
 ?>
