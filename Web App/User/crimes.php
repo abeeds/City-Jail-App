@@ -71,8 +71,8 @@
                 </div>
                   <form>
                     <div class="form-group">
-                      <label for="caseid">Case ID</label>
-                      <input id="caseid" type="number" name="caseid" maxlength="3"/>
+                      <label for="cname">Criminal Name</label>
+                      <input id="cname" type="text" name="cname" maxlength="41"/>
                     </div>
                     <div class="form-group">
                       <label for="classification">Classification</label>
@@ -81,10 +81,6 @@
                     <div class="form-group">
                       <label for="datecharged">Date Charged</label>
                       <input id="datcharged" type="date" name="datecharged"/>
-                    </div>
-                    <div class="form-group">
-                      <label for="appealstat">Appeal Status</label>
-                      <input type="text" id="appealstat" name="appealstat" maxlength="2">
                     </div>
                     <div class="form-group">
                       <button type="submit">Submit</button>
@@ -97,7 +93,7 @@
               // When a field is submitted, it will run this code
               if($_GET){
                 $db = connectToDB_guest();
-              makeTable_crime($_GET["caseid"], $_GET["classification"], $_GET["datecharged"], $_GET["appealstat"], $db);
+              makeTable_crime($_GET["cname"], $_GET["classification"], $_GET["datecharged"], $db);
               }
             ?>
         </center>
