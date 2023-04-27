@@ -75,10 +75,6 @@
                       <input id="name" type="text" name="name" maxlength="41"/>
                     </div>
                     <div class="form-group">
-                      <label for="sentenceid">Sentence ID</label>
-                      <input id="sentenceid" type="number" name="sentenceid" maxlength="5"/>
-                    </div>
-                    <div class="form-group">
                       <label for="start_date">Start Date</label>
                       <input id="start_date" type="date" name="start_date"/>
                     </div>
@@ -97,7 +93,7 @@
               // When a field is submitted, it will run this code
               if($_GET){
                 $db = connectToDB_guest();
-              makeTable_sentence($_GET["name"], $_GET["sentenceid"], $_GET["start_date"], $_GET["end_date"], $db);
+              makeTable_sentence($_GET["name"], $_GET["start_date"], $_GET["end_date"], $db);
               }
             ?>
         </center>
