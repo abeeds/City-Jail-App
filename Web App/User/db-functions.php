@@ -237,7 +237,7 @@ function makeTable_sentence($name, $start_date, $end_date, $database=NULL) {
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             echo "<tr>";
-            echo "<th>" . $row["c_id"] . "</th>";
+            echo "<th>" . $row["c.c_id"] . "</th>";
             echo "<th>" . $row["c_last"] . "</th>";
             echo "<th>" . $row["c_first"] . "</th>";
             echo "<th>" . $row["s_id"] . "</th>";
