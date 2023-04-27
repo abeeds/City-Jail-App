@@ -94,7 +94,7 @@
               // When a field is submitted, it will run this code
               if($_GET){
                 $db = connectToDB_guest();
-              makeTable_criminal($_GET["name"], $_GET["case_id"], $_GET["filing_date"], $_GET["appeal_hearing_date"], $db);
+              makeTable_appeal($_GET["name"], $_GET["case_id"], $_GET["filing_date"], $_GET["appeal_hearing_date"], $db);
               }
             ?>
         </center>
