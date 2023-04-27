@@ -41,7 +41,7 @@
                     <a class="nav-item nav-link" href="criminals.php">Criminals</a>
                     <a class="nav-item nav-link" href="crimes.php">Crimes</a>
                     <a class="nav-item nav-link" href="">Charges</a>
-                    <a class="nav-item nav-link" href="">Sentences</a>
+                    <a class="nav-item nav-link" href="sentences.php">Sentences</a>
                     <a class="nav-item nav-link" href="">Appeals</a>
                   </div>
                   
