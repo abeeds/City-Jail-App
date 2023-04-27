@@ -67,7 +67,7 @@
           <div method="get" class="form">
               <div class="form-panel one">
                 <div class="form-header">
-                  <h1>Criminal Search</h1>
+                  <h1>Appeal Search</h1>
                 </div>
                   <form>
                     
