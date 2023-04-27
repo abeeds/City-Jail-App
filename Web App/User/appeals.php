@@ -41,8 +41,8 @@
                     <a class="nav-item nav-link" href="criminals.php">Criminals</a>
                     <a class="nav-item nav-link" href="crimes.php">Crimes</a>
                     <a class="nav-item nav-link" href="">Charges</a>
-                    <a class="nav-item nav-link" href="">Sentences</a>
-                    <a class="nav-item nav-link" href="">Appeals</a>
+                    <a class="nav-item nav-link" href="sentences.php">Sentences</a>
+                    <a class="nav-item nav-link" href="appeals.php">Appeals</a>
                   </div>
                   
                   <!-- Right Side of Navigation Bar -->
@@ -67,7 +67,7 @@
           <div method="get" class="form">
               <div class="form-panel one">
                 <div class="form-header">
-                  <h1>Criminal Search</h1>
+                  <h1>Appeal Search</h1>
                 </div>
                   <form>
                     

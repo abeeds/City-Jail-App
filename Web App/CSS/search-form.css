@@ -1,3 +1,5 @@
+
+
 .form {
   position: relative;
   background: #FFFFFF;
@@ -59,4 +61,8 @@
 .form-panel {
   padding: 60px 60px 60px 60px;
   box-sizing: border-box;
+}
+
+footer {
+  height: 100px;
 }
