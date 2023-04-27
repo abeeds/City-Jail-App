@@ -185,7 +185,7 @@ function makeTable_crime($cname, $classification, $datecharged, $database=NULL) 
     echo "</table>";
 }
 
-function makeTable_sentences($name, $start_date, $end_date, $database=NULL) {
+function makeTable_sentence($name, $start_date, $end_date, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
         return;
