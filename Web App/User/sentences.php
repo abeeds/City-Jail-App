@@ -76,7 +76,7 @@
                     </div>
                     <div class="form-group">
                       <label for="sentenceid">Sentence ID</label>
-                      <input id="sentenceid" type="number" name="sentenceid" maxlength="3"/>
+                      <input id="sentenceid" type="number" name="sentenceid" maxlength="5"/>
                     </div>
                     <div class="form-group">
                       <label for="start_date">Start Date</label>
