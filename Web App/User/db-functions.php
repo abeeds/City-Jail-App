@@ -226,7 +226,7 @@ function makeTable_sentence($name, $start_date, $end_date, $database=NULL) {
 
     // Add to query if any fields are entered
     $aQuery .= "WHERE c.c_id = s.c_id";
-    $aQuery .= "CONCAT(c.c_first, ' ',  c.c_last) LIKE '%" . $name . "%' ";
+    $aQuery .= "AND CONCAT(c.c_first, ' ',  c.c_last) LIKE '%" . $name . "%' ";
     $aQuery .= "AND s.start_date LIKE '%" . $start_date . "%' " ;
     $aQuery .= "AND s.end_date LIKE '%" . $end_date . "%'" ;
     $aQuery .= ";";
