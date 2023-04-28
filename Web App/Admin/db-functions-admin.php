@@ -13,6 +13,13 @@ function formatInput(&$string){
     $string = trim($string, " ");
 }
 
+// change date from mm/dd/yyyy to yyyy-mm-dd
+function formatDate(&$date) {
+    if($date !== "") {
+        $date_parts = explode('/', $date);
+        $date = $date_parts[2] .  $date_parts[0] .  $date_parts[1];
+    }
+}
 
 // returns the MYSQL connection if success
 // need to change this so it takes in a parameter once we add in cookies
@@ -70,7 +77,7 @@ function makeTable_criminal($id, $name, $street ,$city, $state, $zip, $phonenum,
     // Initialize table
     echo    "<table id=\"Criminals\">
                 <tr class=\"row-labels\">
-                    <th>ID</th>
+                    <th>Criminal ID</th>
                     <th>Last</th>
                     <th>First Name</th>
                     <th>Street</th>
@@ -138,5 +145,113 @@ function makeTable_criminal($id, $name, $street ,$city, $state, $zip, $phonenum,
     echo "</table>";
 }
 
+
+function makeTable_crime($caseid, $crid, $cname, $classification, $datecharged, $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    // Ensure that no improper characters are being used
+    formatInput($cname);
+    formatInput($classification);
+    formatDate($datecharged);
+
+    // Display the search prompt
+    echo "<p> Showing Results For: <br>";
+    if($caseid !== "") {
+        echo "Case ID: " . $caseid . "<br>";
+    }
+    if($crid !== "") {
+        echo "Criminal ID: " . $crid . "<br>";
+    }
+    if($cname !== "") {
+        echo "Criminal Name: " . $cname . "<br>";
+    }
+    if($classification !== "") {
+        echo "Classification: " . $classification . "<br>";
+    }
+    if($datecharged !== "") {
+        echo "Date Charged: " . $datecharged . "<br>";
+    }
+    echo "</p>";
+
+    // Initialize table
+    echo    "<table id=\"Crime\">
+                <tr class=\"row-labels\">
+                    <th>Case ID</th>
+                    <th>Criminal ID</th>
+                    <th>First Name</th>
+                    <th>Last Name </th>
+                    <th>Classification</th>
+                    <th>Date Charged</th>
+                    <th>Appeal Status</th>
+                    <th>Hearing Date</th>
+                    <th>Appeal Cutoff Date</th>
+                </tr>";
+
+    
+    // will show everything if no fields are entered
+    $aQuery = "SELECT c.*, cr.c_first AS criminal_first, cr.c_last AS criminal_last FROM crime c JOIN criminal cr ON c.c_id = cr.c_id";
+
+    // Add to query if any fields are entered
+
+    $aQuery .= " WHERE CONCAT(cr.c_first,' ',  cr.c_last) LIKE '%" . $cname . "%'";
+    $aQuery .= "AND c.classification LIKE '%" . $classification . "%' ";
+    if($datecharged) {
+        $aQuery .= "AND c.date_charged >= '" . $datecharged . "'";
+    }
+    if($caseid) {
+        $aQuery .= " AND c.case_id = '" . $caseid . "'";
+    }
+    if($crid) {
+        $aQuery .= " AND c.c_id = '" . $crid . "'";
+    }
+    $aQuery .= ";";
+    
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    $result = $database->query($aQuery);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<th>" . $row["case_id"] . "</th>";
+            echo "<th>" . $row["c_id"] . "</th>";
+            echo "<th>" . $row["criminal_first"] . "</th>";
+            echo "<th>" . $row["criminal_last"] . "</th>";
+            switch($row["classification"]) {
+                case "o":
+                    echo "<th>Other</th>";
+                    break;
+
+                case "m":
+                    echo "<th>Misdemeanor</th>";
+                    break;
+
+                case "f":
+                    echo "<th>Felony</th>";
+                    break;
+            }
+            echo "<th>" . $row["date_charged"] . "</th>";
+            switch($row["appeal_status"]) {
+                case "ia":
+                    echo "<th>In Appeal</th>";
+                    break;
+
+                case "ca":
+                    echo "<th>Can Appeal</th>";
+                    break;
+
+                case "c":
+                    echo "<th>Closed</th>";
+                    break;
+            }
+            echo "<th>" . $row["hearing_date"] . "</th>";
+            echo "<th>" . $row["appeal_cutoff_date"] . "</th>";
+            echo "</tr>";
+        }
+    }
+    echo "</table>";
+} // makeTable_crime($cname, $classification, $datecharged, $database=NULL)
 
 ?>

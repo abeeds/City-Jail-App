@@ -68,4 +68,8 @@ Dropdown Menu on Profile Button (Admin Only)
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+b {
+    color: black;
+}
   

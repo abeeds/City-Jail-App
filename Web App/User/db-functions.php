@@ -67,7 +67,7 @@ function makeTable_criminal($name, $city, $state, $zip, $database=NULL) {
     // Initialize table
     echo    "<table id=\"Criminals\">
                 <tr class=\"row-labels\">
-                    <th>ID</th>
+                    <th>Criminal ID</th>
                     <th>Last</th>
                     <th>First Name</th>
                     <th>City</th>
@@ -124,7 +124,7 @@ function makeTable_criminal($name, $city, $state, $zip, $database=NULL) {
 } // makeTable_criminal($name, $city, $state, $zip, $database=NULL)
 
 
-// This function will make the criminals table
+// This function will make the crime table
 function makeTable_crime($cname, $classification, $datecharged, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
@@ -219,6 +219,7 @@ function makeTable_crime($cname, $classification, $datecharged, $database=NULL) 
     echo "</table>";
 } // makeTable_crime($cname, $classification, $datecharged, $database=NULL)
 
+
 function makeTable_sentence($name, $start_date, $end_date, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
@@ -292,7 +293,9 @@ function makeTable_sentence($name, $start_date, $end_date, $database=NULL) {
         }
     }
     echo "</table>";
-}
+}// makeTable_sentence
+
+
 // This function will make the charges table
 function makeTable_charge($cname, $chargeStat, $database=NULL) {
     if(!$database) {
@@ -368,5 +371,5 @@ function makeTable_charge($cname, $chargeStat, $database=NULL) {
         }
     }
     echo "</table>";
-} // makeTable_crime($cname, $chargeStat $database=NULL)
+} // makeTable_charge
 ?>

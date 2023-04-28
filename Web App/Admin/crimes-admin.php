@@ -63,58 +63,53 @@
             </nav>
           </header>
 
-        
+        <!-- START WRITING HERE -->
         <center>
-            <div method="get" class="form">
-                <div class="form-panel one">
-                    <div class="form-header">
-                    <h1>Criminal Search</h1>
-                    </div>
-                    <form>
-                        <div class="form-group">
-                            <label for="id">Criminal ID</label>
-                            <input id="id" type="number" name="id" min="0"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input id="name" type="text" name="name" maxlength="41"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="street">Street</label>
-                            <input id="street" type="text" name="street" maxlength="64"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="city">City</label>
-                            <input id="city" type="text" name="city" maxlength="64"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="state">State</label>
-                            <input id="state" type="text" name="state" maxlength="2"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="zip">Zip Code</label>
-                            <input type="number" id="zip" name="zip" min="1" max="99999" pattern="[1-9]{1}\d{4}">
-                        </div>
-                        <div class="form-group">
-                            <label for="phonenum">Phone Number</label>
-                            <input id="phonenum" type="number" name="phonenum" min="1" max="9999999999"/>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit">Submit</button>
-                        </div>
-                    </form>
+          <div method="get" class="form">
+              <div class="form-panel one">
+                <div class="form-header">
+                  <h1>Crime Case Search</h1>
                 </div>
+                  <form>
+                    <div class="form-group">
+                      <label for="caseID">Case ID</label>
+                      <input id="caseID" type="number" name="caseID" min="0"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="crID">Criminal ID</label>
+                      <input id="crID" type="text" name="crID" min="0"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="cname">Criminal Name</label>
+                      <input id="cname" type="text" name="cname" maxlength="41"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="classification">Classification</label>
+                      <select name="classification" id="classification">
+                      <option value=""></option>
+                        <option value="f">Felony</option>
+                        <option value="m">Misdemeanor</option>
+                        <option value="o">Other</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="datecharged">Date Charged After </label>
+                      <input id="datcharged" type="date" name="datecharged"/>
+                    </div>
+                    <div class="form-group">
+                      <button type="submit">Submit</button>
+                    </div>
+                  </form>
+              </div>
             </div>
 
             <?php 
-                // When a field is submitted, it will run this code
-                if($_GET){
-                    $db = connectToDB_admin();
-                    makeTable_criminal($_GET["id"], $_GET["name"], $_GET["street"] ,$_GET["city"], $_GET["state"], $_GET["zip"], $_GET["phonenum"],  $db);
-                }
+              // When a field is submitted, it will run this code
+              if($_GET){
+                $db = connectToDB_admin();
+                makeTable_crime($_GET["caseID"], $_GET["crID"], $_GET["cname"], $_GET["classification"], $_GET["datecharged"], $db);
+              }
             ?>
-
-            
         </center>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

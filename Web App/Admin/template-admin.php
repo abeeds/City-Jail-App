@@ -1,3 +1,6 @@
+<?php 
+    include "db-functions-admin.php";
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,6 +11,8 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="../CSS/main.css">
+        <link rel="stylesheet" type="text/css" href="../CSS/table.css">
+        <link rel="stylesheet" type="text/css" href="../CSS/search-form.css">
 
         <title>City Jail - admin</title>
     </head>
@@ -26,12 +31,12 @@
                 <div class="collapse navbar-collapse" id="navbarToggle">
                   <div class="navbar-nav mr-auto">
                     <a class="nav-item nav-link" href="">Admin</a>
-                    <a class="nav-item nav-link" href="">Criminals</a>
-                    <a class="nav-item nav-link" href="">Crimes</a>
-                    <a class="nav-item nav-link" href="">Charges</a>
-                    <a class="nav-item nav-link" href="">Sentences</a>
-                    <a class="nav-item nav-link" href="">Appeals</a>
-                    <a class="nav-item nav-link" href="">Officers</a>
+                    <a class="nav-item nav-link" href="criminals-admin.php">Criminals</a>
+                    <a class="nav-item nav-link" href="crimes-admin.php">Crimes</a>
+                    <a class="nav-item nav-link" href="charges-admin.php">Charges</a>
+                    <a class="nav-item nav-link" href="sentences-admin.php">Sentences</a>
+                    <a class="nav-item nav-link" href="appeals-admin.php">Appeals</a>
+                    <a class="nav-item nav-link" href="officers-admin.php">Officers</a>
                   </div>
                   
                   <!-- Right Side of Navigation Bar -->
