@@ -67,16 +67,21 @@
           <div method="get" class="form">
               <div class="form-panel one">
                 <div class="form-header">
-                  <h1>Crime Search</h1>
+                  <h1>Crime Case Search</h1>
                 </div>
                   <form>
                     <div class="form-group">
-                      <label for="cname">Criminal Name</label>
+                      <label for="cname">Name</label>
                       <input id="cname" type="text" name="cname" maxlength="41"/>
                     </div>
                     <div class="form-group">
                       <label for="classification">Classification</label>
-                      <input id="classification" type="text" name="classification" maxlength="1"/>
+                      <select name="classification" id="classification">
+                      <option value=""></option>
+                        <option value="f">Felony</option>
+                        <option value="m">Misdemeanor</option>
+                        <option value="o">Other</option>
+                      </select>
                     </div>
                     <div class="form-group">
                       <label for="datecharged">Date Charged</label>

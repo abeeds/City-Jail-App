@@ -13,6 +13,14 @@ function formatInput(&$string){
     $string = trim($string, " ");
 }
 
+// change date from mm/dd/yyyy to yyyy-mm-dd
+function formatDate(&$date) {
+    if($date !== "") {
+        $date_parts = explode('/', $date);
+        $date = $date_parts[2] .  $date_parts[0] .  $date_parts[1];
+    }
+}
+
 // returns the MYSQL connection if success
 function connectToDB_guest() {
     $servername = "localhost"; 
@@ -74,8 +82,7 @@ function makeTable_criminal($name, $city, $state, $zip, $database=NULL) {
     $aQuery = "SELECT * FROM criminal c";
 
     // Add to query if any fields are entered
-    $aQuery .= " WHERE ";
-    $aQuery .= "CONCAT(c.c_first, ' ',  c.c_last) LIKE '%" . $name . "%' AND ";
+    $aQuery .= " WHERE CONCAT(c.c_first, ' ',  c.c_last) LIKE '%" . $name . "%' AND ";
     $aQuery .= "c.c_city LIKE '%" . $city . "%' " ;
     $aQuery .= " AND c.c_state LIKE '%" . $state . "%'" ;
     if($zip !== "") {
@@ -114,7 +121,9 @@ function makeTable_criminal($name, $city, $state, $zip, $database=NULL) {
         }
     }
     echo "</table>";
-}
+} // makeTable_criminal($name, $city, $state, $zip, $database=NULL)
+
+
 // This function will make the criminals table
 function makeTable_crime($cname, $classification, $datecharged, $database=NULL) {
     if(!$database) {
@@ -125,6 +134,7 @@ function makeTable_crime($cname, $classification, $datecharged, $database=NULL) 
     // Ensure that no improper characters are being used
     formatInput($cname);
     formatInput($classification);
+    formatDate($datecharged);
 
     // Display the search prompt
     echo "<p> Showing Results For: <br>";
@@ -142,9 +152,9 @@ function makeTable_crime($cname, $classification, $datecharged, $database=NULL) 
     // Initialize table
     echo    "<table id=\"Crime\">
                 <tr class=\"row-labels\">
+                    <th>Case ID</th>
                     <th>First Name</th>
                     <th>Last Name </th>
-                    <th>Case ID</th>
                     <th>Classification</th>
                     <th>Date Charged</th>
                     <th>Appeal Status</th>
@@ -154,35 +164,60 @@ function makeTable_crime($cname, $classification, $datecharged, $database=NULL) 
 
     
     // will show everything if no fields are entered
-    $aQuery = "SELECT c.*, cr.c_first AS criminal_first, cr.c_last AS criminal_last FROM crime c, criminal cr JOIN c ON c.c_id = cr.c_id";
+    $aQuery = "SELECT c.*, cr.c_first AS criminal_first, cr.c_last AS criminal_last FROM crime c JOIN criminal cr ON c.c_id = cr.c_id";
 
     // Add to query if any fields are entered
-    if($cname !== "" || $classification !== "" || $datecharged !== "") {
-        $aQuery .= "WHERE CONCAT(cr.c_first,' ',  cr.c_last) LIKE % . $cname . %";
-        $aQuery .= "AND c.classification LIKE % . $classification";
-        $aQuery .= "AND c.date_charged LIKE % . $datecharged ";
-        $aQuery .= ";";
-    }
 
+    $aQuery .= " WHERE CONCAT(cr.c_first,' ',  cr.c_last) LIKE '%" . $cname . "%'";
+    $aQuery .= "AND c.classification LIKE '%" . $classification . "%' ";
+    if($datecharged) {
+        $aQuery .= "AND c.date_charged = '" . $datecharged . "'";
+    }
+    $aQuery .= ";";
+    
     // adds a row to the HTML for each row on the table
     // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
     $result = $database->query($aQuery);
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             echo "<tr>";
+            echo "<th>" . $row["case_id"] . "</th>";
             echo "<th>" . $row["criminal_first"] . "</th>";
             echo "<th>" . $row["criminal_last"] . "</th>";
-            echo "<th>" . $row["case_id"] . "</th>";
-            echo "<th>" . $row["classification"] . "</th>";
+            switch($row["classification"]) {
+                case "o":
+                    echo "<th>Other</th>";
+                    break;
+
+                case "m":
+                    echo "<th>Misdemeanor</th>";
+                    break;
+
+                case "f":
+                    echo "<th>Felony</th>";
+                    break;
+            }
             echo "<th>" . $row["date_charged"] . "</th>";
-            echo "<th>" . $row["appeal_status"] . "</th>";
+            switch($row["appeal_status"]) {
+                case "ia":
+                    echo "<th>In Appeal</th>";
+                    break;
+
+                case "ca":
+                    echo "<th>Can Appeal</th>";
+                    break;
+
+                case "c":
+                    echo "<th>Closed</th>";
+                    break;
+            }
             echo "<th>" . $row["hearing_date"] . "</th>";
             echo "<th>" . $row["appeal_cutoff_date"] . "</th>";
             echo "</tr>";
         }
     }
     echo "</table>";
-}
+} // makeTable_crime($cname, $classification, $datecharged, $database=NULL)
 
 function makeTable_sentence($name, $start_date, $end_date, $database=NULL) {
     if(!$database) {
@@ -224,7 +259,7 @@ function makeTable_sentence($name, $start_date, $end_date, $database=NULL) {
     $aQuery = "SELECT * FROM sentence s, criminal c";
 
     // Add to query if any fields are entered
-    $aQuery .= "WHERE c.c_id = s.c_id";
+    $aQuery .= "WHERE c.c_id = s.c_id ";
     $aQuery .= "AND CONCAT(c.c_first, ' ',  c.c_last) LIKE '%" . $name . "%' ";
     $aQuery .= "AND s.start_date LIKE '%" . $start_date . "%' " ;
     $aQuery .= "AND s.end_date LIKE '%" . $end_date . "%'" ;
