@@ -171,7 +171,7 @@ function makeTable_crime($cname, $classification, $datecharged, $database=NULL) 
     $aQuery .= " WHERE CONCAT(cr.c_first,' ',  cr.c_last) LIKE '%" . $cname . "%'";
     $aQuery .= "AND c.classification LIKE '%" . $classification . "%' ";
     if($datecharged) {
-        $aQuery .= "AND c.date_charged = '" . $datecharged . "'";
+        $aQuery .= "AND c.date_charged >= '" . $datecharged . "'";
     }
     $aQuery .= ";";
     
@@ -293,4 +293,80 @@ function makeTable_sentence($name, $start_date, $end_date, $database=NULL) {
     }
     echo "</table>";
 }
+// This function will make the charges table
+function makeTable_charge($cname, $chargeStat, $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    // Ensure that no improper characters are being used
+    formatInput($cname);
+    formatInput($chargeStat);
+
+    // Display the search prompt
+    echo "<p> Showing Results For: <br>";
+    if($cname !== "") {
+        echo "Criminal Name: " . $cname . "<br>";
+    }
+    if($chargeStat !== "") {
+        echo "Charge Status: " . $chargeStat . "<br>";
+    }
+    echo "</p>";
+
+    // Initialize table
+    echo    "<table id=\"Charge\">
+                <tr class=\"row-labels\">
+                    <th>Charge ID</th>
+                    <th>Case ID</th>
+                    <th>First Name</th>
+                    <th>Last Name </th>
+                    <th>Charge Status</th>
+                    <th>Fine Amount</th>
+                    <th>Court Fee</th>
+                    <th>Amount Paid</th>
+                    <th>Payment Date</th>
+                </tr>";
+
+    // will show everything if no fields are entered
+    $aQuery = "SELECT ch.*, cr.c_first AS criminal_first, cr.c_last AS criminal_last FROM charge ch JOIN crime c ON ch.case_id = c.case_id JOIN criminal cr ON c.c_id = cr.c_id ";
+    
+    // Add to query if any fields are entered
+    $aQuery .= "WHERE CONCAT(cr.c_first,' ',  cr.c_last) LIKE '%" . $cname . "%'";
+    $aQuery .= "AND ch.charge_status LIKE '%" . $chargeStat . "%' ";
+    $aQuery .= ";";
+
+
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    $result = $database->query($aQuery);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<th>" . $row["charge_id"] . "</th>";
+            echo "<th>" . $row["case_id"] . "</th>";
+            echo "<th>" . $row["criminal_first"] . "</th>";
+            echo "<th>" . $row["criminal_last"] . "</th>";
+            switch($row["charge_status"]) {
+                case "p":
+                    echo "<th>Pending</th>";
+                    break;
+
+                case "g":
+                    echo "<th>Guilty</th>";
+                    break;
+
+                case "n":
+                    echo "<th>Not Guilty</th>";
+                    break;
+            }
+            echo "<th>" . $row["fine_amount"] . "</th>";
+            echo "<th>" . $row["court_fee"] . "</th>";
+            echo "<th>" . $row["amount_paid"] . "</th>";
+            echo "<th>" . $row["payment_date"] . "</th>";
+            echo "</tr>";
+        }
+    }
+    echo "</table>";
+} // makeTable_crime($cname, $chargeStat $database=NULL)
 ?>

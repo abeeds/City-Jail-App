@@ -67,7 +67,7 @@
           <div method="get" class="form">
               <div class="form-panel one">
                 <div class="form-header">
-                  <h1>Crime Case Search</h1>
+                  <h1>Charges Search</h1>
                 </div>
                   <form>
                     <div class="form-group">
@@ -75,17 +75,13 @@
                       <input id="cname" type="text" name="cname" maxlength="41"/>
                     </div>
                     <div class="form-group">
-                      <label for="classification">Classification</label>
-                      <select name="classification" id="classification">
+                      <label for="chargeStat">Charge Status</label>
+                      <select name="chargeStat" id="chargeStat">
                       <option value=""></option>
-                        <option value="f">Felony</option>
-                        <option value="m">Misdemeanor</option>
-                        <option value="o">Other</option>
+                        <option value="p">Pending</option>
+                        <option value="g">Guilty</option>
+                        <option value="n">Not Guilty</option>
                       </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="datecharged">Date Charged After </label>
-                      <input id="datcharged" type="date" name="datecharged"/>
                     </div>
                     <div class="form-group">
                       <button type="submit">Submit</button>
@@ -98,7 +94,7 @@
               // When a field is submitted, it will run this code
               if($_GET){
                 $db = connectToDB_guest();
-              makeTable_crime($_GET["cname"], $_GET["classification"], $_GET["datecharged"], $db);
+              makeTable_charge($_GET["cname"], $_GET["chargeStat"], $db);
               }
             ?>
         </center>
