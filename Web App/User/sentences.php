@@ -75,11 +75,11 @@
                       <input id="name" type="text" name="name" maxlength="41"/>
                     </div>
                     <div class="form-group">
-                      <label for="start_date">Start Date</label>
+                      <label for="start_date">Start Date After</label>
                       <input id="start_date" type="date" name="start_date"/>
                     </div>
                     <div class="form-group">
-                      <label for="end_date">End Date</label>
+                      <label for="end_date">End Date Before</label>
                       <input id="end_date" type="date" name="end_date"/>
                     </div>
                     <div class="form-group">

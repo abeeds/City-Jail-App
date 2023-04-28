@@ -67,7 +67,7 @@
           <div method="get" class="form">
               <div class="form-panel one">
                 <div class="form-header">
-                  <h1>Charges Search</h1>
+                  <h1>Charges' Search</h1>
                 </div>
                   <form>
                     <div class="form-group">
