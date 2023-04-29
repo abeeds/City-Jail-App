@@ -83,6 +83,15 @@
                       <input id="end_date" type="date" name="end_date"/>
                     </div>
                     <div class="form-group">
+                      <label for="type">Sentence Type</label>
+                      <select name="type" id="type">
+                        <option value=""></option>
+                        <option value="p">Probation</option>
+                        <option value="h">House Arrest</option>
+                        <option value="j">Jail</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
                       <button type="submit">Submit</button>
                     </div>
                   </form>
@@ -93,7 +102,7 @@
               // When a field is submitted, it will run this code
               if($_GET){
                 $db = connectToDB_guest();
-              makeTable_sentence($_GET["name"], $_GET["start_date"], $_GET["end_date"], $db);
+                makeTable_sentence($_GET["name"], $_GET["start_date"], $_GET["end_date"], $_GET["type"], $db);
               }
             ?>
         </center>

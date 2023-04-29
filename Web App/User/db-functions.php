@@ -213,7 +213,7 @@ function makeTable_crime($cname, $classification, $datecharged, $database=NULL) 
 } // makeTable_crime($cname, $classification, $datecharged, $database=NULL)
 
 
-function makeTable_sentence($name, $start_date, $end_date, $database=NULL) {
+function makeTable_sentence($name, $start_date, $end_date, $type, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
         return;
@@ -233,15 +233,28 @@ function makeTable_sentence($name, $start_date, $end_date, $database=NULL) {
     if($end_date !== "") {
         echo "End Date: " . $end_date . "<br>";
     }
+    if($type !== "") {
+        echo "Sentence Type: ";
+        if($type === "j") {
+            echo "Jail";
+        }
+        else if($type === "h"){
+            echo "House Arrest";
+        }
+        else {
+            echo "Probation";
+        }
+        echo "<br>";
+    }
     echo "</p>";
 
     // Initialize table
     echo    "<table id=\"Sentences\">
                 <tr class=\"row-labels\">
-                    <th>ID</th>
+                    <th>Sentence ID</th>
+                    <th>Criminal ID</th>
                     <th>Last</th>
                     <th>First</th>
-                    <th>Sentence ID</th>
                     <th>Start Date</th>
                     <th>End Date</th>
                     <th>Number of Violations</th>
@@ -253,11 +266,24 @@ function makeTable_sentence($name, $start_date, $end_date, $database=NULL) {
     $aQuery = "SELECT * FROM sentence s, criminal c";
 
     // Add to query if any fields are entered
-    $aQuery .= "WHERE c.c_id = s.c_id ";
+    $aQuery .= " WHERE c.c_id = s.c_id ";
     $aQuery .= "AND CONCAT(c.c_first, ' ',  c.c_last) LIKE '%" . $name . "%' ";
-    $aQuery .= "AND s.start_date LIKE '%" . $start_date . "%' " ;
-    $aQuery .= "AND s.end_date LIKE '%" . $end_date . "%'" ;
+    if($start_date !== "" && $end_date === "") {
+        $aQuery .= " AND s.start_date = '" . $start_date . "'";
+    }
+    elseif($end_date !== "" && $start_date === "") {
+        $aQuery .= " AND s.end_date = '" . $end_date . "'";
+    }
+    elseif($start_date !== "" && $end_date !== "") {
+        $aQuery .= " AND s.start_date >= '" . $start_date . "'";
+        $aQuery .= " AND s.end_date <= '" . $end_date . "'";
+    }
+    if($type !== "") {
+        $aQuery .= " AND s.type = '${type}' ";
+    }
+
     $aQuery .= ";";
+
 
     // adds a row to the HTML for each row on the table
     // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
@@ -265,10 +291,10 @@ function makeTable_sentence($name, $start_date, $end_date, $database=NULL) {
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             echo "<tr>";
-            echo "<th>" . $row["criminal.c_id"] . "</th>";
+            echo "<th>" . $row["sentence_id"] . "</th>";
+            echo "<th>" . $row["c_id"] . "</th>";
             echo "<th>" . $row["c_last"] . "</th>";
             echo "<th>" . $row["c_first"] . "</th>";
-            echo "<th>" . $row["s_id"] . "</th>";
             echo "<th>" . $row["start_date"] . "</th>";
             echo "<th>" . $row["end_date"] . "</th>";
             echo "<th>" . $row["num_violations"] . "</th>";

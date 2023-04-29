@@ -363,4 +363,106 @@ function makeTable_charge($chargeid, $caseid, $cname, $chargeStat, $database=NUL
     }
     echo "</table>";
 } // makeTable_charge
+
+
+function makeTable_sentence($name, $start_date, $end_date, $type, $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    // Ensure that no improper characters are being used
+    formatInput($name);
+
+    // Display the search prompt
+    echo "<p> Showing Results For: <br>";
+    if($name !== "") {
+        echo "Name: " . $name . "<br>";
+    }
+    if($start_date !== "") {
+        echo "Start Date: " . $start_date . "<br>";
+    }
+    if($end_date !== "") {
+        echo "End Date: " . $end_date . "<br>";
+    }
+    if($type !== "") {
+        echo "Sentence Type: ";
+        if($type === "j") {
+            echo "Jail";
+        }
+        else if($type === "h"){
+            echo "House Arrest";
+        }
+        else {
+            echo "Probation";
+        }
+        echo "<br>";
+    }
+    echo "</p>";
+
+    // Initialize table
+    echo    "<table id=\"Sentences\">
+                <tr class=\"row-labels\">
+                    <th>Sentence ID</th>
+                    <th>Criminal ID</th>
+                    <th>Last</th>
+                    <th>First</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Number of Violations</th>
+                    <th>Type</th>
+                </tr>";
+
+
+    // will show everything if no fields are entered
+    $aQuery = "SELECT * FROM sentence s, criminal c";
+
+    // Add to query if any fields are entered
+    $aQuery .= " WHERE c.c_id = s.c_id ";
+    $aQuery .= "AND CONCAT(c.c_first, ' ',  c.c_last) LIKE '%" . $name . "%' ";
+    if($start_date !== "" && $end_date === "") {
+        $aQuery .= " AND s.start_date = '" . $start_date . "'";
+    }
+    elseif($end_date !== "" && $start_date === "") {
+        $aQuery .= " AND s.end_date = '" . $end_date . "'";
+    }
+    elseif($start_date !== "" && $end_date !== "") {
+        $aQuery .= " AND s.start_date >= '" . $start_date . "'";
+        $aQuery .= " AND s.end_date <= '" . $end_date . "'";
+    }
+    if($type !== "") {
+        $aQuery .= " AND s.type = '${type}' ";
+    }
+
+    $aQuery .= ";";
+
+
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    $result = $database->query($aQuery);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<th>" . $row["sentence_id"] . "</th>";
+            echo "<th>" . $row["c_id"] . "</th>";
+            echo "<th>" . $row["c_last"] . "</th>";
+            echo "<th>" . $row["c_first"] . "</th>";
+            echo "<th>" . $row["start_date"] . "</th>";
+            echo "<th>" . $row["end_date"] . "</th>";
+            echo "<th>" . $row["num_violations"] . "</th>";
+            if($row["type"] === "j") {
+                echo "<th>" . "Jail" . "</th>";
+            }
+            else if($row["type"] === "h"){
+                echo "<th>" . "House Arrest" . "</th>";
+            }
+            else {
+                echo "<th>" . "Probation" . "</th>";
+            }
+
+            echo "</tr>";
+        }
+    }
+    echo "</table>";
+}// makeTable_sentence
 ?>
