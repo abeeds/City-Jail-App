@@ -13,13 +13,7 @@ function formatInput(&$string){
     $string = trim($string, " ");
 }
 
-// change date from mm/dd/yyyy to yyyy-mm-dd
-function formatDate(&$date) {
-    if($date !== "") {
-        $date_parts = explode('/', $date);
-        $date = $date_parts[2] .  $date_parts[0] .  $date_parts[1];
-    }
-}
+
 
 // returns the MYSQL connection if success
 function connectToDB_guest() {
@@ -134,7 +128,6 @@ function makeTable_crime($cname, $classification, $datecharged, $database=NULL) 
     // Ensure that no improper characters are being used
     formatInput($cname);
     formatInput($classification);
-    formatDate($datecharged);
 
     // Display the search prompt
     echo "<p> Showing Results For: <br>";
@@ -324,6 +317,7 @@ function makeTable_charge($cname, $chargeStat, $database=NULL) {
                     <th>Case ID</th>
                     <th>First Name</th>
                     <th>Last Name </th>
+                    <th>Crime Code</th>
                     <th>Charge Status</th>
                     <th>Fine Amount</th>
                     <th>Court Fee</th>
@@ -350,6 +344,7 @@ function makeTable_charge($cname, $chargeStat, $database=NULL) {
             echo "<th>" . $row["case_id"] . "</th>";
             echo "<th>" . $row["criminal_first"] . "</th>";
             echo "<th>" . $row["criminal_last"] . "</th>";
+            echo "<th>" . $row["code_num"] . "</th>";
             switch($row["charge_status"]) {
                 case "p":
                     echo "<th>Pending</th>";

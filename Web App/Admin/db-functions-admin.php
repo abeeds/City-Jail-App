@@ -13,13 +13,7 @@ function formatInput(&$string){
     $string = trim($string, " ");
 }
 
-// change date from mm/dd/yyyy to yyyy-mm-dd
-function formatDate(&$date) {
-    if($date !== "") {
-        $date_parts = explode('/', $date);
-        $date = $date_parts[2] .  $date_parts[0] .  $date_parts[1];
-    }
-}
+
 
 // returns the MYSQL connection if success
 // need to change this so it takes in a parameter once we add in cookies
@@ -155,7 +149,6 @@ function makeTable_crime($caseid, $crid, $cname, $classification, $datecharged, 
     // Ensure that no improper characters are being used
     formatInput($cname);
     formatInput($classification);
-    formatDate($datecharged);
 
     // Display the search prompt
     echo "<p> Showing Results For: <br>";
@@ -169,10 +162,24 @@ function makeTable_crime($caseid, $crid, $cname, $classification, $datecharged, 
         echo "Criminal Name: " . $cname . "<br>";
     }
     if($classification !== "") {
-        echo "Classification: " . $classification . "<br>";
+        echo "Classification: "; 
+                    switch($classification) {
+                case "o":
+                    echo "Other";
+                    break;
+
+                case "m":
+                    echo "Misdemeanor";
+                    break;
+
+                case "f":
+                    echo "Felony";
+                    break;
+            }
+        echo "<br>";
     }
     if($datecharged !== "") {
-        echo "Date Charged: " . $datecharged . "<br>";
+        echo "Date Charged After: " . $datecharged . "<br>";
     }
     echo "</p>";
 
@@ -254,4 +261,106 @@ function makeTable_crime($caseid, $crid, $cname, $classification, $datecharged, 
     echo "</table>";
 } // makeTable_crime($cname, $classification, $datecharged, $database=NULL)
 
+
+function makeTable_charge($chargeid, $caseid, $cname, $chargeStat, $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    // Ensure that no improper characters are being used
+    formatInput($cname);
+    formatInput($chargeStat);
+
+    // Display the search prompt
+    echo "<p> Showing Results For: <br>";
+    if($chargeid !== "") {
+        echo "Charge ID: " . $chargeid . "<br>";
+    }
+    if($caseid !== "") {
+        echo "Case ID: " . $caseid . "<br>";
+    }
+    if($cname !== "") {
+        echo "Criminal Name: " . $cname . "<br>";
+    }
+    if($chargeStat !== "") {
+        echo "Charge Status: ";
+        switch($chargeStat) {
+            case "p":
+                echo "Pending";
+                break;
+            case "g":
+                echo "Guilty";
+                break;
+            case "n":
+                echo "Not Guilty";
+                break;
+        }
+        echo "<br>";
+    }
+    echo "</p>";
+
+    // Initialize table
+    echo    "<table id=\"Charge\">
+                <tr class=\"row-labels\">
+                    <th>Charge ID</th>
+                    <th>Case ID</th>
+                    <th>First Name</th>
+                    <th>Last Name </th>
+                    <th>Crime Code</th>
+                    <th>Charge Status</th>
+                    <th>Fine Amount</th>
+                    <th>Court Fee</th>
+                    <th>Amount Paid</th>
+                    <th>Payment Date</th>
+                </tr>";
+
+    // will show everything if no fields are entered
+    $aQuery = "SELECT ch.*, cr.c_first AS criminal_first, cr.c_last AS criminal_last FROM charge ch JOIN crime c ON ch.case_id = c.case_id JOIN criminal cr ON c.c_id = cr.c_id ";
+    
+    // Add to query if any fields are entered
+    $aQuery .= "WHERE CONCAT(cr.c_first,' ',  cr.c_last) LIKE '%" . $cname . "%'";
+    $aQuery .= "AND ch.charge_status LIKE '%" . $chargeStat . "%' ";
+    if($chargeid !== "") {
+        $aQuery .= " AND ch.charge_id = " . $chargeid;
+    }
+    if($caseid !== "") {
+        $aQuery .= " AND c.case_id = " . $caseid;
+    }
+    $aQuery .= ";";
+
+
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    $result = $database->query($aQuery);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<th>" . $row["charge_id"] . "</th>";
+            echo "<th>" . $row["case_id"] . "</th>";
+            echo "<th>" . $row["criminal_first"] . "</th>";
+            echo "<th>" . $row["criminal_last"] . "</th>";
+            echo "<th>" . $row["code_num"] . "</th>";
+            switch($row["charge_status"]) {
+                case "p":
+                    echo "<th>Pending</th>";
+                    break;
+
+                case "g":
+                    echo "<th>Guilty</th>";
+                    break;
+
+                case "n":
+                    echo "<th>Not Guilty</th>";
+                    break;
+            }
+            echo "<th>" . $row["fine_amount"] . "</th>";
+            echo "<th>" . $row["court_fee"] . "</th>";
+            echo "<th>" . $row["amount_paid"] . "</th>";
+            echo "<th>" . $row["payment_date"] . "</th>";
+            echo "</tr>";
+        }
+    }
+    echo "</table>";
+} // makeTable_charge
 ?>
