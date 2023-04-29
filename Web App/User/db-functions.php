@@ -13,13 +13,7 @@ function formatInput(&$string){
     $string = trim($string, " ");
 }
 
-// change date from mm/dd/yyyy to yyyy-mm-dd
-function formatDate(&$date) {
-    if($date !== "") {
-        $date_parts = explode('/', $date);
-        $date = $date_parts[2] .  $date_parts[0] .  $date_parts[1];
-    }
-}
+
 
 // returns the MYSQL connection if success
 function connectToDB_guest() {
@@ -67,7 +61,7 @@ function makeTable_criminal($name, $city, $state, $zip, $database=NULL) {
     // Initialize table
     echo    "<table id=\"Criminals\">
                 <tr class=\"row-labels\">
-                    <th>ID</th>
+                    <th>Criminal ID</th>
                     <th>Last</th>
                     <th>First Name</th>
                     <th>City</th>
@@ -124,7 +118,7 @@ function makeTable_criminal($name, $city, $state, $zip, $database=NULL) {
 } // makeTable_criminal($name, $city, $state, $zip, $database=NULL)
 
 
-// This function will make the criminals table
+// This function will make the crime table
 function makeTable_crime($cname, $classification, $datecharged, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
@@ -134,7 +128,6 @@ function makeTable_crime($cname, $classification, $datecharged, $database=NULL) 
     // Ensure that no improper characters are being used
     formatInput($cname);
     formatInput($classification);
-    formatDate($datecharged);
 
     // Display the search prompt
     echo "<p> Showing Results For: <br>";
@@ -219,7 +212,8 @@ function makeTable_crime($cname, $classification, $datecharged, $database=NULL) 
     echo "</table>";
 } // makeTable_crime($cname, $classification, $datecharged, $database=NULL)
 
-function makeTable_sentence($name, $start_date, $end_date, $database=NULL) {
+
+function makeTable_sentence($name, $start_date, $end_date, $type, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
         return;
@@ -241,15 +235,28 @@ function makeTable_sentence($name, $start_date, $end_date, $database=NULL) {
     if($end_date !== "") {
         echo "End Date: " . $end_date . "<br>";
     }
+    if($type !== "") {
+        echo "Sentence Type: ";
+        if($type === "j") {
+            echo "Jail";
+        }
+        else if($type === "h"){
+            echo "House Arrest";
+        }
+        else {
+            echo "Probation";
+        }
+        echo "<br>";
+    }
     echo "</p>";
 
     // Initialize table
     echo    "<table id=\"Sentences\">
                 <tr class=\"row-labels\">
-                    <th>ID</th>
+                    <th>Sentence ID</th>
+                    <th>Criminal ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Sentence ID</th>
                     <th>Start Date</th>
                     <th>End Date</th>
                     <th>Number of Violations</th>
@@ -261,15 +268,26 @@ function makeTable_sentence($name, $start_date, $end_date, $database=NULL) {
     $aQuery = "SELECT s.*, cr.c_first AS criminal_first, cr.c_last AS criminal_last FROM sentence s JOIN criminal cr ON s.c_id = cr.c_id";
 
     // Add to query if any fields are entered
-    $aQuery .= " AND CONCAT(cr.c_first, ' ',  cr.c_last) LIKE '%" . $name . "%' ";
-    if($start_date) {
-        $aQuery .= "AND s.start_date >= '" . $start_date . "'";
+    $aQuery .= " WHERE c.c_id = s.c_id ";
+    $aQuery .= "AND CONCAT(c.c_first, ' ',  c.c_last) LIKE '%" . $name . "%' ";
+    if($start_date !== "" && $end_date === "") {
+        $aQuery .= " AND s.start_date = '" . $start_date . "'";
     }
-    if($end_date) {
+    elseif($end_date !== "" && $start_date === "") {
+        $aQuery .= " AND s.end_date = '" . $end_date . "'";
+    }
+    elseif($start_date !== "" && $end_date !== "") {
+        $aQuery .= " AND s.start_date >= '" . $start_date . "'";
         $aQuery .= " AND s.end_date <= '" . $end_date . "'";
     }
+    if($type !== "") {
+        $aQuery .= " AND s.type = '${type}' ";
+    }
+
     $aQuery .= ";";
     //echo "<p>$aQuery</p>";
+
+
 
     // adds a row to the HTML for each row on the table
     // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
@@ -277,10 +295,10 @@ function makeTable_sentence($name, $start_date, $end_date, $database=NULL) {
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             echo "<tr>";
-            echo "<th>" . $row["c_id"] . "</th>";
-            echo "<th>" . $row["criminal_first"] . "</th>";
-            echo "<th>" . $row["criminal_last"] . "</th>";
             echo "<th>" . $row["sentence_id"] . "</th>";
+            echo "<th>" . $row["c_id"] . "</th>";
+            echo "<th>" . $row["c_last"] . "</th>";
+            echo "<th>" . $row["c_first"] . "</th>";
             echo "<th>" . $row["start_date"] . "</th>";
             echo "<th>" . $row["end_date"] . "</th>";
             echo "<th>" . $row["num_violations"] . "</th>";
@@ -298,7 +316,9 @@ function makeTable_sentence($name, $start_date, $end_date, $database=NULL) {
         }
     }
     echo "</table>";
-}
+}// makeTable_sentence
+
+
 // This function will make the charges table
 function makeTable_charge($cname, $chargeStat, $database=NULL) {
     if(!$database) {
@@ -327,6 +347,7 @@ function makeTable_charge($cname, $chargeStat, $database=NULL) {
                     <th>Case ID</th>
                     <th>First Name</th>
                     <th>Last Name </th>
+                    <th>Crime Code</th>
                     <th>Charge Status</th>
                     <th>Fine Amount</th>
                     <th>Court Fee</th>
@@ -353,6 +374,7 @@ function makeTable_charge($cname, $chargeStat, $database=NULL) {
             echo "<th>" . $row["case_id"] . "</th>";
             echo "<th>" . $row["criminal_first"] . "</th>";
             echo "<th>" . $row["criminal_last"] . "</th>";
+            echo "<th>" . $row["code_num"] . "</th>";
             switch($row["charge_status"]) {
                 case "p":
                     echo "<th>Pending</th>";
@@ -374,5 +396,5 @@ function makeTable_charge($cname, $chargeStat, $database=NULL) {
         }
     }
     echo "</table>";
-} // makeTable_crime($cname, $chargeStat $database=NULL)
+} // makeTable_charge
 ?>

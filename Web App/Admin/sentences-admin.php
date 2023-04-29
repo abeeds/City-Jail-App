@@ -1,6 +1,5 @@
 <?php 
-  // This file holds the functions used
-  include "db-functions.php"
+    include "db-functions-admin.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,21 +14,14 @@
         <link rel="stylesheet" type="text/css" href="../CSS/table.css">
         <link rel="stylesheet" type="text/css" href="../CSS/search-form.css">
 
-        
-
-
-
-        <title>City Jail</title>
+        <title>City Jail - admin</title>
     </head>
     <body> 
         <header class="site-header">
             <nav class="navbar navbar-expand-md navbar-dark navigBG fixed-top">
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-                <span class="navbar-toggler-icon"></span>
-              </button>
               <div class="container">
                 <!-- Should lead to whatever the homepage is-->
-                <a class="navbar-brand mr-4" href="criminals.php"><strong>City Jail</strong></a>
+                <a class="navbar-brand mr-4" href=""><strong>City Jail</strong></a> 
                 </button>
                 <!-- Navbar Toggler -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,11 +30,13 @@
                 <!-- Main Navigation Pages -->
                 <div class="collapse navbar-collapse" id="navbarToggle">
                   <div class="navbar-nav mr-auto">
-                    <a class="nav-item nav-link" href="criminals.php">Criminals</a>
-                    <a class="nav-item nav-link" href="crimes.php">Crimes</a>
-                    <a class="nav-item nav-link" href="charges.php">Charges</a>
-                    <a class="nav-item nav-link" href="sentences.php">Sentences</a>
-                    <a class="nav-item nav-link" href="appeals.php">Appeals</a>
+                    <a class="nav-item nav-link" href="">Admin</a>
+                    <a class="nav-item nav-link" href="criminals-admin.php">Criminals</a>
+                    <a class="nav-item nav-link" href="crimes-admin.php">Crimes</a>
+                    <a class="nav-item nav-link" href="charges-admin.php">Charges</a>
+                    <a class="nav-item nav-link" href="sentences-admin.php">Sentences</a>
+                    <a class="nav-item nav-link" href="appeals-admin.php">Appeals</a>
+                    <a class="nav-item nav-link" href="officers-admin.php">Officers</a>
                   </div>
                   
                   <!-- Right Side of Navigation Bar -->
@@ -50,20 +44,27 @@
                     <a href="">
                         <img tag="help" src="../../Images/help.png" alt="Help">
                     </a>
-                    
-                    
-                    <a href="login.php">
-                      <img tag="profile" src="../../Images/profile.png" alt="Log In">
-                    </a>
 
+                    <!-- Dropdown menu on Profile Button -->
+                    <div class="dropdown">
+                      <a class ="dropbtn" href="">
+                        <img tag="profile" src="../../Images/profile.png" alt="My Profile">
+                      </a>
+
+                      <div class="dropdown-content">
+                        <a href="#">My Profile</a>
+                        <a href="#">Log Out</a> 
+                        <!-- Logout should lead to non-admin homepage -->
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </nav>
-
           </header>
-        
-          <center>
+
+        <!-- START WRITING HERE -->
+        <center>
           <div method="get" class="form">
               <div class="form-panel one">
                 <div class="form-header">
@@ -71,15 +72,23 @@
                 </div>
                   <form>
                     <div class="form-group">
+                          <label for="sid">Sentence ID</label>
+                          <input id="sid" type="number" name="sid" min="0"/>
+                      </div>
+                    <div class="form-group">
+                          <label for="cid">Criminal ID</label>
+                          <input id="cid" type="number" name="cid" min="0"/>
+                      </div>
+                    <div class="form-group">
                       <label for="name">Name</label>
                       <input id="name" type="text" name="name" maxlength="41"/>
                     </div>
                     <div class="form-group">
-                      <label for="start_date">Start Date After</label>
+                      <label for="start_date">Start Date</label>
                       <input id="start_date" type="date" name="start_date"/>
                     </div>
                     <div class="form-group">
-                      <label for="end_date">End Date Before</label>
+                      <label for="end_date">End Date</label>
                       <input id="end_date" type="date" name="end_date"/>
                     </div>
                     <div class="form-group">
@@ -101,13 +110,12 @@
             <?php 
               // When a field is submitted, it will run this code
               if($_GET){
-                $db = connectToDB_guest();
-                makeTable_sentence($_GET["name"], $_GET["start_date"], $_GET["end_date"], $_GET["type"], $db);
+                $db = connectToDB_admin();
+              makeTable_sentence($_GET["sid"], $_GET["cid"],$_GET["name"], $_GET["start_date"], $_GET["end_date"], $_GET["type"], $db);
               }
             ?>
         </center>
-        
-        
+
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

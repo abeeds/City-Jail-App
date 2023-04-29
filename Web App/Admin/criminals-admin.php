@@ -32,11 +32,11 @@
                   <div class="navbar-nav mr-auto">
                     <a class="nav-item nav-link" href="">Admin</a>
                     <a class="nav-item nav-link" href="criminals-admin.php">Criminals</a>
-                    <a class="nav-item nav-link" href="">Crimes</a>
-                    <a class="nav-item nav-link" href="">Charges</a>
-                    <a class="nav-item nav-link" href="">Sentences</a>
-                    <a class="nav-item nav-link" href="">Appeals</a>
-                    <a class="nav-item nav-link" href="officers.php">Officers</a>
+                    <a class="nav-item nav-link" href="crimes-admin.php">Crimes</a>
+                    <a class="nav-item nav-link" href="charges-admin.php">Charges</a>
+                    <a class="nav-item nav-link" href="sentences-admin.php">Sentences</a>
+                    <a class="nav-item nav-link" href="appeals-admin.php">Appeals</a>
+                    <a class="nav-item nav-link" href="officers-admin.php">Officers</a>
                   </div>
                   
                   <!-- Right Side of Navigation Bar -->
@@ -72,7 +72,7 @@
                     </div>
                     <form>
                         <div class="form-group">
-                            <label for="id">ID</label>
+                            <label for="id">Criminal ID</label>
                             <input id="id" type="number" name="id" min="0"/>
                         </div>
                         <div class="form-group">
