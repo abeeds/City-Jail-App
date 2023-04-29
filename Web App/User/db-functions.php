@@ -230,7 +230,6 @@ function makeTable_sentence($name, $start_date, $end_date, $database=NULL) {
     formatDate($startdate);
     formatDate($enddate);
 
-
     // Display the search prompt
     echo "<p> Showing Results For: <br>";
     if($name !== "") {

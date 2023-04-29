@@ -70,18 +70,22 @@
                   <h1>Appeal Search</h1>
                 </div>
                   <form>
-                    
                     <div class="form-group">
-                      <label for="case_id">Case ID</label>
-                      <input id="case_id" type="number" name="case_id" maxlength="5"/>
+                      <label for="cname">Name</label>
+                      <input id="cname" type="text" name="cname" maxlength="41"/>
                     </div>
                     <div class="form-group">
-                      <label for="filing_date">Filing Date</label>
-                      <input id="filing_date" type="date" name="filing_date"/>
+                      <label for="appeal_date">Appeal Hearing Date</label>
+                      <input id="appeal_date" type="date" name="appeal_date"/>
                     </div>
                     <div class="form-group">
-                      <label for="appeal_hearing_date">State</label>
-                      <input id="appeal_hearing_date" type="date" name="appeal_hearing_date"/>
+                      <label for="resultStat">Result Status</label>
+                      <select name="resultStat" id="resultStat">
+                      <option value=""></option>
+                        <option value="p">Pending</option>
+                        <option value="a">Approved</option>
+                        <option value="d">Disapproved</option>
+                      </select>
                     </div>
                     <div class="form-group">
                       <button type="submit">Submit</button>
@@ -94,7 +98,7 @@
               // When a field is submitted, it will run this code
               if($_GET){
                 $db = connectToDB_guest();
-              makeTable_appeal($_GET["name"], $_GET["case_id"], $_GET["filing_date"], $_GET["appeal_hearing_date"], $db);
+              makeTable_appeal($_GET["cname"], $_GET["appeal_date"], $_GET["resultStat"], $db);
               }
             ?>
         </center>

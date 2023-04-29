@@ -137,6 +137,88 @@ function makeTable_criminal($id, $name, $street ,$city, $state, $zip, $phonenum,
     }
     echo "</table>";
 }
+// This function will make the criminals table
+function makeTable_officer($bNum, $name, $precinct ,$phonenum, $status,  $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
 
+    // Ensure that no improper characters are being used
+    formatInput($name);
+    formatInput($status);
+
+    // Display the search prompt
+    echo "<p> Showing Results For: <br>";
+    if($bNum !== "") {
+        echo "Badge Number: " . $bNum . "<br>";
+    }
+    if($name !== "") {
+        echo "Name: " . $name . "<br>";
+    }
+    if($precinct !== "") {
+        echo "Precinct: " . $precinct . "<br>";
+    }
+    if($status !== "") {
+        echo "Status: " . $status . "<br>";
+    }
+    if($phonenum !== "") {
+        echo "Phone Number: " . $phonenum . "<br>";
+    }
+    echo "</p>";
+
+    // Initialize table
+    echo    "<table id=\"officer\">
+                <tr class=\"row-labels\">
+                    <th> Badge Number </th>
+                    <th> First Name </th>
+                    <th> Last Name </th>
+                    <th> Precinct </th>
+                    <th>Phone Number</th>
+                    <th> Status </th>
+                </tr>";
+
+    
+    // will show everything if no fields are entered
+    $aQuery = " SELECT * FROM officer o ";
+
+    // Add to query if any fields are entered
+    $aQuery .= " WHERE ";
+    $aQuery .= " CONCAT(o.o_first, ' ',  o.o_last) LIKE '%" . $name . "%' ";
+    $aQuery .= " AND o.o_status LIKE '%" . $status . "%'" ;
+    if($bNum !== "") {
+        $aQuery .= " AND o.badge_number = " . $bNum;
+    }
+    if($precinct !== "") {
+        $aQuery .= " AND o.o_precinct = " . $precinct;
+    }
+    if($phonenum !== "") {
+        $aQuery .= " AND o.o_phone_number = " . $phonenum;
+    }
+    $aQuery .= ";";
+
+    //echo "<p>$aQuery</p>";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    $result = $database->query($aQuery);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<th>" . $row["badge_number"] . "</th>";
+            echo "<th>" . $row["o_first"] . "</th>";
+            echo "<th>" . $row["o_last"] . "</th>";
+            echo "<th>" . $row["o_precinct"] . "</th>";
+            echo "<th>" . $row["o_phone_number"] . "</th>";
+            if($row["o_status"] === "a") {
+                echo "<th>" . "Active" . "</th>";
+            }
+            else {
+                echo "<th>" . "Inactive" . "</th>";
+            }  
+            echo "</tr>";
+        }
+    }
+    echo "</table>";
+}
 
 ?>
