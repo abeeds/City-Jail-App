@@ -365,7 +365,7 @@ function makeTable_charge($chargeid, $caseid, $cname, $chargeStat, $database=NUL
 } // makeTable_charge
 
 
-function makeTable_sentence($name, $start_date, $end_date, $type, $database=NULL) {
+function makeTable_sentence($sid, $cid, $name, $start_date, $end_date, $type, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
         return;
@@ -376,6 +376,12 @@ function makeTable_sentence($name, $start_date, $end_date, $type, $database=NULL
 
     // Display the search prompt
     echo "<p> Showing Results For: <br>";
+    if($sid !== "") {
+        echo "Sentence ID: " . $sid . "<br>";
+    }
+    if($cid !== "") {
+        echo "Criminal ID: " . $cid . "<br>";
+    }
     if($name !== "") {
         echo "Name: " . $name . "<br>";
     }
@@ -432,6 +438,12 @@ function makeTable_sentence($name, $start_date, $end_date, $type, $database=NULL
     }
     if($type !== "") {
         $aQuery .= " AND s.type = '${type}' ";
+    }
+    if($sid !== "") {
+        $aQuery .= " AND s.sentence_id = '${sid}' ";
+    }
+    if($cid !== "") {
+        $aQuery .= " AND c.c_id = '${cid}' ";
     }
 
     $aQuery .= ";";

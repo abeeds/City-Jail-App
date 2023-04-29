@@ -72,6 +72,14 @@
                 </div>
                   <form>
                     <div class="form-group">
+                          <label for="sid">Sentence ID</label>
+                          <input id="sid" type="number" name="sid" min="0"/>
+                      </div>
+                    <div class="form-group">
+                          <label for="cid">Criminal ID</label>
+                          <input id="cid" type="number" name="cid" min="0"/>
+                      </div>
+                    <div class="form-group">
                       <label for="name">Name</label>
                       <input id="name" type="text" name="name" maxlength="41"/>
                     </div>
@@ -103,7 +111,7 @@
               // When a field is submitted, it will run this code
               if($_GET){
                 $db = connectToDB_admin();
-              makeTable_sentence($_GET["name"], $_GET["start_date"], $_GET["end_date"], $_GET["type"], $db);
+              makeTable_sentence($_GET["sid"], $_GET["cid"],$_GET["name"], $_GET["start_date"], $_GET["end_date"], $_GET["type"], $db);
               }
             ?>
         </center>
