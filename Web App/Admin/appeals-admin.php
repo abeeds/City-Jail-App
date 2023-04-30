@@ -99,7 +99,7 @@
             <?php
               // When a field is submitted, it will run this code
               if($_GET){
-                $db = connectToDB_guest();
+                $db = connectToDB_admin();
               makeTable_appeal($_GET["cname"], $_GET["appeal_date"], $_GET["resultStat"], $db);
               }
             ?>
