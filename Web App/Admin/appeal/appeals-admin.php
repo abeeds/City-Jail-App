@@ -1,6 +1,6 @@
 <?php
   // This file holds the functions used
-  include "db-functions-admin.php"
+  include "../db-functions-admin.php"
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,10 +11,9 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="../CSS/main.css">
-        <link rel="stylesheet" type="text/css" href="../CSS/table.css">
-        <link rel="stylesheet" type="text/css" href="../CSS/search-form.css">
-
+        <link rel="stylesheet" type="text/css" href="../../CSS/main.css">
+        <link rel="stylesheet" type="text/css" href="../../CSS/table.css">
+        <link rel="stylesheet" type="text/css" href="../../CSS/search-form.css">
 
 
 
@@ -39,25 +38,43 @@
                 <div class="collapse navbar-collapse" id="navbarToggle">
                   <div class="navbar-nav mr-auto">
                     <a class="nav-item nav-link" href="">Admin</a>
-                    <a class="nav-item nav-link" href="criminals-admin.php">Criminals</a>
-                    <a class="nav-item nav-link" href="crimes-admin.php">Crimes</a>
-                    <a class="nav-item nav-link" href="charges-admin.php">Charges</a>
-                    <a class="nav-item nav-link" href="sentences-admin.php">Sentences</a>
+                    <a class="nav-item nav-link" href="../criminal/criminals-admin.php">Criminals</a>
+                    <a class="nav-item nav-link" href="../crime/crimes-admin.php">Crimes</a>
+                    <a class="nav-item nav-link" href="../charge/charges-admin.php">Charges</a>
+                    <a class="nav-item nav-link" href="../sentence/sentences-admin.php">Sentences</a>
                     <a class="nav-item nav-link" href="appeals-admin.php">Appeals</a>
-                    <a class="nav-item nav-link" href="officers-admin.php">Officers</a>
+                    <!-- <a class="nav-item nav-link" href="officers-admin.php">Officers</a> -->
+                    <div class="dropdown">
+                      <div  class="nav-item nav-link">
+                        <a class ="dropbtn">Officers</a>
+                      </div>
+                      <div class="dropdown-content">
+                        <a href="../officer/officers-admin.php">Officer</a>
+                        <a href="../crime_officer/crime_officers-admin.php">Crime per Officer</a>
+                        <a href="../prob_officer/prob_officers-admin.php">Probation Officer</a>
+                        <!-- Logout should lead to non-admin homepage -->
+                      </div>
+                    </div>
                   </div>
 
                   <!-- Right Side of Navigation Bar -->
                   <div class="navbar-nav">
                     <a href="">
-                        <img tag="help" src="../../Images/help.png" alt="Help">
+                        <img tag="help" src="../../../Images/help.png" alt="Help">
                     </a>
 
+                    <!-- Dropdown menu on Profile Button -->
+                    <div class="dropdown">
+                      <a class ="dropbtn" href="">
+                        <img tag="profile" src="../../../Images/profile.png" alt="My Profile">
+                      </a>
 
-                    <a href="login.php">
-                      <img tag="profile" src="../../Images/profile.png" alt="Log In">
-                    </a>
-
+                      <div class="dropdown-content">
+                        <a href="#">My Profile</a>
+                        <a href="#">Log Out</a>
+                        <!-- Logout should lead to non-admin homepage -->
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -66,43 +83,28 @@
           </header>
 
           <center>
-          <div method="get" class="form">
-              <div class="form-panel one">
-                <div class="form-header">
-                  <h1>Appeal Search</h1>
+            <div style="width:1000px;">
+                <div  class="edit-search" style ="margin: 10px auto; display:inline-block;">
+                    <button style="width:150px;"> <a style="color:inherit;font-size: inherit;line-height: inherit;" href="search-appeals-admin.php">Search Table</a></button>
                 </div>
-                  <form>
-                    <div class="form-group">
-                      <label for="cname">Name</label>
-                      <input id="cname" type="text" name="cname" maxlength="41"/>
-                    </div>
-                    <div class="form-group">
-                      <label for="appeal_date">Appeal Hearing Date</label>
-                      <input id="appeal_date" type="date" name="appeal_date"/>
-                    </div>
-                    <div class="form-group">
-                      <label for="resultStat">Result Status</label>
-                      <select name="resultStat" id="resultStat">
-                      <option value=""></option>
-                        <option value="p">Pending</option>
-                        <option value="a">Approved</option>
-                        <option value="d">Disapproved</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <button type="submit">Submit</button>
-                    </div>
-                  </form>
-              </div>
+                <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
+                    <button style="width:150px;"> <a style="color:inherit;font-size: inherit;line-height: inherit;" href="edit-appeals-admin.php">Update Table</a></button>
+                </div>
+                <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
+                    <button style="width:150px;"><a style="color:inherit;font-size: inherit;line-height: inherit;" href="add-appeals-admin.php">Add Record</a></button>
+                </div>
+                <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
+                    <button style="width:150px;"><a style="color:inherit;font-size: inherit;line-height: inherit;" href="delete-appeals-admin.php">Delete Record</a></button>
+                </div>
             </div>
 
-            <?php
-              // When a field is submitted, it will run this code
-              if($_GET){
-                $db = connectToDB_admin();
-              makeTable_appeal($_GET["cname"], $_GET["appeal_date"], $_GET["resultStat"], $db);
-              }
-            ?>
+            <div style="margin: auto;" >
+                <?php
+                    // When a field is submitted, it will run this code
+                    $db = connectToDB_admin();
+                    show_appeal($db);
+                 ?>
+            </div>
         </center>
 
 
@@ -111,3 +113,4 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>
+

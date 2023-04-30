@@ -1,6 +1,5 @@
-<?php
-  // This file holds the functions used
-  include "../db-functions-admin.php"
+<?php 
+    include "../db-functions-admin.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,20 +14,14 @@
         <link rel="stylesheet" type="text/css" href="../../CSS/table.css">
         <link rel="stylesheet" type="text/css" href="../../CSS/search-form.css">
 
-
-
-
-        <title>City Jail</title>
+        <title>City Jail - admin</title>
     </head>
-    <body>
+    <body> 
         <header class="site-header">
             <nav class="navbar navbar-expand-md navbar-dark navigBG fixed-top">
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-                <span class="navbar-toggler-icon"></span>
-              </button>
               <div class="container">
                 <!-- Should lead to whatever the homepage is-->
-                <a class="navbar-brand mr-4" href="criminals.php"><strong>City Jail</strong></a>
+                <a class="navbar-brand mr-4" href=""><strong>City Jail</strong></a> 
                 </button>
                 <!-- Navbar Toggler -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,26 +30,14 @@
                 <!-- Main Navigation Pages -->
                 <div class="collapse navbar-collapse" id="navbarToggle">
                   <div class="navbar-nav mr-auto">
-                    <a class="nav-item nav-link" href="">Admin</a>
+                    <a class="nav-item nav-link" href="admin.php">Admin</a>
                     <a class="nav-item nav-link" href="../criminal/criminals-admin.php">Criminals</a>
                     <a class="nav-item nav-link" href="../crime/crimes-admin.php">Crimes</a>
                     <a class="nav-item nav-link" href="../charge/charges-admin.php">Charges</a>
                     <a class="nav-item nav-link" href="../sentence/sentences-admin.php">Sentences</a>
-                    <a class="nav-item nav-link" href="appeals-admin.php">Appeals</a>
-                    <!-- <a class="nav-item nav-link" href="officers-admin.php">Officers</a> -->
-                    <div class="dropdown">
-                      <div  class="nav-item nav-link">
-                        <a class ="dropbtn">Officers</a>
-                      </div>
-                      <div class="dropdown-content">
-                        <a href="../officer/officers-admin.php">Officer</a>
-                        <a href="../crime_officer/crime_officers-admin.php">Crime per Officer</a>
-                        <a href="../prob_officer/prob_officers-admin.php">Probation Officer</a>
-                        <!-- Logout should lead to non-admin homepage -->
-                      </div>
-                    </div>
+                    <a class="nav-item nav-link" href="../appeal/appeals-admin.php">Appeals</a>
                   </div>
-
+                  
                   <!-- Right Side of Navigation Bar -->
                   <div class="navbar-nav">
                     <a href="">
@@ -65,13 +46,11 @@
 
                     <!-- Dropdown menu on Profile Button -->
                     <div class="dropdown">
-                      <a class ="dropbtn" href="">
+                      <a class ="dropbtn">
                         <img tag="profile" src="../../../Images/profile.png" alt="My Profile">
                       </a>
-
                       <div class="dropdown-content">
-                        <a href="#">My Profile</a>
-                        <a href="#">Log Out</a>
+                        <a href="#">Log Out</a> 
                         <!-- Logout should lead to non-admin homepage -->
                       </div>
                     </div>
@@ -79,40 +58,22 @@
                 </div>
               </div>
             </nav>
-
           </header>
 
           <center>
-          <div method="get" class="form">
+            <div method="post" class="form">
               <div class="form-panel one">
                 <div class="form-header">
-                  <h1>Add Appeal</h1>
+                  <h1>Add New User</h1>
                 </div>
                   <form>
                     <div class="form-group">
-                          <label for="numAtt">Number of Attempts</label>
-                          <input id="numAtt" type="number" name="numAtt" min="0"/>
+                      <label for="new_usern">Username</label>
+                      <input id="new_usern" type="text" name="new_usern" maxlength="16"/>
                     </div>
                     <div class="form-group">
-                          <label for="caseid">Case ID</label>
-                          <input id="caseid" type="number" name="caseid" min="0"/>
-                    </div>
-                    <div class="form-group">
-                      <label for="filing_date">Filing Date</label>
-                      <input id="filing_date" type="date" name="filing_date"/>
-                    </div>
-                    <div class="form-group">
-                      <label for="appeal_date">Appeal Hearing Date</label>
-                      <input id="appeal_date" type="date" name="appeal_date"/>
-                    </div>
-                    <div class="form-group">
-                      <label for="resultStat">Result Status</label>
-                      <select name="resultStat" id="resultStat">
-                      <option value=""></option>
-                        <option value="p">Pending</option>
-                        <option value="a">Approved</option>
-                        <option value="d">Disapproved</option>
-                      </select>
+                      <label for="password">Password</label>
+                      <input id="password" type="password" name="new_pass" required="required" minlength="8" maxlength="16"/>
                     </div>
                     <div class="form-group">
                       <button type="submit">Submit</button>
@@ -120,16 +81,22 @@
                   </form>
               </div>
             </div>
-
+        
             <?php
-              // When a field is submitted, it will run this code
-              if($_GET){
-                $db = connectToDB_admin();
-                add_appeal($_GET["numAtt"], $_GET["caseid"], $_GET["filing_date"], $_GET["appeal_date"], $_GET["resultStat"], $db);
-              }
+                // $_POST["new_usern"], $_POST["new_pass"]
+                try{
+                    $conn = new mysqli("localhost", $_COOKIE["username"], $_COOKIE["password"], "cityjail");
+                    $create = "CREATE USER '${_POST["new_usern"]}'@'%' IDENTIFIED BY '${_POST["new_pass"]}';";
+                    $grant = "GRANT ALL PRIVILEGES ON cityjail.* TO '${_POST["new_usern"]}'@'%';";
+
+                    $conn->query($create);
+                    $conn->query($grant);
+                }
+                catch (Exception $e) {
+                    echo '<p style="color: red;">The username you entered is already in use.</p>';
+                }
             ?>
         </center>
-
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
