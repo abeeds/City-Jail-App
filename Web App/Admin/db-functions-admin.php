@@ -325,7 +325,56 @@ function show_criminal($database=NULL) {
     }
     echo "</table>";
 }// show_criminal
+function show_sentence($database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+    // Initialize table
+    echo    "<table id=\"Sentences\">
+                <tr class=\"row-labels\">
+                    <th>Sentence ID</th>
+                    <th>Criminal ID</th>
+                    <th>Probation Officer ID</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Number of Violations</th>
+                    <th>Type</th>
+                </tr>";
 
+    
+    // will show everything if no fields are entered
+    $aQuery = " SELECT s.*, a.alias AS Alias FROM sentence s , alias a WHERE a.c_id = s.c_id";
+    $aQuery .= ";";
+
+    //echo "<p>$aQuery</p>";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    $result = $database->query($aQuery);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<th>" . $row["sentence_id"] . "</th>";
+            echo "<th>" . $row["Alias"] . "</th>";
+            echo "<th>" . $row["p_id"] . "</th>";
+            echo "<th>" . $row["start_date"] . "</th>";
+            echo "<th>" . $row["end_date"] . "</th>";
+            echo "<th>" . $row["num_violations"] . "</th>";
+            if($row["type"] === "j") {
+                echo "<th>" . "Jail" . "</th>";
+            }
+            else if($row["type"] === "h"){
+                echo "<th>" . "House Arrest" . "</th>";
+            }
+            else {
+                echo "<th>" . "Probation" . "</th>";
+            }
+
+            echo "</tr>";
+        }
+    }
+    echo "</table>";
+}// show_criminal
 /*
 function select_officer($bNum,$database=NULL ){
     if(!$database) {
