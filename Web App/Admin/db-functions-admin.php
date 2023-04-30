@@ -531,7 +531,7 @@ function show_charge($database=NULL) {
     }
     echo "</table>";
 }// show_charge
-/*
+
 function show_appeal($database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
@@ -540,8 +540,8 @@ function show_appeal($database=NULL) {
     // Initialize table
     echo    "<table id=\"Appeals\">
                 <tr class=\"row-labels\">
-                    <th>Attempt Number</th>
                     <th>Case ID</th>
+                    <th>Attempt Number</th>
                     <th>Filing Date</th>
                     <th>Appeal Hearing Date</th>
                     <th>Result</th>
@@ -557,8 +557,8 @@ function show_appeal($database=NULL) {
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             echo "<tr>";
-            echo "<th>" . $row["attempt_num"] . "</th>";
             echo "<th>" . $row["case_id"] . "</th>";
+            echo "<th>" . $row["attempt_num"] . "</th>";
             echo "<th>" . $row["filing_date"] . "</th>";
             echo "<th>" . $row["appeal_hearing_date"] . "</th>";
             if($row["result_status"] === "p") {
@@ -576,6 +576,7 @@ function show_appeal($database=NULL) {
     }
     echo "</table>";
 }
+/*
 function select_officer($bNum,$database=NULL ){
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
