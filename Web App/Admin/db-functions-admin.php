@@ -692,7 +692,7 @@ function update_charge($chargeid, $caseid, $codenum, $chargeStat ,$fine, $court,
         echo "<p> Update successful.</p>";
     } else {
         //echo "Error: " . mysqli_error($database);
-        echo "<p>Error: </p>";
+        echo "<p>Error </p>";
     }
 }
 function delete_officer($bNum, $database=NULL) {
