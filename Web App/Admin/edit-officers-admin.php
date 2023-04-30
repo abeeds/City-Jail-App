@@ -73,7 +73,7 @@
                     </div>
                     <form>
                         <div class="form-group">
-                            <label for="bNum">Edit Officer with Badge Number</label>
+                            <label for="bNum">Update Officer with Badge Number</label>
                             <input id="bNum" type="number" name="bNum" maxlenght="4"/>
                         </div>
                         <div class="form-group">
