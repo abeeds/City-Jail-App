@@ -17,15 +17,18 @@ function formatInput(&$string){
 
 // returns the MYSQL connection if success
 function connectToDB_guest() {
-    $servername = "localhost";
+    // stops errors from displaying onto the webpage
+
+    $servername = "localhost"; 
     $username = "guest";
     $password = "guest";
-    $dbname = "cityjail";
+    $dbname = "cityjail";  
 
     $conn = new mysqli($servername, $username, $password, $dbname);
     if($conn->connect_error) {
         return NULL;
     }
+
     return $conn;
 }
 

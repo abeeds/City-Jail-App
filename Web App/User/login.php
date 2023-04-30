@@ -1,3 +1,30 @@
+<?php
+  include "db-functions.php";
+  error_reporting(0); // disable error reporting 
+
+  if($_POST) {
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+
+    // Ensure invalid characters do not get through
+    formatInput($username);
+    formatInput($password);
+
+    try {
+      $conn = new mysqli("localhost", $username, $password, "cityjail");
+
+      // available on entire domain for a week
+      setcookie("username", $username, time() + (86400 & 7), "/"); 
+      header("location: ../Admin/criminals-admin.php");
+    } catch (Exception $e) {
+      // connection failed, handle the error
+      $failed = "Your username or password is incorrect.";
+
+    }
+  }
+  error_reporting(E_ALL); // re-enable error reporting
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -62,7 +89,7 @@
                 <div class="form-header">
                   <h1>Account Login</h1>
                 </div>
-                  <form>
+                  <form method="post">
                     <div class="form-group">
                       <label for="username">Username</label>
                       <input id="username" type="text" name="username" required="required"/>
@@ -82,6 +109,11 @@
                   </form>
               </div>
             </div>
+            <?php
+            if (isset($failed)) {
+                echo '<p style="color: red;">' . $failed . '</p>';
+            }
+          ?>
           </center>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

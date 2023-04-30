@@ -25,3 +25,16 @@ table, th, td {
     color: white;
 
 }
+.form-group button[type="submit"] {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    background: #4285F4;
+    width: 100%;
+    border: 0;
+    border-radius: 4px;
+    padding: 12px 20px;
+    color: #FFFFFF;
+    font-weight: 500;
+    cursor: pointer;
+  }
