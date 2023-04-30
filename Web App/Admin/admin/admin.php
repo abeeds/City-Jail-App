@@ -64,7 +64,7 @@
             <div method="post" class="form">
               <div class="form-panel one">
                 <div class="form-header">
-                  <h1>Add New User</h1>
+                  <h1>Create New User</h1>
                 </div>
                   <form>
                     <div class="form-group">
@@ -85,9 +85,14 @@
             <?php
                 // $_POST["new_usern"], $_POST["new_pass"]
                 try{
-                    $conn = new mysqli("localhost", $_COOKIE["username"], $_COOKIE["password"], "cityjail");
-                    $create = "CREATE USER '${_POST["new_usern"]}'@'%' IDENTIFIED BY '${_POST["new_pass"]}';";
-                    $grant = "GRANT ALL PRIVILEGES ON cityjail.* TO '${_POST["new_usern"]}'@'%';";
+                    $usern = $_POST["new_usern"];
+                    $pass = $_POST["new_pass"];
+                    formatInput($usern);
+                    formatInput($pass);
+
+                    $conn = new mysqli("18.188.82.70", $_COOKIE["username"], $_COOKIE["password"], "cityjail");
+                    $create = "CREATE USER '${usern}'@'%' IDENTIFIED BY '${pass}';";
+                    $grant = "GRANT ALL PRIVILEGES ON cityjail.* TO '${usern}'@'%';";
 
                     $conn->query($create);
                     $conn->query($grant);
