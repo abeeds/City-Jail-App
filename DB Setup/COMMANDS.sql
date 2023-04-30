@@ -106,3 +106,5 @@ BEGIN
         SET NEW.charge_id = temp_id + 1;
     END IF;
 END $$
+
+DELIMITER ;
