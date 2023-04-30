@@ -575,7 +575,7 @@ function show_appeal($database=NULL) {
         }
     }
     echo "</table>";
-}
+} // show_appeal
 /*
 function select_officer($bNum,$database=NULL ){
     if(!$database) {
