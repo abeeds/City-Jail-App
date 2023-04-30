@@ -68,7 +68,7 @@
                 <button class ="edit-search"> <a style="color:inherit;>" href="search-officers-admin.php">Search Table</a></button>
             </div>
             <div class="form-group">
-                <button class ="edit-search"> <a style="color:inherit;>" href="">Edit Table</button>
+                <button class ="edit-search"> <a style="color:inherit;>" href="edit-officers-admin.php">Edit Table</a></button>
             </div>
             <div class="form-group">
                 <button class ="edit-search"><a style="color:inherit;>" href="add-officers-admin.php">Add Record</a></button>
