@@ -32,7 +32,7 @@
                 <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
                     <a class="nav-item nav-link" href="">Admin</a>
-                    <a class="nav-item nav-link" href="../criminal/criminals-admin.php">Criminals</a>
+                    <a class="nav-item nav-link" href="criminals-admin.php">Criminals</a>
                     <a class="nav-item nav-link" href="../crime/crimes-admin.php">Crimes</a>
                     <a class="nav-item nav-link" href="../charge/charges-admin.php">Charges</a>
                     <a class="nav-item nav-link" href="../sentence/sentences-admin.php">Sentences</a>
@@ -43,7 +43,7 @@
                         <a class ="dropbtn">Officers</a>
                       </div>
                       <div class="dropdown-content">
-                        <a href="officers-admin.php">Officer</a>
+                        <a href="../officer/officers-admin.php">Officer</a>
                         <a href="../crime_officer/crime_officers-admin.php">Crime per Officer</a> 
                         <a href="../prob_officer/prob_officers-admin.php">Probation Officer</a> 
                         <!-- Logout should lead to non-admin homepage -->
@@ -79,55 +79,27 @@
             <div method="get" class="form">
                     
                 <div class="form-panel one">
-            
                     <div class="form-header">
-
-                    <h1>Add Officer</h1>
+                    <h1>Delete Criminal's Details</h1>
                     </div>
-                      <form>
+                    <form>
                         <div class="form-group">
-                            <label for="bNum">Badge Number</label>
-                            <input id="bNum" type="number" name="bNum" maxlenght="4"/>
+                            <label for="cid">Delete Criminal with Criminal ID</label>
+                            <input id="cid" type="number" name="cid" maxlenght="4"/>
                         </div>
-                        <div class="form-group">
-                            <label for="fname">First Name</label>
-                            <input id="fname" type="text" name="fname" maxlength="41"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="lname">Last Name</label>
-                            <input id="lname" type="text" name="lname" maxlength="41"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="precinct">Precinct</label>
-                            <input id="precinct" type="number" name="precinct" min="0"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="phonenum">Phone Number</label>
-                            <input id="phonenum" type="number" name="phonenum" min="1" max="9999999999"/>
-                        </div>
-                        <div class="form-group">
-                          <label for="status">Status</label>
-                          <select name="status" id="status">
-                            <option value=""></option>
-                            <option value="a">Active</option>
-                            <option value="i">Inactive</option>
-                          </select>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit">Submit</button>
+                          <div class="form-group">
+                          <button type="submit">Submit</button>
                         </div>
                     </form>
                 </div>
             </div>
-
             <?php 
                 // When a field is submitted, it will run this code
                 if($_GET){
-                    $db = connectToDB_admin();
-                    add_officer($_GET["bNum"], $_GET["fname"], $_GET["lname"], $_GET["precinct"] ,$_GET["phonenum"], $_GET["status"],  $db);
+                  $db = connectToDB_admin();
+                  delete_criminal($_GET["cid"],  $db);
                 }
             ?>
-
             
         </center>
 

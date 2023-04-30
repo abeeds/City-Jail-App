@@ -374,7 +374,7 @@ function show_criminal($database=NULL) {
     // Initialize table
     echo    "<table id=\"Criminals\">
                 <tr class=\"row-labels\">
-                    <th>Criminal Alias</th>
+                    <th>Criminal ID</th>
                     <th>Last</th>
                     <th>First Name</th>
                     <th>Street</th>
@@ -388,9 +388,10 @@ function show_criminal($database=NULL) {
 
     
     // will show everything if no fields are entered
-    $aQuery = " SELECT c.*, a.alias AS Alias FROM criminal c , alias a WHERE a.c_id = c.c_id";
+    // $aQuery = " SELECT c.*, a.alias AS Alias FROM criminal c LEFT JOIN alias a ON a.c_id = c.c_id";
+    // $aQuery .= ";";
+    $aQuery = " SELECT c.* FROM criminal c ";
     $aQuery .= ";";
-
     //echo "<p>$aQuery</p>";
     // adds a row to the HTML for each row on the table
     // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
@@ -398,7 +399,7 @@ function show_criminal($database=NULL) {
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             echo "<tr>";
-            echo "<th>" . $row["Alias"] . "</th>";
+            echo "<th>" . $row["c_id"] . "</th>";
             echo "<th>" . $row["c_last"] . "</th>";
             echo "<th>" . $row["c_first"] . "</th>";
             echo "<th>" . $row["c_street"] . "</th>";
@@ -675,6 +676,46 @@ function add_officer($bNum, $fname, $lname, $precinct ,$phonenum, $status,  $dat
         echo "<p>Error: </p>";
     }
 }
+//This function will add criminals
+function add_criminal($id, $lname, $fname, $street ,$city, $state, $zip, $phonenum, $Pstat, $Vstat,  $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    // Ensure that no improper characters are being used
+    formatInput($fname);
+    formatInput($lname);
+    formatInput($street);
+    formatInput($city);
+    formatInput($state);
+    
+    $aQuery = " INSERT INTO criminal (c_id, c_last, c_first, c_street, c_city, c_state, c_zip, c_phone_num, V_status, P_status)
+    VALUES";
+
+    // Add to query if any fields are entered
+    $aQuery .= " (  $id  , ";
+    $aQuery .= " \"$lname\" ,";
+    $aQuery .= " \"$fname\" ,";
+    $aQuery .= " \"$street\"  ,";
+    $aQuery .= "  \"$city\"  ,";
+    $aQuery .= "  \"$state\"  ,";
+    $aQuery .= " $zip ,";
+    $aQuery .= " $phonenum ,";
+    $aQuery .= " \"$Vstats\" ,";
+    $aQuery .= " \"$Pstats\" )";
+
+    $aQuery .= ";";
+    //echo "<p>$aQuery</p>";
+    if (mysqli_query($database, $aQuery)) {
+        //$rows = mysqli_affected_rows($database);
+        echo "<p> Insert successful.</p>";
+    } else {
+        //echo "Error: " . mysqli_error($database);
+        echo "<p>Error: </p>";
+    }
+}
+//This function will add sentences
 function add_sentence($sid, $cid, $probid, $start_date ,$end_date, $numVio, $type,  $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
@@ -707,6 +748,7 @@ function add_sentence($sid, $cid, $probid, $start_date ,$end_date, $numVio, $typ
         echo "<p>Error: </p>";
     }
 }
+
 function update_officer($bNum, $fname, $lname, $precinct ,$phonenum, $status,  $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
@@ -804,6 +846,28 @@ function delete_officer($bNum, $database=NULL) {
     $aQuery = " DELETE FROM officer ";
     if($bNum !== "") {
         $aQuery .= " WHERE badge_number = " . $bNum;
+    }
+    $aQuery .= " ; ";
+    //echo "<p>$aQuery</p>";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    if (mysqli_query($database, $aQuery)) {
+        //$rows = mysqli_affected_rows($database);
+        echo "<p> Delete successful.</p>";
+    } else {
+        //echo "Error: " . mysqli_error($database);
+        echo "<p>Error: </p>";
+    }
+}
+function delete_criminal($cid, $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    $aQuery = " DELETE FROM criminal ";
+    if($cid !== "") {
+        $aQuery .= " WHERE c_id = " . $cid;
     }
     $aQuery .= " ; ";
     //echo "<p>$aQuery</p>";
