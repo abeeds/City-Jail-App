@@ -47,11 +47,6 @@
                   
                   <!-- Right Side of Navigation Bar -->
                   <div class="navbar-nav">
-                    <a href="">
-                        <img tag="help" src="../../Images/help.png" alt="Help">
-                    </a>
-                    
-                    
                     <a href="login.php">
                       <img tag="profile" src="../../Images/profile.png" alt="Log In">
                     </a>
