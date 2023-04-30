@@ -65,13 +65,13 @@
         </header>
         <div  class="form">
             <div class="form-group">
-                <button class ="edit-search"> <a href="search-officers-admin.php">Search Table</a></button>
+                <button class ="edit-search"> <a style="color:inherit;>" href="search-officers-admin.php">Search Table</a></button>
             </div>
             <div class="form-group">
-                <button class ="edit-search"> <a href="">Edit Table</button>
+                <button class ="edit-search"> <a style="color:inherit;>" href="">Edit Table</button>
             </div>
             <div class="form-group">
-                <button class ="edit-search"><a href="add-officers-admin.php">Add Record</a></button>
+                <button class ="edit-search"><a style="color:inherit;>" href="add-officers-admin.php">Add Record</a></button>
             </div>
         </div>
 
