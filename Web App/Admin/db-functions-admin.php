@@ -722,6 +722,7 @@ function makeTable_sentence($sid, $cid, $name, $start_date, $end_date, $type, $d
     }
     echo "</table>";
 }// makeTable_sentence
+
 function makeTable_appeal($cname, $appeal_date, $resultStat, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
@@ -782,7 +783,6 @@ function makeTable_appeal($cname, $appeal_date, $resultStat, $database=NULL) {
 
     // adds a row to the HTML for each row on the table
     // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
-    echo "<p>${aQuery}</p>";
     $result = $database->query($aQuery);
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
