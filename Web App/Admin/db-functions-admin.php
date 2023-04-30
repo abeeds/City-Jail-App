@@ -375,6 +375,61 @@ function show_sentence($database=NULL) {
     }
     echo "</table>";
 }// show_sentence
+function show_charge($database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+   // Initialize table
+   echo    "<table id=\"Charge\">
+                <tr class=\"row-labels\">
+                    <th>Charge ID</th>
+                    <th>Case ID</th>
+                    <th>Crime Code Description</th>
+                    <th>Charge Status</th>
+                    <th>Fine Amount</th>
+                    <th>Court Fee</th>
+                    <th>Amount Paid</th>
+                    <th>Payment Date</th>
+                </tr>";
+
+    
+    // will show everything if no fields are entered
+    $aQuery = " SELECT c.*, cc.code_desc AS Crime_code FROM charge c , crime_code cc WHERE cc.code_num = c.code_num";
+    $aQuery .= ";";
+
+    //echo "<p>$aQuery</p>";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    $result = $database->query($aQuery);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<th>" . $row["charge_id"] . "</th>";
+            echo "<th>" . $row["case_id"] . "</th>";
+            echo "<th>" . $row["Crime_code"] . "</th>";
+            switch($row["charge_status"]) {
+                case "p":
+                    echo "<th>Pending</th>";
+                    break;
+
+                case "g":
+                    echo "<th>Guilty</th>";
+                    break;
+
+                case "n":
+                    echo "<th>Not Guilty</th>";
+                    break;
+            }
+            echo "<th>" . $row["fine_amount"] . "</th>";
+            echo "<th>" . $row["court_fee"] . "</th>";
+            echo "<th>" . $row["amount_paid"] . "</th>";
+            echo "<th>" . $row["payment_date"] . "</th>";
+            echo "</tr>";
+        }
+    }
+    echo "</table>";
+}// show_charge
 /*
 function select_officer($bNum,$database=NULL ){
     if(!$database) {
@@ -584,6 +639,52 @@ function update_officer($bNum, $fname, $lname, $precinct ,$phonenum, $status,  $
     }
     $aQuery .= " ; ";
     //echo "<p>$aQuery</p>";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    if (mysqli_query($database, $aQuery)) {
+        //$rows = mysqli_affected_rows($database);
+        echo "<p> Update successful.</p>";
+    } else {
+        //echo "Error: " . mysqli_error($database);
+        echo "<p>Error: </p>";
+    }
+}
+function update_charge($chargeid, $caseid, $codenum, $chargeStat ,$fine, $court, $paid, $paymentdate,  $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    // Ensure that no improper characters are being used
+    formatInput($chargeStat);
+    
+    $aQuery = " UPDATE charge SET";
+    if($caseid !== "") {
+        $aQuery .= " case_id  =  $caseid ";
+    }
+    if($chargeStat !== "") {
+        $aQuery .= " charge_status  =  \"$chargeStat\" ";
+    }
+    if($codenum !== "") {
+        $aQuery .= " code_num  =  $codenum ";
+    }
+    if($fine !== "") {
+        $aQuery .= "fine_amount  =  $fine ";
+    }
+    if($court !== "") {
+        $aQuery .= " court_fee  =  $court ";
+    }
+    if($paid !== "") {
+        $aQuery .= " amount_paid  =  $paid ";
+    }
+    if($paymentdate !== "") {
+        $aQuery .= " payment_date  =  \"$paymentdate\" ";
+    }
+    if($chargeid !== "") {
+        $aQuery .= " WHERE charge_id = " . $chargeid;
+    }
+    $aQuery .= " ; ";
+    echo "<p>$aQuery</p>";
     // adds a row to the HTML for each row on the table
     // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
     if (mysqli_query($database, $aQuery)) {

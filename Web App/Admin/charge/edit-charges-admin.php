@@ -17,6 +17,7 @@
         <title>City Jail - admin</title>
     </head>
     <body> 
+
         <header class="site-header">
             <nav class="navbar navbar-expand-md navbar-dark navigBG fixed-top">
               <div class="container">
@@ -42,7 +43,7 @@
                         <a class ="dropbtn">Officers</a>
                       </div>
                       <div class="dropdown-content">
-                        <a href="../officer/officers-admin.php">Officer</a>
+                        <a href="../officier/officers-admin.php">Officer</a>
                         <a href="../crime_officer/crime_officers-admin.php">Crime per Officer</a> 
                         <a href="../prob_officer/prob_officers-admin.php">Probation Officer</a> 
                         <!-- Logout should lead to non-admin homepage -->
@@ -53,13 +54,13 @@
                   <!-- Right Side of Navigation Bar -->
                   <div class="navbar-nav">
                     <a href="">
-                        <img tag="help" src="../../Images/help.png" alt="Help">
+                        <img tag="help" src="../../../Images/help.png" alt="Help">
                     </a>
 
                     <!-- Dropdown menu on Profile Button -->
                     <div class="dropdown">
                       <a class ="dropbtn" href="">
-                        <img tag="profile" src="../../Images/profile.png" alt="My Profile">
+                        <img tag="profile" src="../../../Images/profile.png" alt="My Profile">
                       </a>
 
                       <div class="dropdown-content">
@@ -72,33 +73,67 @@
                 </div>
               </div>
             </nav>
-          </header>
-
-
-          <center>
-            <div style="width:1000px;">
-                <div  class="edit-search" style ="margin: 10px auto; display:inline-block;">
-                    <button style="width:150px;"> <a style="color:inherit;font-size: inherit;line-height: inherit;" href="search-charges-admin.php">Search Table</a></button>
-                </div>
-                <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
-                    <button style="width:150px;"> <a style="color:inherit;font-size: inherit;line-height: inherit;" href="edit-charges-admin.php">Update Table</a></button>
-                </div>
-                <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
-                    <button style="width:150px;"><a style="color:inherit;font-size: inherit;line-height: inherit;" href="add-charges-admin.php">Add Record</a></button>
-                </div>
-                <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
-                    <button style="width:150px;"><a style="color:inherit;font-size: inherit;line-height: inherit;" href="delete-charges-admin.php">Delete Record</a></button>
+        </header>      
+        <center>
+                    
+            <div method="get" class="form">
+                    
+                <div class="form-panel one">
+                    <div class="form-header">
+                    <h1>Update Charge Details</h1>
+                    </div>
+                    <form>
+                    <div class="form-group">
+                      <label for="chargeid">Update Charge with Case ID</label>
+                      <input id="chargeid" type="number" name="chargeid" min="0"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="caseid">Case ID</label>
+                      <input id="caseid" type="text" name="caseid" min="0"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="codenum">Crime Code</label>
+                      <input id="codenum" type="text" name="codenum" maxlenght="4"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="chargeStat">Charge Status</label>
+                      <select name="chargeStat" id="chargeStat">
+                      <option value=""></option>
+                        <option value="p">Pending</option>
+                        <option value="g">Guilty</option>
+                        <option value="n">Not Guilty</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="fine">Fine amount </label>
+                      <input id="fine" type="num" name="fine"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="court">Court Fee </label>
+                      <input id="court" type="num" name="court"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="paid">Amount Paid </label>
+                      <input id="paid" type="num" name="paid"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="paymentdate">Payment Date </label>
+                      <input id="paymentdate" type="date" name="paymentdate"/>
+                    </div>
+                      <div class="form-group">
+                          <button type="submit">Submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-       
-
-        <div style="margin: auto;" > 
             <?php 
-                // When a field is submitted, it will run this code
+              // When a field is submitted, it will run this code
+              if($_GET){
                 $db = connectToDB_admin();
-                show_charge($db);
-             ?>
-        </div>
+                update_charge($_GET["chargeid"], $_GET["caseid"], $_GET["codenum"], $_GET["chargeStat"], $_GET["fine"],$_GET["court"], $_GET["paid"],$_GET["paymentdate"],  $db);
+              }
+            ?>
+            
         </center>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
