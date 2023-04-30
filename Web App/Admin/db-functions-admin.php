@@ -13,8 +13,6 @@ function formatInput(&$string){
     $string = trim($string, " ");
 }
 
-
-
 // returns the MYSQL connection if success
 // need to change this so it takes in a parameter once we add in cookies
 function connectToDB_admin() {
@@ -138,7 +136,8 @@ function makeTable_criminal($id, $name, $street ,$city, $state, $zip, $phonenum,
     }
     echo "</table>";
 }
-// This function will make the criminals table
+
+// This function will make the officer table
 function makeTable_officer($bNum, $name, $precinct ,$phonenum, $status,  $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
@@ -221,6 +220,7 @@ function makeTable_officer($bNum, $name, $precinct ,$phonenum, $status,  $databa
     }
     echo "</table>";
 }
+
 function show_officer($database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
@@ -264,52 +264,115 @@ function show_officer($database=NULL) {
         }
     }
     echo "</table>";
-}
-// function select_officer($bNum,$database=NULL ){
-//     if(!$database) {
-//         echo "<p> Failed to connect to database. </p>";
-//         return;
-//     }
-//     // Initialize table
-//     echo    "<table class =\"show-table\" id=\"officer\">
-//                 <tr class=\"row-labels\">
-//                     <th> Badge Number </th>
-//                     <th> First Name </th>
-//                     <th> Last Name </th>
-//                     <th> Precinct </th>
-//                     <th>Phone Number</th>
-//                     <th> Status </th>
-//                 </tr>";
+}// show_officer
+
+function show_criminal($database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+    // Initialize table
+    echo    "<table id=\"Criminals\">
+                <tr class=\"row-labels\">
+                    <th>Criminal Alias</th>
+                    <th>Last</th>
+                    <th>First Name</th>
+                    <th>Street</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zip Code</th>
+                    <th>Phone Number</th>
+                    <th>Violent Offender Status</th>
+                    <th>Probation Status</th>
+                </tr>";
 
     
-//     // will show everything if no fields are entered
-//     $aQuery = " SELECT * FROM officer o ";
-//     if($bNum !== "") {
-//         $aQuery .= " WHERE o.badge_number = " . $bNum;
-//     }
-//     $aQuery .= ";";
-//     // adds a row to the HTML for each row on the table
-//     // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
-//     $result = $database->query($aQuery);
-//     if($result->num_rows > 0) {
-//         while($row = $result->fetch_assoc()) {
-//             echo "<tr>";
-//             echo "<th>" . $row["badge_number"] . "</th>";
-//             echo "<th>" . $row["o_first"] . "</th>";
-//             echo "<th>" . $row["o_last"] . "</th>";
-//             echo "<th>" . $row["o_precinct"] . "</th>";
-//             echo "<th>" . $row["o_phone_number"] . "</th>";
-//             if($row["o_status"] === "a") {
-//                 echo "<th>" . "Active" . "</th>";
-//             }
-//             else {
-//                 echo "<th>" . "Inactive" . "</th>";
-//             }  
-//             echo "</tr>";
-//         }
-//     }
-//     echo "</table>";
-// }
+    // will show everything if no fields are entered
+    $aQuery = " SELECT c.*, a.alias AS Alias FROM criminal c , alias a WHERE a.c_id = c.c_id";
+    $aQuery .= ";";
+
+    //echo "<p>$aQuery</p>";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    $result = $database->query($aQuery);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<th>" . $row["Alias"] . "</th>";
+            echo "<th>" . $row["c_last"] . "</th>";
+            echo "<th>" . $row["c_first"] . "</th>";
+            echo "<th>" . $row["c_street"] . "</th>";
+            echo "<th>" . $row["c_city"] . "</th>";
+            echo "<th>" . $row["c_state"] . "</th>";
+            echo "<th>" . $row["c_zip"] . "</th>";
+            echo "<th>" . $row["c_phone_num"] . "</th>";
+            if($row["V_status"] === "y") {
+                echo "<th>" . "Yes" . "</th>";
+            }
+            else {
+                echo "<th>" . "No" . "</th>";
+            }
+            
+            if($row["P_status"] === "y") {
+                echo "<th>" . "Yes" . "</th>";
+            }
+            else {
+                echo "<th>" . "No" . "</th>";
+            }
+            
+            echo "</tr>";
+        }
+    }
+    echo "</table>";
+}// show_criminal
+
+/*
+function select_officer($bNum,$database=NULL ){
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+    // Initialize table
+    echo    "<table class =\"show-table\" id=\"officer\">
+                <tr class=\"row-labels\">
+                    <th> Badge Number </th>
+                    <th> First Name </th>
+                    <th> Last Name </th>
+                    <th> Precinct </th>
+                    <th>Phone Number</th>
+                    <th> Status </th>
+                </tr>";
+
+    
+    // will show everything if no fields are entered
+    $aQuery = " SELECT * FROM officer o ";
+    if($bNum !== "") {
+        $aQuery .= " WHERE o.badge_number = " . $bNum;
+    }
+    $aQuery .= ";";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    $result = $database->query($aQuery);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<th>" . $row["badge_number"] . "</th>";
+            echo "<th>" . $row["o_first"] . "</th>";
+            echo "<th>" . $row["o_last"] . "</th>";
+            echo "<th>" . $row["o_precinct"] . "</th>";
+            echo "<th>" . $row["o_phone_number"] . "</th>";
+            if($row["o_status"] === "a") {
+                echo "<th>" . "Active" . "</th>";
+            }
+            else {
+                echo "<th>" . "Inactive" . "</th>";
+            }  
+            echo "</tr>";
+        }
+    }
+    echo "</table>";
+}
+*/
 // This function will add officers
 function add_officer($bNum, $fname, $lname, $precinct ,$phonenum, $status,  $database=NULL) {
     if(!$database) {
@@ -380,6 +443,28 @@ function update_officer($bNum, $fname, $lname, $precinct ,$phonenum, $status,  $
     if (mysqli_query($database, $aQuery)) {
         //$rows = mysqli_affected_rows($database);
         echo "<p> Update successful.</p>";
+    } else {
+        //echo "Error: " . mysqli_error($database);
+        echo "<p>Error: </p>";
+    }
+}
+function delete_officer($bNum, $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    $aQuery = " DELETE FROM officer ";
+    if($bNum !== "") {
+        $aQuery .= " WHERE badge_number = " . $bNum;
+    }
+    $aQuery .= " ; ";
+    //echo "<p>$aQuery</p>";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    if (mysqli_query($database, $aQuery)) {
+        //$rows = mysqli_affected_rows($database);
+        echo "<p> Delete successful.</p>";
     } else {
         //echo "Error: " . mysqli_error($database);
         echo "<p>Error: </p>";
@@ -506,7 +591,6 @@ function makeTable_crime($caseid, $crid, $cname, $classification, $datecharged, 
     echo "</table>";
 } // makeTable_crime($cname, $classification, $datecharged, $database=NULL)
 
-
 function makeTable_charge($chargeid, $caseid, $cname, $chargeStat, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
@@ -608,7 +692,6 @@ function makeTable_charge($chargeid, $caseid, $cname, $chargeStat, $database=NUL
     }
     echo "</table>";
 } // makeTable_charge
-
 
 function makeTable_sentence($sid, $cid, $name, $start_date, $end_date, $type, $database=NULL) {
     if(!$database) {

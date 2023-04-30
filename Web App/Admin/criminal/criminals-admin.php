@@ -32,19 +32,19 @@
                 <div class="navbar-nav mr-auto">
                     <a class="nav-item nav-link" href="">Admin</a>
                     <a class="nav-item nav-link" href="criminals-admin.php">Criminals</a>
-                    <a class="nav-item nav-link" href="crimes-admin.php">Crimes</a>
-                    <a class="nav-item nav-link" href="charges-admin.php">Charges</a>
-                    <a class="nav-item nav-link" href="sentences-admin.php">Sentences</a>
-                    <a class="nav-item nav-link" href="appeals-admin.php">Appeals</a>
+                    <a class="nav-item nav-link" href="../crime/crimes-admin.php">Crimes</a>
+                    <a class="nav-item nav-link" href="../charge/charges-admin.php">Charges</a>
+                    <a class="nav-item nav-link" href="../sentence/sentences-admin.php">Sentences</a>
+                    <a class="nav-item nav-link" href="../appeal/appeals-admin.php">Appeals</a>
                     <!-- <a class="nav-item nav-link" href="officers-admin.php">Officers</a> -->
                     <div class="dropdown">
                       <div  class="nav-item nav-link">
                         <a class ="dropbtn">Officers</a>
                       </div>
                       <div class="dropdown-content">
-                        <a href="../officer/officers-admin.php">Officiers</a>
-                        <a href="../crime_officer/crime_officers-admin.php">Crime Officers</a> 
-                        <a href="../prob_officer/prob_officers-admin.php">Probation Officers</a> 
+                        <a href="../officer/officers-admin.php">Officer</a>
+                        <a href="../crime_officer/crime_officers-admin.php">Crime per Officer</a> 
+                        <a href="../prob_officer/prob_officers-admin.php">Probation Officer</a> 
                         <!-- Logout should lead to non-admin homepage -->
                       </div>
                     </div>
@@ -77,77 +77,25 @@
         <center>
             <div style="width:1000px;">
                 <div  class="edit-search" style ="margin: 10px auto; display:inline-block;">
-                    <button style="width:150px;"> <a style="color:inherit;font-size: inherit;line-height: inherit;" href="search-officers-admin.php">Search Table</a></button>
+                    <button style="width:150px;"> <a style="color:inherit;font-size: inherit;line-height: inherit;" href="search-criminals-admin.php">Search Table</a></button>
                 </div>
                 <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
-                    <button style="width:150px;"> <a style="color:inherit;font-size: inherit;line-height: inherit;" href="edit-officers-admin.php">Update Table</a></button>
+                    <button style="width:150px;"> <a style="color:inherit;font-size: inherit;line-height: inherit;" href="edit-criminals-admin.php">Update Table</a></button>
                 </div>
                 <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
-                    <button style="width:150px;"><a style="color:inherit;font-size: inherit;line-height: inherit;" href="add-officers-admin.php">Add Record</a></button>
+                    <button style="width:150px;"><a style="color:inherit;font-size: inherit;line-height: inherit;" href="add-criminals-admin.php">Add Record</a></button>
                 </div>
             </div>
-        </center>
+
 
         <div style="margin: auto;" > 
             <?php 
                 // When a field is submitted, it will run this code
                 $db = connectToDB_admin();
-                Show_officer($db);
+                show_criminal($db);
              ?>
         </div>
-        <center>
-            <div method="get" class="form">
-                <div class="form-panel one">
-                    <div class="form-header">
-                    <h1>Criminal Search</h1>
-                    </div>
-                    <form>
-                        <div class="form-group">
-                            <label for="id">Criminal ID</label>
-                            <input id="id" type="number" name="id" min="0"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input id="name" type="text" name="name" maxlength="41"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="street">Street</label>
-                            <input id="street" type="text" name="street" maxlength="64"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="city">City</label>
-                            <input id="city" type="text" name="city" maxlength="64"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="state">State</label>
-                            <input id="state" type="text" name="state" maxlength="2"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="zip">Zip Code</label>
-                            <input type="number" id="zip" name="zip" min="1" max="99999" pattern="[1-9]{1}\d{4}">
-                        </div>
-                        <div class="form-group">
-                            <label for="phonenum">Phone Number</label>
-                            <input id="phonenum" type="number" name="phonenum" min="1" max="9999999999"/>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <?php 
-                // When a field is submitted, it will run this code
-                if($_GET){
-                    $db = connectToDB_admin();
-                    makeTable_criminal($_GET["id"], $_GET["name"], $_GET["street"] ,$_GET["city"], $_GET["state"], $_GET["zip"], $_GET["phonenum"],  $db);
-                }
-            ?>
-
-            
         </center>
-
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

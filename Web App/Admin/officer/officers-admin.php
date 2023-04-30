@@ -33,10 +33,10 @@
                 <div class="navbar-nav mr-auto">
                     <a class="nav-item nav-link" href="">Admin</a>
                     <a class="nav-item nav-link" href="../criminal/criminals-admin.php">Criminals</a>
-                    <a class="nav-item nav-link" href="crimes-admin.php">Crimes</a>
-                    <a class="nav-item nav-link" href="charges-admin.php">Charges</a>
-                    <a class="nav-item nav-link" href="sentences-admin.php">Sentences</a>
-                    <a class="nav-item nav-link" href="appeals-admin.php">Appeals</a>
+                    <a class="nav-item nav-link" href="../crime/crimes-admin.php">Crimes</a>
+                    <a class="nav-item nav-link" href="../charge/charges-admin.php">Charges</a>
+                    <a class="nav-item nav-link" href="../sentence/sentences-admin.php">Sentences</a>
+                    <a class="nav-item nav-link" href="../appeal/appeals-admin.php">Appeals</a>
                     <!-- <a class="nav-item nav-link" href="officers-admin.php">Officers</a> -->
                     <div class="dropdown">
                       <div  class="nav-item nav-link">
@@ -44,8 +44,8 @@
                       </div>
                       <div class="dropdown-content">
                         <a href="officers-admin.php">Officer</a>
-                        <a href="crime_officers-admin.php">Crime per Officer</a> 
-                        <a href="prob_officers-admin.php">Probation Officer</a> 
+                        <a href="../crime_officer/crime_officers-admin.php">Crime per Officer</a> 
+                        <a href="../prob_officer/prob_officers-admin.php">Probation Officer</a> 
                         <!-- Logout should lead to non-admin homepage -->
                       </div>
                     </div>
@@ -84,6 +84,9 @@
                 </div>
                 <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
                     <button style="width:150px;"><a style="color:inherit;font-size: inherit;line-height: inherit;" href="add-officers-admin.php">Add Record</a></button>
+                </div>
+                <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
+                    <button style="width:150px;"><a style="color:inherit;font-size: inherit;line-height: inherit;" href="delete-officers-admin.php">Delete Record</a></button>
                 </div>
             </div>
         </center>

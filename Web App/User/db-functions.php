@@ -13,8 +13,6 @@ function formatInput(&$string){
     $string = trim($string, " ");
 }
 
-
-
 // returns the MYSQL connection if success
 function connectToDB_guest() {
     $servername = "localhost"; 
@@ -29,7 +27,6 @@ function connectToDB_guest() {
 
     return $conn;
 }
-
 
 // This function will make the criminals table
 function makeTable_criminal($name, $city, $state, $zip, $database=NULL) {
@@ -117,7 +114,6 @@ function makeTable_criminal($name, $city, $state, $zip, $database=NULL) {
     }
     echo "</table>";
 } // makeTable_criminal($name, $city, $state, $zip, $database=NULL)
-
 
 // This function will make the crime table
 function makeTable_crime($cname, $classification, $datecharged, $database=NULL) {
@@ -213,7 +209,7 @@ function makeTable_crime($cname, $classification, $datecharged, $database=NULL) 
     echo "</table>";
 } // makeTable_crime($cname, $classification, $datecharged, $database=NULL)
 
-
+// This function will make the sentence table
 function makeTable_sentence($name, $start_date, $end_date, $type, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
@@ -316,7 +312,6 @@ function makeTable_sentence($name, $start_date, $end_date, $type, $database=NULL
     echo "</table>";
 }// makeTable_sentence
 
-
 // This function will make the charges table
 function makeTable_charge($cname, $chargeStat, $database=NULL) {
     if(!$database) {
@@ -396,6 +391,7 @@ function makeTable_charge($cname, $chargeStat, $database=NULL) {
     echo "</table>";
 } // makeTable_charge
 
+// This function will make the appeal table
 function makeTable_appeal($cname, $appeal_date, $resultStat, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
@@ -481,5 +477,5 @@ function makeTable_appeal($cname, $appeal_date, $resultStat, $database=NULL) {
         }
     }
     echo "</table>";
-}
+} // makeTable_appeal
 ?>

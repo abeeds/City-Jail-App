@@ -80,36 +80,12 @@
                     
                 <div class="form-panel one">
                     <div class="form-header">
-                    <h1>Update Officer's Details</h1>
+                    <h1>Delete Officer's Details</h1>
                     </div>
                     <form>
                         <div class="form-group">
-                            <label for="bNum">Update Officer with Badge Number</label>
+                            <label for="bNum">Delete Officer with Badge Number</label>
                             <input id="bNum" type="number" name="bNum" maxlenght="4"/>
-                        </div>
-                        <div class="form-group">
-                          <label for="fname">First Name</label>
-                          <input id="fname" type="text" name="fname" maxlength="41"/>
-                        </div>
-                        <div class="form-group">
-                          <label for="lname">Last Name</label>
-                          <input id="lname" type="text" name="lname" maxlength="41"/>
-                        </div>
-                        <div class="form-group">
-                          <label for="precinct">Precinct</label>
-                          <input id="precinct" type="number" name="precinct" min="0"/>
-                        </div>
-                        <div class="form-group">
-                          <label for="phonenum">Phone Number</label>
-                          <input id="phonenum" type="number" name="phonenum" min="1" max="9999999999"/>
-                        </div>
-                        <div class="form-group">
-                          <label for="status">Status</label>
-                          <select name="status" id="status">
-                            <option value=""></option>
-                            <option value="a">Active</option>
-                            <option value="i">Inactive</option>
-                          </select>
                         </div>
                           <div class="form-group">
                           <button type="submit">Submit</button>
@@ -121,7 +97,7 @@
                 // When a field is submitted, it will run this code
                 if($_GET){
                   $db = connectToDB_admin();
-                  update_officer($_GET["bNum"], $_GET["fname"], $_GET["lname"], $_GET["precinct"] ,$_GET["phonenum"], $_GET["status"],  $db);
+                  delete_officer($_GET["bNum"],  $db);
                 }
             ?>
             
