@@ -16,7 +16,7 @@ function formatInput(&$string){
 // returns the MYSQL connection if success
 // need to change this so it takes in a parameter once we add in cookies
 function connectToDB_admin() {
-    $servername = "localhost"; 
+    $servername = "18.188.82.70"; 
     $username = "admin123"; // temporary
     $password = "admin321";
     $dbname = "cityjail";  
@@ -373,6 +373,71 @@ function select_officer($bNum,$database=NULL ){
     echo "</table>";
 }
 */
+function show_crime($database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+// Initialize table
+    echo    "<table id=\"Crime\">
+            <tr class=\"row-labels\">
+                <th>Case ID</th>
+                <th>Criminal ID</th>
+                <th>Classification</th>
+                <th>Date Charged</th>
+                <th>Appeal Status</th>
+                <th>Hearing Date</th>
+                <th>Appeal Cutoff Date</th>
+            </tr>";
+
+    
+    // will show everything if no fields are entered
+    $aQuery = " SELECT * FROM crime c ";
+    $aQuery .= ";";
+
+    //echo "<p>$aQuery</p>";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    $result = $database->query($aQuery);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<th>" . $row["case_id"] . "</th>";
+            echo "<th>" . $row["c_id"] . "</th>";
+            switch($row["classification"]) {
+                case "o":
+                    echo "<th>Other</th>";
+                    break;
+
+                case "m":
+                    echo "<th>Misdemeanor</th>";
+                    break;
+
+                case "f":
+                    echo "<th>Felony</th>";
+                    break;
+            }
+            echo "<th>" . $row["date_charged"] . "</th>";
+            switch($row["appeal_status"]) {
+                case "ia":
+                    echo "<th>In Appeal</th>";
+                    break;
+
+                case "ca":
+                    echo "<th>Can Appeal</th>";
+                    break;
+
+                case "c":
+                    echo "<th>Closed</th>";
+                    break;
+            }
+            echo "<th>" . $row["hearing_date"] . "</th>";
+            echo "<th>" . $row["appeal_cutoff_date"] . "</th>";
+            echo "</tr>";
+        }
+    }
+    echo "</table>";
+}// show_officer
 // This function will add officers
 function add_officer($bNum, $fname, $lname, $precinct ,$phonenum, $status,  $database=NULL) {
     if(!$database) {
@@ -590,7 +655,48 @@ function makeTable_crime($caseid, $crid, $cname, $classification, $datecharged, 
     }
     echo "</table>";
 } // makeTable_crime($cname, $classification, $datecharged, $database=NULL)
+function update_crime($caseid, $crid, $cname, $classification, $datecharged, $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
 
+    // Ensure that no improper characters are being used
+    formatInput($cname);
+    formatInput($lname);
+    formatInput($status);
+    
+    $aQuery = " UPDATE officer SET";
+    if($lname !== "") {
+        $aQuery .= " o_last  =  \"$lname\" ";
+    }
+    if($fname !== "") {
+        $aQuery .= " o_first  =  \"$fname\" ";
+    }
+    if($precinct !== "") {
+        $aQuery .= " o_precinct  =  $precinct ";
+    }
+    if($phonenum !== "") {
+        $aQuery .= " o_phone_number  =  $phonenum ";
+    }
+    if($status !== "") {
+        $aQuery .= " o_status  =  \"$status\" ";
+    }
+    if($bNum !== "") {
+        $aQuery .= " WHERE badge_number = " . $bNum;
+    }
+    $aQuery .= " ; ";
+    //echo "<p>$aQuery</p>";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    if (mysqli_query($database, $aQuery)) {
+        //$rows = mysqli_affected_rows($database);
+        echo "<p> Update successful.</p>";
+    } else {
+        //echo "Error: " . mysqli_error($database);
+        echo "<p>Error: </p>";
+    }
+}
 function makeTable_charge($chargeid, $caseid, $cname, $chargeStat, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
