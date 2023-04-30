@@ -131,7 +131,7 @@
               // When a field is submitted, it will run this code
               if($_GET){
                 $db = connectToDB_admin();
-                update_crime($_GET["caseID"], $_GET["crID"], $_GET["cname"], $_GET["classification"], $_GET["datecharged"], $_GET["appealStat"],$_GET["hearingdate"], $_GET["appealcut"], $db);
+                update_crime($_GET["caseID"], $_GET["crID"], $_GET["classification"], $_GET["datecharged"], $_GET["appealStat"],$_GET["hearingdate"], $_GET["appealcut"], $db);
               }
             ?>
             

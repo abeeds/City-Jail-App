@@ -16,7 +16,7 @@ function formatInput(&$string){
 // returns the MYSQL connection if success
 // need to change this so it takes in a parameter once we add in cookies
 function connectToDB_admin() {
-    $servername = "18.188.82.70"; 
+    $servername = "localhost"; 
     $username = "admin123"; // temporary
     $password = "admin321";
     $dbname = "cityjail";  
@@ -655,35 +655,36 @@ function makeTable_crime($caseid, $crid, $cname, $classification, $datecharged, 
     }
     echo "</table>";
 } // makeTable_crime($cname, $classification, $datecharged, $database=NULL)
-function update_crime($caseid, $crid, $cname, $classification, $datecharged, $database=NULL) {
+function update_crime($caseid, $crid, $classification, $datecharged, $appealStat, $hearingdate, $appealcut,  $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
         return;
     }
 
     // Ensure that no improper characters are being used
-    formatInput($cname);
-    formatInput($lname);
-    formatInput($status);
+    formatInput($classification);
     
-    $aQuery = " UPDATE officer SET";
-    if($lname !== "") {
-        $aQuery .= " o_last  =  \"$lname\" ";
+    $aQuery = " UPDATE crime SET";
+    if($crid !== "") {
+        $aQuery .= " c_id  =  $crid ";
     }
-    if($fname !== "") {
-        $aQuery .= " o_first  =  \"$fname\" ";
+    if($classification !== "") {
+        $aQuery .= " classification  =  \"$classification\" ";
     }
-    if($precinct !== "") {
-        $aQuery .= " o_precinct  =  $precinct ";
+    if($datecharged !== "") {
+        $aQuery .= " datecharged  =  $datecharged ";
     }
-    if($phonenum !== "") {
-        $aQuery .= " o_phone_number  =  $phonenum ";
+    if($appealStat !== "") {
+        $aQuery .= " appeal_status  =  \"$appealStat\" ";
     }
-    if($status !== "") {
-        $aQuery .= " o_status  =  \"$status\" ";
+    if($hearingdate !== "") {
+        $aQuery .= " hearing_date  =  $hearingdate ";
     }
-    if($bNum !== "") {
-        $aQuery .= " WHERE badge_number = " . $bNum;
+    if($appealcut !== "") {
+        $aQuery .= " appeal_cutoff_date  =  $appealcut ";
+    }
+    if($caseid !== "") {
+        $aQuery .= " WHERE case_id = " . $caseid;
     }
     $aQuery .= " ; ";
     //echo "<p>$aQuery</p>";
