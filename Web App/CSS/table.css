@@ -1,11 +1,26 @@
 table, th, td {
     border: 2px solid;
     color: black;
+    padding: 0px 10px 10px 0px;
+    /* box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; */
     text-align: center;
 }
+.show-table {
+    /* box-sizing: border-box; */
+    /* top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    width: 50%;
+    margin: 0 auto;
 
+
+}
 .row-labels th {
     border-color: black;
+    text-align: center;
     background-color: #0a67be;
     color: white;
 

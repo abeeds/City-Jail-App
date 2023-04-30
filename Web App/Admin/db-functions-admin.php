@@ -175,7 +175,7 @@ function makeTable_officer($bNum, $name, $precinct ,$phonenum, $status,  $databa
                     <th> First Name </th>
                     <th> Last Name </th>
                     <th> Precinct </th>
-                    <th>Phone Number</th>
+                    <th> Phone Number </th>
                     <th> Status </th>
                 </tr>";
 
@@ -221,7 +221,85 @@ function makeTable_officer($bNum, $name, $precinct ,$phonenum, $status,  $databa
     }
     echo "</table>";
 }
+function show_officer($database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+    // Initialize table
+    echo    "<table class =\"show-table\" id=\"officer\">
+                <tr class=\"row-labels\">
+                    <th> Badge Number </th>
+                    <th> First Name </th>
+                    <th> Last Name </th>
+                    <th> Precinct </th>
+                    <th>Phone Number</th>
+                    <th> Status </th>
+                </tr>";
 
+    
+    // will show everything if no fields are entered
+    $aQuery = " SELECT * FROM officer o ";
+    $aQuery .= ";";
+
+    //echo "<p>$aQuery</p>";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    $result = $database->query($aQuery);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<th>" . $row["badge_number"] . "</th>";
+            echo "<th>" . $row["o_first"] . "</th>";
+            echo "<th>" . $row["o_last"] . "</th>";
+            echo "<th>" . $row["o_precinct"] . "</th>";
+            echo "<th>" . $row["o_phone_number"] . "</th>";
+            if($row["o_status"] === "a") {
+                echo "<th>" . "Active" . "</th>";
+            }
+            else {
+                echo "<th>" . "Inactive" . "</th>";
+            }  
+            echo "</tr>";
+        }
+    }
+    echo "</table>";
+}
+// This function will make the criminals table
+function add_officer($bNum, $fname, $lname, $precinct ,$phonenum, $status,  $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    // Ensure that no improper characters are being used
+    formatInput($fname);
+    formatInput($lname);
+    formatInput($status);
+    
+    $aQuery = " INSERT INTO officer (badge_number, o_last, o_first, o_precinct, o_phone_number, o_status)
+    VALUES";
+
+    // Add to query if any fields are entered
+    $aQuery .= " (  $bNum  , ";
+    $aQuery .= " \"$lname\" ,";
+    $aQuery .= " \"$fname\" ,";
+    $aQuery .= " $precinct  ,";
+    $aQuery .= "  $phonenum  ,";
+    $aQuery .= " \"$status\" )";
+
+    $aQuery .= ";";
+
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    if (mysqli_query($database, $aQuery)) {
+        //$rows = mysqli_affected_rows($database);
+        echo "<p>Insert successful. $rows rows affected.</p>";
+    } else {
+        //echo "Error: " . mysqli_error($database);
+        echo "<p>Error: </p>";
+    }
+}
 function makeTable_crime($caseid, $crid, $cname, $classification, $datecharged, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";

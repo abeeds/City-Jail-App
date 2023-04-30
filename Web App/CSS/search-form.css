@@ -15,6 +15,27 @@
   justify-content: space-between;
   margin: 0 0 20px;
 }
+.con {
+  position: relative;
+  background: #FFFFFF;
+  width: 400px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin: 100px auto 10px;
+}
+.edit-search button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  background: #4285F4;
+  width: 50%;
+  border: 0;
+  border-radius: 4px;
+  padding: 12px 20px;
+  color: #FFFFFF;
+  font-weight: 500;
+  cursor: pointer;
+}
 
 .form-group input, .form-group select {
   font-family: inherit;
@@ -30,7 +51,7 @@
   font-weight: 500;
 }
 
-.form-group button {
+.form-group button a{
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
@@ -42,6 +63,11 @@
   color: #FFFFFF;
   font-weight: 500;
   cursor: pointer;
+  
+}
+a{
+  text-decoration: none;
+  color: #FFFFFF;
 }
 
 .form-group .form-remember {

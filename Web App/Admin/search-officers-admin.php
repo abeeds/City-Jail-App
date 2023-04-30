@@ -62,26 +62,59 @@
                 </div>
               </div>
             </nav>
-        </header>
-        <div  class="form">
-            <div class="form-group">
-                <button class ="edit-search"> <a href="search-officers-admin.php">Search Table</a></button>
-            </div>
-            <div class="form-group">
-                <button class ="edit-search"> <a href="">Edit Table</button>
-            </div>
-            <div class="form-group">
-                <button class ="edit-search"><a href="add-officers-admin.php">Add Record</a></button>
-            </div>
-        </div>
+        </header>      
+        <center>
+                    
+            <div method="get" class="form">
+                    
+                <div class="form-panel one">
+            
+                    <div class="form-header">
 
-        <div style="margin: auto;" > 
+                    <h1>Officer Search</h1>
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <label for="bNum">Badge Number</label>
+                            <input id="bNum" type="number" name="bNum" maxlenght="4"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input id="name" type="text" name="name" maxlength="41"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="precinct">Precinct</label>
+                            <input id="precinct" type="number" name="precinct" min="0"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="phonenum">Phone Number</label>
+                            <input id="phonenum" type="number" name="phonenum" min="1" max="9999999999"/>
+                        </div>
+                        <div class="form-group">
+                          <label for="status">Status</label>
+                          <select name="status" id="status">
+                            <option value=""></option>
+                            <option value="a">Active</option>
+                            <option value="i">Inactive</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <?php 
                 // When a field is submitted, it will run this code
-                $db = connectToDB_admin();
-                Show_officer($db);
-             ?>
-        </div>
+                if($_GET){
+                    $db = connectToDB_admin();
+                    makeTable_officer($_GET["bNum"], $_GET["name"], $_GET["precinct"] ,$_GET["phonenum"], $_GET["status"],  $db);
+                }
+            ?>
+
+            
+        </center>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
