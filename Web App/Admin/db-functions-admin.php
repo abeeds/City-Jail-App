@@ -531,6 +531,50 @@ function show_charge($database=NULL) {
     echo "</table>";
 }// show_charge
 /*
+function show_appeal($database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+    // Initialize table
+    echo    "<table id=\"Appeals\">
+                <tr class=\"row-labels\">
+                    <th>Attempt Number</th>
+                    <th>Case ID</th>
+                    <th>Filing Date</th>
+                    <th>Appeal Hearing Date</th>
+                    <th>Result</th>
+                </tr>";
+
+
+    // will show everything if no fields are entered
+    $aQuery = "SELECT * FROM appeal a";
+
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    $result = $database->query($aQuery);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<th>" . $row["attempt_num"] . "</th>";
+            echo "<th>" . $row["case_id"] . "</th>";
+            echo "<th>" . $row["filing_date"] . "</th>";
+            echo "<th>" . $row["appeal_hearing_date"] . "</th>";
+            if($row["result_status"] === "p") {
+                echo "<th>" . "Pending" . "</th>";
+            }
+            else if($row["result_status"] === "a"){
+                echo "<th>" . "Approved" . "</th>";
+            }
+            else {
+                echo "<th>" . "Disapproved" . "</th>";
+            }
+
+            echo "</tr>";
+        }
+    }
+    echo "</table>";
+}
 function select_officer($bNum,$database=NULL ){
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
