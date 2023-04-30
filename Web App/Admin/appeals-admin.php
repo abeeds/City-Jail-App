@@ -1,6 +1,6 @@
 <?php
   // This file holds the functions used
-  include "db-functions.php"
+  include "db-functions-admin.php"
 ?>
 <!DOCTYPE html>
 <html>
