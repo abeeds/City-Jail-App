@@ -374,7 +374,7 @@ function show_sentence($database=NULL) {
         }
     }
     echo "</table>";
-}// show_criminal
+}// show_sentence
 /*
 function select_officer($bNum,$database=NULL ){
     if(!$database) {
@@ -512,6 +512,38 @@ function add_officer($bNum, $fname, $lname, $precinct ,$phonenum, $status,  $dat
 
     $aQuery .= ";";
     //echo "<p>$aQuery</p>";
+    if (mysqli_query($database, $aQuery)) {
+        //$rows = mysqli_affected_rows($database);
+        echo "<p> Insert successful.</p>";
+    } else {
+        //echo "Error: " . mysqli_error($database);
+        echo "<p>Error: </p>";
+    }
+}
+function add_sentence($sid, $cid, $probid, $start_date ,$end_date, $numVio, $type,  $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    // Ensure that no improper characters are being used
+    formatInput($type);
+    
+    
+    $aQuery = " INSERT INTO sentence (sentence_id, c_id, p_id, start_date, end_date, num_violations, type)
+    VALUES";
+
+    // Add to query if any fields are entered
+    $aQuery .= " (  $sid  , ";
+    $aQuery .= " $cid ,";
+    $aQuery .= " $probid ,";
+    $aQuery .= " \"$start_date\"  ,";
+    $aQuery .= "  \"$end_date\"  ,";
+    $aQuery .= "  $numVio  ,";
+    $aQuery .= " \"$type\" )";
+
+    $aQuery .= ";";
+    echo "<p>$aQuery</p>";
     if (mysqli_query($database, $aQuery)) {
         //$rows = mysqli_affected_rows($database);
         echo "<p> Insert successful.</p>";

@@ -125,7 +125,7 @@
               // When a field is submitted, it will run this code
               if($_GET){
                 $db = connectToDB_admin();
-              makeTable_sentence($_GET["sid"], $_GET["cid"],$_GET["probid"], $_GET["start_date"], $_GET["end_date"], $_GET["numVio"], $_GET["type"], $db);
+                add_sentence($_GET["sid"], $_GET["cid"],$_GET["probid"], $_GET["start_date"], $_GET["end_date"], $_GET["numVio"], $_GET["type"], $db);
               }
             ?>
         </center>
