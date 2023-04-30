@@ -265,7 +265,107 @@ function show_officer($database=NULL) {
     }
     echo "</table>";
 }// show_officer
+function show_prob_officer($database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+    // Initialize table
+    echo    "<table class =\"show-table\" id=\"officer\">
+                <tr class=\"row-labels\">
+                    <th> Probation Officer ID </th>
+                    <th> First Name </th>
+                    <th> Last Name </th>
+                    <th> Phone Number </th>
+                    <th> Street</th>
+                    <th> City </th>
+                    <th> State </th>
+                    <th> Zip </th>
+                    <th> Email </th>
+                    <th> Status </th>
+                </tr>";
 
+    
+    // will show everything if no fields are entered
+    $aQuery = " SELECT * FROM prob_officer o ";
+    $aQuery .= ";";
+
+    //echo "<p>$aQuery</p>";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    $result = $database->query($aQuery);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<th>" . $row["p_id"] . "</th>";
+            echo "<th>" . $row["p_first"] . "</th>";
+            echo "<th>" . $row["p_last"] . "</th>";
+            echo "<th>" . $row["p_phone_number"] . "</th>";
+            echo "<th>" . $row["p_street"] . "</th>";
+            echo "<th>" . $row["p_city"] . "</th>";
+            echo "<th>" . $row["p_state"] . "</th>";
+            echo "<th>" . $row["p_zip"] . "</th>";
+            echo "<th>" . $row["p_email"] . "</th>";
+            if($row["p_status"] === "a") {
+                echo "<th>" . "Active" . "</th>";
+            }
+            else {
+                echo "<th>" . "Inactive" . "</th>";
+            }  
+            echo "</tr>";
+        }
+    }
+    echo "</table>";
+}// show_officer
+function show_crime_officer($database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+    // Initialize table
+    echo    "<table class =\"show-table\" id=\"officer\">
+                <tr class=\"row-labels\">
+                    <th> Case ID </th>
+                    <th> Badge Number</th>
+                    <th> First Name </th>
+                    <th> Last Name </th>
+                    <th> Classification </th>
+                </tr>";
+
+    
+    // will show everything if no fields are entered
+    $aQuery = " SELECT co.* , o.o_last AS last, o.o_first AS first, c.classification AS class FROM crime_officer co, officer o, crime c WHERE o.badge_number = co.badge_number AND c.case_id = co.case_id";
+    $aQuery .= ";";
+
+    //echo "<p>$aQuery</p>";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    $result = $database->query($aQuery);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<th>" . $row["case_id"] . "</th>";
+            echo "<th>" . $row["badge_number"] . "</th>";
+            echo "<th>" . $row["first"] . "</th>";
+            echo "<th>" . $row["last"] . "</th>";
+            switch($row["class"]) {
+                case "o":
+                    echo "<th>Other</th>";
+                    break;
+
+                case "m":
+                    echo "<th>Misdemeanor</th>";
+                    break;
+
+                case "f":
+                    echo "<th>Felony</th>";
+                    break;
+            }
+            echo "</tr>";
+        }
+    }
+    echo "</table>";
+}// show_officer
 function show_criminal($database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
