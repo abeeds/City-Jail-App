@@ -722,4 +722,91 @@ function makeTable_sentence($sid, $cid, $name, $start_date, $end_date, $type, $d
     }
     echo "</table>";
 }// makeTable_sentence
+function makeTable_appeal($cname, $appeal_date, $resultStat, $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    // Ensure that no improper characters are being used
+    formatInput($cname);
+
+    // Display the search prompt
+    echo "<p> Showing Results For: <br>";
+    if($cname !== "") {
+        echo "Name: " . $cname . "<br>";
+    }
+    if($appeal_date !== "") {
+        echo "Appeal Hearing Date: " . $appeal_date . "<br>";
+    }
+    if($resultStat !== "") {
+        echo "Result: ";
+        if($resultStat === "p") {
+            echo "Pending";
+        }
+        else if($resultStat === "a"){
+            echo "Approved";
+        }
+        else {
+            echo "Disapproved";
+        }
+        echo "<br>";
+    }
+    echo "</p>";
+
+    // Initialize table
+    echo    "<table id=\"Appeals\">
+                <tr class=\"row-labels\">
+                    <th>Case ID</th>
+                    <th>ID</th>
+                    <th>Last</th>
+                    <th>First</th>
+                    <th>Filing Date</th>
+                    <th>Appeal Hearing Date</th>
+                    <th>Attempt Number</th>
+                    <th>Result</th>
+                </tr>";
+
+
+    // will show everything if no fields are entered
+    $aQuery = "SELECT * FROM appeal a, crime ca, criminal c ";
+
+    // Add to query if any fields are entered
+    $aQuery .= "WHERE c.c_id = ca.c_id AND ca.case_id = a.case_id ";
+    $aQuery .= "AND CONCAT(c.c_first, ' ',  c.c_last) LIKE '%" . $name . "%' ";
+    $aQuery .= "AND a.appeal_hearing_date LIKE '%" . $appeal_date . "%' " ;
+    if($resultStat !== "") {
+        $aQuery .= " AND a.result_status = '${resultStat}' ";
+    }
+    $aQuery .= ";";
+
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    echo "<p>${aQuery}</p>";
+    $result = $database->query($aQuery);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<th>" . $row["case_id"] . "</th>";
+            echo "<th>" . $row["c_id"] . "</th>";
+            echo "<th>" . $row["c_last"] . "</th>";
+            echo "<th>" . $row["c_first"] . "</th>";
+            echo "<th>" . $row["filing_date"] . "</th>";
+            echo "<th>" . $row["appeal_hearing_date"] . "</th>";
+            echo "<th>" . $row["attempt_num"] . "</th>";
+            if($row["result_status"] === "p") {
+                echo "<th>" . "Pending" . "</th>";
+            }
+            else if($row["result_status"] === "a"){
+                echo "<th>" . "Approved" . "</th>";
+            }
+            else {
+                echo "<th>" . "Disapproved" . "</th>";
+            }
+
+            echo "</tr>";
+        }
+    }
+    echo "</table>";
+}
 ?>
