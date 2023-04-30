@@ -17,10 +17,10 @@ function formatInput(&$string){
 
 // returns the MYSQL connection if success
 function connectToDB_guest() {
-    $servername = "localhost"; 
+    $servername = "localhost";
     $username = "guest";
     $password = "guest";
-    $dbname = "cityjail";  
+    $dbname = "cityjail";
 
     $conn = new mysqli($servername, $username, $password, $dbname);
     if($conn->connect_error) {
@@ -71,7 +71,7 @@ function makeTable_criminal($name, $city, $state, $zip, $database=NULL) {
                     <th>Probation Status</th>
                 </tr>";
 
-    
+
     // will show everything if no fields are entered
     $aQuery = "SELECT * FROM criminal c";
 
@@ -103,14 +103,14 @@ function makeTable_criminal($name, $city, $state, $zip, $database=NULL) {
             else {
                 echo "<th>" . "No" . "</th>";
             }
-            
+
             if($row["P_status"] === "y") {
                 echo "<th>" . "Yes" . "</th>";
             }
             else {
                 echo "<th>" . "No" . "</th>";
             }
-            
+
             echo "</tr>";
         }
     }
@@ -155,7 +155,7 @@ function makeTable_crime($cname, $classification, $datecharged, $database=NULL) 
                     <th>Appeal Cutoff Date</th>
                 </tr>";
 
-    
+
     // will show everything if no fields are entered
     $aQuery = "SELECT c.*, cr.c_first AS criminal_first, cr.c_last AS criminal_last FROM crime c JOIN criminal cr ON c.c_id = cr.c_id ";
 
@@ -167,7 +167,7 @@ function makeTable_crime($cname, $classification, $datecharged, $database=NULL) 
         $aQuery .= "AND c.date_charged >= '" . $datecharged . "'";
     }
     $aQuery .= ";";
-    
+
     // adds a row to the HTML for each row on the table
     // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
     $result = $database->query($aQuery);
@@ -221,8 +221,6 @@ function makeTable_sentence($name, $start_date, $end_date, $type, $database=NULL
 
     // Ensure that no improper characters are being used
     formatInput($name);
-    formatDate($startdate);
-    formatDate($enddate);
 
     // Display the search prompt
     echo "<p> Showing Results For: <br>";
@@ -268,8 +266,7 @@ function makeTable_sentence($name, $start_date, $end_date, $type, $database=NULL
     $aQuery = "SELECT s.*, cr.c_first AS criminal_first, cr.c_last AS criminal_last FROM sentence s JOIN criminal cr ON s.c_id = cr.c_id";
 
     // Add to query if any fields are entered
-    $aQuery .= " WHERE c.c_id = s.c_id ";
-    $aQuery .= "AND CONCAT(c.c_first, ' ',  c.c_last) LIKE '%" . $name . "%' ";
+    $aQuery .= " WHERE CONCAT(cr.c_first, ' ',  cr.c_last) LIKE '%" . $name . "%' ";
     if($start_date !== "" && $end_date === "") {
         $aQuery .= " AND s.start_date = '" . $start_date . "'";
     }
@@ -357,7 +354,7 @@ function makeTable_charge($cname, $chargeStat, $database=NULL) {
 
     // will show everything if no fields are entered
     $aQuery = "SELECT ch.*, cr.c_first AS criminal_first, cr.c_last AS criminal_last FROM charge ch JOIN crime c ON ch.case_id = c.case_id JOIN criminal cr ON c.c_id = cr.c_id ";
-    
+
     // Add to query if any fields are entered
     $aQuery .= "WHERE CONCAT(cr.c_first,' ',  cr.c_last) LIKE '%" . $cname . "%'";
     $aQuery .= "AND ch.charge_status LIKE '%" . $chargeStat . "%' ";
@@ -397,4 +394,92 @@ function makeTable_charge($cname, $chargeStat, $database=NULL) {
     }
     echo "</table>";
 } // makeTable_charge
+
+function makeTable_appeal($cname, $appeal_date, $resultStat, $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    // Ensure that no improper characters are being used
+    formatInput($cname);
+
+    // Display the search prompt
+    echo "<p> Showing Results For: <br>";
+    if($cname !== "") {
+        echo "Name: " . $cname . "<br>";
+    }
+    if($appeal_date !== "") {
+        echo "Appeal Hearing Date: " . $appeal_date . "<br>";
+    }
+    if($resultStat !== "") {
+        echo "Result: ";
+        if($resultStat === "p") {
+            echo "Pending";
+        }
+        else if($resultStat === "a"){
+            echo "Approved";
+        }
+        else {
+            echo "Disapproved";
+        }
+        echo "<br>";
+    }
+    echo "</p>";
+
+    // Initialize table
+    echo    "<table id=\"Appeals\">
+                <tr class=\"row-labels\">
+                    <th>Case ID</th>
+                    <th>ID</th>
+                    <th>Last</th>
+                    <th>First</th>
+                    <th>Filing Date</th>
+                    <th>Appeal Hearing Date</th>
+                    <th>Attempt Number</th>
+                    <th>Result</th>
+                </tr>";
+
+
+    // will show everything if no fields are entered
+    $aQuery = "SELECT * FROM appeal a, crime ca, criminal c ";
+
+    // Add to query if any fields are entered
+    $aQuery .= "WHERE c.c_id = ca.c_id AND ca.case_id = a.case_id ";
+    $aQuery .= "AND CONCAT(c.c_first, ' ',  c.c_last) LIKE '%" . $name . "%' ";
+    $aQuery .= "AND a.appeal_hearing_date LIKE '%" . $appeal_date . "%' " ;
+    if($resultStat !== "") {
+        $aQuery .= " AND a.result_status = '${resultStat}' ";
+    }
+    $aQuery .= ";";
+
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    echo "<p>${aQuery}</p>";
+    $result = $database->query($aQuery);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<th>" . $row["case_id"] . "</th>";
+            echo "<th>" . $row["c_id"] . "</th>";
+            echo "<th>" . $row["c_last"] . "</th>";
+            echo "<th>" . $row["c_first"] . "</th>";
+            echo "<th>" . $row["filing_date"] . "</th>";
+            echo "<th>" . $row["appeal_hearing_date"] . "</th>";
+            echo "<th>" . $row["attempt_num"] . "</th>";
+            if($row["result_status"] === "p") {
+                echo "<th>" . "Pending" . "</th>";
+            }
+            else if($row["result_status"] === "a"){
+                echo "<th>" . "Approved" . "</th>";
+            }
+            else {
+                echo "<th>" . "Disapproved" . "</th>";
+            }
+
+            echo "</tr>";
+        }
+    }
+    echo "</table>";
+}
 ?>
