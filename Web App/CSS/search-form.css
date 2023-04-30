@@ -6,7 +6,6 @@
   width: 600px;
   border-radius: 4px;
   box-sizing: border-box;
-  margin: 100px auto 10px;
 }
 
 .form-group {
@@ -16,24 +15,17 @@
   margin: 0 0 20px;
 }
 .con {
-  position: relative;
-  background: #FFFFFF;
-  width: 400px;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin: 100px auto 10px;
+  width: 500px;
 }
 .edit-search button {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
   background: #4285F4;
-  width: 50%;
-  border: 0;
-  border-radius: 4px;
-  padding: 12px 20px;
+  width: 1000px;
+  margin: 5px auto;
   color: #FFFFFF;
-  font-weight: 500;
+  font-weight: 400;
   cursor: pointer;
 }
 

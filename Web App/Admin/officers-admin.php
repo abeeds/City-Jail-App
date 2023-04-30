@@ -63,17 +63,19 @@
               </div>
             </nav>
         </header>
-        <div  class="form">
-            <div class="form-group">
-                <button class ="edit-search"> <a style="color:inherit;>" href="search-officers-admin.php">Search Table</a></button>
+        <center>
+            <div style="width:1000px;">
+                <div  class="edit-search" style ="margin: 10px auto; display:inline-block;">
+                    <button style="width:150px; > <a style="color:inherit;font-size: inherit;line-height: inherit;" href="search-officers-admin.php">Search Table</a></button>
+                </div>
+                <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
+                    <button style="width:150px;"> <a style="color:inherit;font-size: inherit;line-height: inherit;" href="edit-officers-admin.php">Update Table</a></button>
+                </div>
+                <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
+                    <button style="width:150px;><a style="color:inherit;font-size: inherit;line-height: inherit;" href="add-officers-admin.php">Add Record</a></button>
+                </div>
             </div>
-            <div class="form-group">
-                <button class ="edit-search"> <a style="color:inherit;>" href="edit-officers-admin.php">Update Table</a></button>
-            </div>
-            <div class="form-group">
-                <button class ="edit-search"><a style="color:inherit;>" href="add-officers-admin.php">Add Record</a></button>
-            </div>
-        </div>
+        </center>
 
         <div style="margin: auto;" > 
             <?php 
