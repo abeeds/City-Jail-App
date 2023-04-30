@@ -53,13 +53,13 @@
                   <!-- Right Side of Navigation Bar -->
                   <div class="navbar-nav">
                     <a href="">
-                        <img tag="help" src="../../Images/help.png" alt="Help">
+                        <img tag="help" src="../../../Images/help.png" alt="Help">
                     </a>
 
                     <!-- Dropdown menu on Profile Button -->
                     <div class="dropdown">
                       <a class ="dropbtn" href="">
-                        <img tag="profile" src="../../Images/profile.png" alt="My Profile">
+                        <img tag="profile" src="../../../Images/profile.png" alt="My Profile">
                       </a>
 
                       <div class="dropdown-content">
