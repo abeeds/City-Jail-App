@@ -17,7 +17,6 @@
         <title>City Jail - admin</title>
     </head>
     <body> 
-
         <header class="site-header">
             <nav class="navbar navbar-expand-md navbar-dark navigBG fixed-top">
               <div class="container">
@@ -37,7 +36,18 @@
                     <a class="nav-item nav-link" href="charges-admin.php">Charges</a>
                     <a class="nav-item nav-link" href="sentences-admin.php">Sentences</a>
                     <a class="nav-item nav-link" href="appeals-admin.php">Appeals</a>
-                    <a class="nav-item nav-link" href="officers-admin.php">Officers</a>
+                    <!-- <a class="nav-item nav-link" href="officers-admin.php">Officers</a> -->
+                    <div class="dropdown">
+                      <div  class="nav-item nav-link">
+                        <a class ="dropbtn">Officers</a>
+                      </div>
+                      <div class="dropdown-content">
+                        <a href="officers-admin.php">Officiers</a>
+                        <a href="crime_officers-admin.php">Crime Officers</a> 
+                        <a href="prob_officers-admin.php">Probation Officers</a> 
+                        <!-- Logout should lead to non-admin homepage -->
+                      </div>
+                    </div>
                   </div>
                   
                   <!-- Right Side of Navigation Bar -->
@@ -62,28 +72,52 @@
                 </div>
               </div>
             </nav>
-        </header>
-        <center>
-            <div style="width:1000px;">
-                <div  class="edit-search" style ="margin: 10px auto; display:inline-block;">
-                    <button style="width:150px; > <a style="color:inherit;font-size: inherit;line-height: inherit;" href="search-officers-admin.php">Search Table</a></button>
-                </div>
-                <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
-                    <button style="width:150px;"> <a style="color:inherit;font-size: inherit;line-height: inherit;" href="edit-officers-admin.php">Update Table</a></button>
-                </div>
-                <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
-                    <button style="width:150px;><a style="color:inherit;font-size: inherit;line-height: inherit;" href="add-officers-admin.php">Add Record</a></button>
-                </div>
-            </div>
-        </center>
+          </header>
 
-        <div style="margin: auto;" > 
+        <!-- START WRITING HERE -->
+        <center>
+          <div method="get" class="form">
+              <div class="form-panel one">
+                <div class="form-header">
+                  <h1>Charges Search</h1>
+                </div>
+                  <form>
+                  <div class="form-group">
+                      <label for="chargeid">Charge ID</label>
+                      <input id="chargeid" type="number" name="chargeid" min="0"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="caseID">Case ID</label>
+                      <input id="caseID" type="number" name="caseID" min="0"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="cname">Name</label>
+                      <input id="cname" type="text" name="cname" maxlength="41"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="chargeStat">Charge Status</label>
+                      <select name="chargeStat" id="chargeStat">
+                      <option value=""></option>
+                        <option value="p">Pending</option>
+                        <option value="g">Guilty</option>
+                        <option value="n">Not Guilty</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <button type="submit">Submit</button>
+                    </div>
+                  </form>
+              </div>
+            </div>
+
             <?php 
-                // When a field is submitted, it will run this code
+              // When a field is submitted, it will run this code
+              if($_GET){
                 $db = connectToDB_admin();
-                Show_officer($db);
-             ?>
-        </div>
+                makeTable_charge($_GET["chargeid"], $_GET["caseID"], $_GET["cname"], $_GET["chargeStat"], $db);
+              }
+            ?>
+        </center>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

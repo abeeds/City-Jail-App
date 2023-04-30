@@ -1,5 +1,5 @@
 <?php 
-    include "db-functions-admin.php";
+    include "../db-functions-admin.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,13 +10,14 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="../CSS/main.css">
-        <link rel="stylesheet" type="text/css" href="../CSS/table.css">
-        <link rel="stylesheet" type="text/css" href="../CSS/search-form.css">
+        <link rel="stylesheet" type="text/css" href="../../CSS/main.css">
+        <link rel="stylesheet" type="text/css" href="../../CSS/table.css">
+        <link rel="stylesheet" type="text/css" href="../../CSS/search-form.css">
 
         <title>City Jail - admin</title>
     </head>
     <body> 
+
         <header class="site-header">
             <nav class="navbar navbar-expand-md navbar-dark navigBG fixed-top">
               <div class="container">
@@ -29,26 +30,36 @@
                 </button>
                 <!-- Main Navigation Pages -->
                 <div class="collapse navbar-collapse" id="navbarToggle">
-                  <div class="navbar-nav mr-auto">
+                <div class="navbar-nav mr-auto">
                     <a class="nav-item nav-link" href="">Admin</a>
-                    <a class="nav-item nav-link" href="criminals-admin.php">Criminals</a>
-                    <a class="nav-item nav-link" href="crimes-admin.php">Crimes</a>
-                    <a class="nav-item nav-link" href="charges-admin.php">Charges</a>
-                    <a class="nav-item nav-link" href="sentences-admin.php">Sentences</a>
-                    <a class="nav-item nav-link" href="appeals-admin.php">Appeals</a>
-                    <a class="nav-item nav-link" href="officers-admin.php">Officers</a>
+                    <a class="nav-item nav-link" href="../criminal/criminals-admin.php">Criminals</a>
+                    <a class="nav-item nav-link" href="../crimes-admin.php">Crimes</a>
+                    <a class="nav-item nav-link" href="../charges-admin.php">Charges</a>
+                    <a class="nav-item nav-link" href="../sentences-admin.php">Sentences</a>
+                    <a class="nav-item nav-link" href="../appeals-admin.php">Appeals</a>
+                    <div class="dropdown">
+                      <div  class="nav-item nav-link">
+                        <a class ="dropbtn">Officers</a>
+                      </div>
+                      <div class="dropdown-content">
+                        <a href="officers-admin.php">Officer</a>
+                        <a href="crime_officers-admin.php">Crime per Officer</a> 
+                        <a href="prob_officers-admin.php">Probation Officer</a> 
+                        <!-- Logout should lead to non-admin homepage -->
+                      </div>
+                    </div>
                   </div>
                   
                   <!-- Right Side of Navigation Bar -->
                   <div class="navbar-nav">
                     <a href="">
-                        <img tag="help" src="../../Images/help.png" alt="Help">
+                        <img tag="help" src="../../../Images/help.png" alt="Help">
                     </a>
 
                     <!-- Dropdown menu on Profile Button -->
                     <div class="dropdown">
                       <a class ="dropbtn" href="">
-                        <img tag="profile" src="../../Images/profile.png" alt="My Profile">
+                        <img tag="profile" src="../../../Images/profile.png" alt="My Profile">
                       </a>
 
                       <div class="dropdown-content">
@@ -61,43 +72,41 @@
                 </div>
               </div>
             </nav>
-          </header>
-
-        
+        </header>      
         <center>
+                    
             <div method="get" class="form">
+                    
                 <div class="form-panel one">
+            
                     <div class="form-header">
-                    <h1>Criminal Search</h1>
+
+                    <h1>Officer Search</h1>
                     </div>
                     <form>
                         <div class="form-group">
-                            <label for="id">Criminal ID</label>
-                            <input id="id" type="number" name="id" min="0"/>
+                            <label for="bNum">Badge Number</label>
+                            <input id="bNum" type="number" name="bNum" maxlenght="4"/>
                         </div>
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input id="name" type="text" name="name" maxlength="41"/>
                         </div>
                         <div class="form-group">
-                            <label for="street">Street</label>
-                            <input id="street" type="text" name="street" maxlength="64"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="city">City</label>
-                            <input id="city" type="text" name="city" maxlength="64"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="state">State</label>
-                            <input id="state" type="text" name="state" maxlength="2"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="zip">Zip Code</label>
-                            <input type="number" id="zip" name="zip" min="1" max="99999" pattern="[1-9]{1}\d{4}">
+                            <label for="precinct">Precinct</label>
+                            <input id="precinct" type="number" name="precinct" min="0"/>
                         </div>
                         <div class="form-group">
                             <label for="phonenum">Phone Number</label>
                             <input id="phonenum" type="number" name="phonenum" min="1" max="9999999999"/>
+                        </div>
+                        <div class="form-group">
+                          <label for="status">Status</label>
+                          <select name="status" id="status">
+                            <option value=""></option>
+                            <option value="a">Active</option>
+                            <option value="i">Inactive</option>
+                          </select>
                         </div>
                         <div class="form-group">
                             <button type="submit">Submit</button>
@@ -110,7 +119,7 @@
                 // When a field is submitted, it will run this code
                 if($_GET){
                     $db = connectToDB_admin();
-                    makeTable_criminal($_GET["id"], $_GET["name"], $_GET["street"] ,$_GET["city"], $_GET["state"], $_GET["zip"], $_GET["phonenum"],  $db);
+                    makeTable_officer($_GET["bNum"], $_GET["name"], $_GET["precinct"] ,$_GET["phonenum"], $_GET["status"],  $db);
                 }
             ?>
 
