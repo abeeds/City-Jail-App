@@ -90,7 +90,7 @@
               // When a field is submitted, it will run this code
               if($_GET){
                 $db = connectToDB_admin();
-                delete_appeal($_GET["chargeid"], $db);
+                delete_appeal($_GET["numAtt"], $_GET["caseid"] $db);
               }
             ?>
 
