@@ -1,4 +1,4 @@
-<?php 
+<?php
     include "../db-functions-admin.php";
     if (!isset($_COOKIE['username'])) {
       header('Location: ../../User/criminals.php');
@@ -20,13 +20,13 @@
 
         <title>City Jail - admin</title>
     </head>
-    <body> 
+    <body>
 
         <header class="site-header">
             <nav class="navbar navbar-expand-md navbar-dark navigBG fixed-top">
               <div class="container">
                 <!-- Should lead to whatever the homepage is-->
-                <a class="navbar-brand mr-4" href=""><strong>City Jail</strong></a> 
+                <a class="navbar-brand mr-4" href=""><strong>City Jail</strong></a>
                 </button>
                 <!-- Navbar Toggler -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,13 +48,13 @@
                       </div>
                       <div class="dropdown-content">
                         <a href="../officer/officers-admin.php">Officer</a>
-                        <a href="../crime_officer/crime_officers-admin.php">Crime per Officer</a> 
-                        <a href="../prob_officer/prob_officers-admin.php">Probation Officer</a> 
+                        <a href="../crime_officer/crime_officers-admin.php">Crime per Officer</a>
+                        <a href="../prob_officer/prob_officers-admin.php">Probation Officer</a>
                         <!-- Logout should lead to non-admin homepage -->
                       </div>
                     </div>
                   </div>
-                  
+
                   <!-- Right Side of Navigation Bar -->
                   <div class="navbar-nav">
                     <!-- Dropdown menu on Profile Button -->
@@ -65,61 +65,42 @@
                 </div>
               </div>
             </nav>
-        </header>      
+        </header>
         <center>
            <div method="get" class="form">
-                    
+
                 <div class="form-panel one">
                     <div class="form-header">
                     <h1>Update Criminal's Details</h1>
                     </div>
                     <form>
                         <div class="form-group">
-                            <label for="id">Update Criminal with ID</label>
-                            <input id="id" type="number" name="id" min="0" required/>
+                            <label for="numAtt">Update Attempt</label>
+                            <input id="numAtt" type="number" name="numAtt" min="0" required/>
                         </div>
                         <div class="form-group">
-                            <label for="fname">First Name</label>
-                            <input id="fname" type="text" name="fname" maxlength="41"/>
+                            <label for="caseid">of Appeal with Case ID</label>
+                            <input id="caseid" type="number" name="caseid" min="0" required/>
                         </div>
                         <div class="form-group">
-                            <label for="lname">Last Name</label>
-                            <input id="lname" type="text" name="lname" maxlength="41"/>
+                            <label for="fdate">Filing Date</label>
+                            <input id="fdate" type="date" name="fdate"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="appeal_date">Appeal Hearing Date</label>
+                            <input id="appeal_date" type="date" name="appeal_date"/>
                         </div>
                         <div class="form-group">
                             <label for="street">Street</label>
                             <input id="street" type="text" name="street" maxlength="64"/>
                         </div>
                         <div class="form-group">
-                            <label for="city">City</label>
-                            <input id="city" type="text" name="city" maxlength="64"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="state">State</label>
-                            <input id="state" type="text" name="state" maxlength="2"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="zip">Zip Code</label>
-                            <input type="number" id="zip" name="zip" min="1" max="99999" pattern="[1-9]{1}\d{4}">
-                        </div>
-                        <div class="form-group">
-                            <label for="phonenum">Phone Number</label>
-                            <input id="phonenum" type="number" name="phonenum" min="1" max="9999999999"/>
-                        </div>
-                        <div class="form-group">
-                          <label for="Vstat">Violent Offender Status</label>
-                          <select name="Vstat" id="Vstat">
+                          <label for="result">Result</label>
+                          <select name="result" id="result">
                             <option value=""></option>
-                            <option value="y">Yes</option>
-                            <option value="n">No</option>
-                          </select>
-                        </div>
-                        <div class="form-group">
-                          <label for="Pstat">Probation Status</label>
-                          <select name="Pstat" id="Pstat">
-                          <option value=""></option>
-                            <option value="y">Yes</option>
-                            <option value="n">No</option>
+                            <option value="p">Pending</option>
+                            <option value="a">Approved</option>
+                            <option value="d">Disapproved</option>
                           </select>
                         </div>
                         <div class="form-group">
@@ -129,7 +110,7 @@
                 </div>
             </div>
 
-            <?php 
+            <?php
                 // When a field is submitted, it will run this code
                 if($_GET){
                     $db = connectToDB_admin();
@@ -137,7 +118,7 @@
                 }
             ?>
 
-            
+
         </center>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
