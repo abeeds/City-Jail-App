@@ -1,5 +1,5 @@
 <?php
-    include "../db-functions.php";
+    include "../db-functions-admin.php";
     if (!isset($_COOKIE['username'])) {
       header('Location: ../../User/criminals.php');
       exit;
@@ -90,7 +90,7 @@
               // When a field is submitted, it will run this code
               if($_GET){
                 $db = connectToDB_admin();
-                delete_appeal($_GET["numAtt"], $_GET["caseid"] $db);
+                delete_appeal($_GET["numAtt"], $_GET["caseid"], $db);
               }
             ?>
 
@@ -101,3 +101,4 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>
+
