@@ -1007,6 +1007,29 @@ function add_crime($caseid, $crid, $classification, $datecharged, $appealStat, $
         echo "<p>Error: </p>";
     }
 }
+
+function add_appeal($numAtt, $caseid, $filing_date, $appeal_date, $resultStat, $database=NULL){
+  if(!$database) {
+      echo "<p> Failed to connect to database. </p>";
+      return;
+  }
+
+  $aQuery = " INSERT INTO appeal (attempt_num, case_id, filing_date, appeal_hearing_date, result_status)
+  VALUES";
+
+  // Add to query if any fields are entered
+  $aQuery .= " ( ${numAtt} , ${caseid} , ${filing_date} , ${appeal_date} , \"${resultStat}\" )";
+  $aQuery .= ";";
+  echo "<p>$aQuery</p>";
+  if (mysqli_query($database, $aQuery)) {
+      //$rows = mysqli_affected_rows($database);
+      echo "<p> Insert successful.</p>";
+  } else {
+      //echo "Error: " . mysqli_error($database);
+      echo "<p>Error: </p>";
+  }
+}
+
 function update_officer($bNum, $fname, $lname, $precinct ,$phonenum, $status,  $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
