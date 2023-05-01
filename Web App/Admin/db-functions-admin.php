@@ -975,6 +975,38 @@ function add_sentence($sid, $cid, $probid, $start_date ,$end_date, $numVio, $typ
         echo "<p>Error: </p>";
     }
 }
+function add_crime($caseid, $crid, $classification, $datecharged, $appealStat, $hearingdate, $appealcut,  $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    // Ensure that no improper characters are being used
+    formatInput($classification);
+    
+    
+    $aQuery = " INSERT INTO crime (case_id, c_id, classification, date_charged, appeal_status, hearing_date, appeal_cutoff_date)
+    VALUES";
+
+    // Add to query if any fields are entered
+    $aQuery .= " (  $caseid  , ";
+    $aQuery .= " $crid ,";
+    $aQuery .= " \"$classification\"  ,";
+    $aQuery .= "  \"$datecharged\"  ,";
+    $aQuery .= "  \"$appealStat\"  ,";
+    $aQuery .= "  \"$hearingdate\"  ,";
+    $aQuery .= " \"$appealcut\" )";
+
+    $aQuery .= ";";
+    //echo "<p>$aQuery</p>";
+    if (mysqli_query($database, $aQuery)) {
+        //$rows = mysqli_affected_rows($database);
+        echo "<p> Insert successful.</p>";
+    } else {
+        //echo "Error: " . mysqli_error($database);
+        echo "<p>Error: </p>";
+    }
+}
 function update_officer($bNum, $fname, $lname, $precinct ,$phonenum, $status,  $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
@@ -1475,22 +1507,22 @@ function update_crime($caseid, $crid, $classification, $datecharged, $appealStat
     
     $aQuery = " UPDATE crime SET";
     if($crid !== "") {
-        $aQuery .= " c_id  =  $crid ";
+        $aQuery .= " c_id  =  $crid, ";
     }
     if($classification !== "") {
-        $aQuery .= " classification  =  \"$classification\" ";
+        $aQuery .= " classification  =  \"$classification\" ,";
     }
     if($datecharged !== "") {
-        $aQuery .= " datecharged  =  $datecharged ";
+        $aQuery .= " datecharged  =  $datecharged ,";
     }
     if($appealStat !== "") {
-        $aQuery .= " appeal_status  =  \"$appealStat\" ";
+        $aQuery .= " appeal_status  =  \"$appealStat\", ";
     }
     if($hearingdate !== "") {
-        $aQuery .= " hearing_date  =  $hearingdate ";
+        $aQuery .= " hearing_date  =  $hearingdate, ";
     }
     if($appealcut !== "") {
-        $aQuery .= " appeal_cutoff_date  =  $appealcut ";
+        $aQuery .= " appeal_cutoff_date  =  $appealcut, ";
     }
     $aQuery = rtrim($aQuery, ', ') . " WHERE case_id= $caseid";
 

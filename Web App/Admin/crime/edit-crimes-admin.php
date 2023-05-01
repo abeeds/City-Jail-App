@@ -36,7 +36,7 @@
                 <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
                     <a class="nav-item nav-link" href="../criminal/criminals-admin.php">Criminals</a>
-                    <a class="nav-item nav-link" href="crime/crimes-admin.php">Crimes</a>
+                    <a class="nav-item nav-link" href="crimes-admin.php">Crimes</a>
                     <a class="nav-item nav-link" href="../charge/charges-admin.php">Charges</a>
                     <a class="nav-item nav-link" href="../sentence/sentences-admin.php">Sentences</a>
                     <a class="nav-item nav-link" href="../appeal/appeals-admin.php">Appeals</a>
