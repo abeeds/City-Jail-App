@@ -1387,7 +1387,7 @@ function delete_sentence($sid, $database=NULL) {
     }
 
     $aQuery = " DELETE FROM sentence ";
-    $aQuery .= " WHERE s_id = " . $sid;
+    $aQuery .= " WHERE sentence_id = " . $sid;
     $aQuery .= " ; ";
     //echo "<p>$aQuery</p>";
     // adds a row to the HTML for each row on the table
