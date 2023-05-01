@@ -79,25 +79,24 @@
                 </div>
                   <form>
                     <div class="form-group">
-                          <label for="numAtt">Number of Attempts</label>
-                          <input id="numAtt" type="number" name="numAtt" min="0"/>
+                          <label for="caseid">Case ID</label>
+                          <input id="caseid" type="number" name="caseid" min="0" required/>
                     </div>
                     <div class="form-group">
-                          <label for="caseid">Case ID</label>
-                          <input id="caseid" type="number" name="caseid" min="0"/>
+                          <label for="numAtt">Number of Attempts</label>
+                          <input id="numAtt" type="number" name="numAtt" min="0" required/>
                     </div>
                     <div class="form-group">
                       <label for="filing_date">Filing Date</label>
-                      <input id="filing_date" type="date" name="filing_date"/>
+                      <input id="filing_date" type="date" name="filing_date"required/>
                     </div>
                     <div class="form-group">
                       <label for="appeal_date">Appeal Hearing Date</label>
-                      <input id="appeal_date" type="date" name="appeal_date"/>
+                      <input id="appeal_date" type="date" name="appeal_date" required/>
                     </div>
                     <div class="form-group">
                       <label for="resultStat">Result Status</label>
-                      <select name="resultStat" id="resultStat">
-                      <option value=""></option>
+                      <select name="resultStat" id="resultStat" required>
                         <option value="p">Pending</option>
                         <option value="a">Approved</option>
                         <option value="d">Disapproved</option>
@@ -114,7 +113,7 @@
               // When a field is submitted, it will run this code
               if($_GET){
                 $db = connectToDB_admin();
-                add_appeal($_GET["numAtt"], $_GET["caseid"], $_GET["filing_date"], $_GET["appeal_date"], $_GET["resultStat"], $db);
+                add_appeal($_GET["caseid"], $_GET["numAtt"], $_GET["filing_date"], $_GET["appeal_date"], $_GET["resultStat"], $db);
               }
             ?>
         </center>

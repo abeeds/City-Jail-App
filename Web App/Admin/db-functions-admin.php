@@ -1008,19 +1008,24 @@ function add_crime($caseid, $crid, $classification, $datecharged, $appealStat, $
     }
 }
 
-function add_appeal($numAtt, $caseid, $filing_date, $appeal_date, $resultStat, $database=NULL){
+function add_appeal($caseid, $numAtt, $filing_date, $appeal_date, $resultStat, $database=NULL){
   if(!$database) {
       echo "<p> Failed to connect to database. </p>";
       return;
   }
+  $aQuery = " INSERT INTO appeal (case_id, attempt_num, filing_date, appeal_hearing_date, result_status)
+    VALUES";
 
-  $aQuery = " INSERT INTO appeal (attempt_num, case_id, filing_date, appeal_hearing_date, result_status)
-  VALUES";
+    // Add to query if any fields are entered
+    $aQuery .= " ( $caseid  , ";
+    $aQuery .= " $numAtt ,";
+    $aQuery .= " \"$filing_date\"  ,";
+    $aQuery .= "  \"$appeal_date\"  ,";
+    $aQuery .= "  \"$resultStat\")";
 
-  // Add to query if any fields are entered
-  $aQuery .= " ( ${numAtt} , ${caseid} , ${filing_date} , ${appeal_date} , \"${resultStat}\" )";
-  $aQuery .= ";";
-  echo "<p>$aQuery</p>";
+    $aQuery .= ";";
+
+  //echo "<p>$aQuery</p>";
   if (mysqli_query($database, $aQuery)) {
       //$rows = mysqli_affected_rows($database);
       echo "<p> Insert successful.</p>";
