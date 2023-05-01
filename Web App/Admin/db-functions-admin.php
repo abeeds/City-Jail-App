@@ -894,7 +894,6 @@ function add_prob_officer($pid, $lname, $fname, $street ,$city, $state, $zip, $p
     $aQuery .= "  \"$status\"  )";
 
     $aQuery .= ";";
-    echo "<p>$aQuery</p>";
     if (mysqli_query($database, $aQuery)) {
         //$rows = mysqli_affected_rows($database);
         echo "<p> Insert successful.</p>";
@@ -1118,7 +1117,6 @@ function update_criminal($id, $lname, $fname, $street ,$city, $state, $zip, $pho
     }
     $aQuery = rtrim($aQuery, ', ') . " WHERE c_id = $id";
     $aQuery .= " ; ";
-    echo "<p>$aQuery</p>";
     // adds a row to the HTML for each row on the table
     // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
     if (mysqli_query($database, $aQuery)) {
@@ -1216,7 +1214,6 @@ function update_charge($chargeid, $caseid, $codenum, $chargeStat ,$fine, $court,
     }
     $aQuery = rtrim($aQuery, ', ') . " WHERE charge_id= $chargeid";
     $aQuery .= " ; ";
-    echo "<p>$aQuery</p>";
     // adds a row to the HTML for each row on the table
     // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
     if (mysqli_query($database, $aQuery)) {
