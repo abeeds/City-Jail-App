@@ -1,5 +1,5 @@
 <?php 
-    include "../db-function-2.php";
+    include "../db-functions-admin.php";
     if (!isset($_COOKIE['username'])) {
       header('Location: ../../User/criminals.php');
       exit;
@@ -35,10 +35,9 @@
                 <!-- Main Navigation Pages -->
                 <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
-
                     <a class="nav-item nav-link" href="../criminal/criminals-admin.php">Criminals</a>
-                    <a class="nav-item nav-link" href="../crime/crimes-admin.php">Crimes</a>
-                    <a class="nav-item nav-link" href="charges-admin.php">Charges</a>
+                    <a class="nav-item nav-link" href="crimes-admin.php">Crimes</a>
+                    <a class="nav-item nav-link" href="../charge/charges-admin.php">Charges</a>
                     <a class="nav-item nav-link" href="../sentence/sentences-admin.php">Sentences</a>
                     <a class="nav-item nav-link" href="../appeal/appeals-admin.php">Appeals</a>
                     <!-- <a class="nav-item nav-link" href="officers-admin.php">Officers</a> -->
@@ -74,15 +73,15 @@
                     <form>
                     <div class="form-group">
                       <label for="caseID">Case ID</label>
-                      <input id="caseID" type="number" name="caseID" min="0" required/>
+                      <input id="caseID" type="number" name="caseID" min="0" required="required"/>
                     </div>
                     <div class="form-group">
                       <label for="crID">Criminal ID</label>
-                      <input id="crID" type="text" name="crID" min="0" required/>
+                      <input id="crID" type="number" name="crID" min="0" required="required"/>
                     </div>
                     <div class="form-group">
                       <label for="classification">Classification</label>
-                      <select name="classification" id="classification" required>
+                      <select name="classification" id="classification">
                         <option value="f">Felony</option>
                         <option value="m">Misdemeanor</option>
                         <option value="o">Other</option>
@@ -90,10 +89,10 @@
                     </div>
                     <div class="form-group">
                       <label for="datecharged">Date Charged After </label>
-                      <input id="datcharged" type="date" name="datecharged" required/>
+                      <input id="datcharged" type="date" name="datecharged" required="required"/>
                     </div>
                     <div class="form-group">
-                      <label for="appealStat">Appeal Status</label required>
+                      <label for="appealStat">Appeal Status</label>
                       <select name="appealStat" id="appealStat">
                         <option value="ia">In Appeal</option>
                         <option value="ca">Can Appeal</option>
@@ -102,11 +101,11 @@
                     </div>
                     <div class="form-group">
                       <label for="hearingdate">Hearing Date </label>
-                      <input id="hearingdate" type="date" name="hearingdate" required/>
+                      <input id="hearingdate" type="date" name="hearingdate"/>
                     </div>
                     <div class="form-group">
                       <label for="appealcut">Appeal Cutoff Date </label>
-                      <input id="appealcut" type="date" name="appealcut" required/>
+                      <input id="appealcut" type="date" name="appealcut"/>
                     </div>
                       <div class="form-group">
                           <button type="submit">Submit</button>
@@ -118,7 +117,7 @@
               // When a field is submitted, it will run this code
               if($_GET){
                 $db = connectToDB_admin();
-                add_crime($_GET["caseID"], $_GET["crID"], $_GET["classification"], $_GET["datecharged"], $_GET["appealStat"],$_GET["hearingdate"], $_GET["appealcut"], $db);
+                // update_crime($_GET["caseID"], $_GET["crID"], $_GET["classification"], $_GET["datecharged"], $_GET["appealStat"],$_GET["hearingdate"], $_GET["appealcut"], $db);
               }
             ?>
             

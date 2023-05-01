@@ -77,7 +77,7 @@
                     </div>
                     <div class="form-group">
                       <label for="crID">Criminal ID</label>
-                      <input id="crID" type="text" name="crID" min="0"/>
+                      <input id="crID" type="number" name="crID" min="0"/>
                     </div>
                     <div class="form-group">
                       <label for="classification">Classification</label>

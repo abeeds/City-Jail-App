@@ -1376,6 +1376,29 @@ function delete_crime_officer($bnum, $caseid, $database=NULL) {
         echo "<p>Error: </p>";
     }
 }
+function delete_appeal($numAtt, $caseid, $database=NULL) {
+        if(!$database) {
+            echo "<p> Failed to connect to database. </p>";
+            return;
+        }
+
+
+        if($caseid !== "" AND $numAtt !== "") {
+            $aQuery = " DELETE FROM appeal ";
+            $aQuery .= " WHERE attempt_num = " . $numAtt;
+            $aQuery .= " AND case_id = " . $caseid;
+            $aQuery .= " ; ";
+            if (mysqli_query($database, $aQuery)) {
+                //$rows = mysqli_affected_rows($database);
+                echo "<p> Delete successful.</p>";
+            } else {
+                //echo "Error: " . mysqli_error($database);
+                echo "<p>Error: </p>";
+            }
+        }
+}
+
+
 function makeTable_crime($caseid, $crid, $cname, $classification, $datecharged, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
