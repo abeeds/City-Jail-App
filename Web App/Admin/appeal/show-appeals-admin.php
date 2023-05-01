@@ -62,18 +62,7 @@
 
                   <!-- Right Side of Navigation Bar -->
                   <div class="navbar-nav">
-                    <!-- Dropdown menu on Profile Button -->
-                    <div class="dropdown">
-                      <a class ="dropbtn" href="">
-                        <img tag="profile" src="../../../Images/profile.png" alt="My Profile">
-                      </a>
-
-                      <div class="dropdown-content">
-                        <a href="#">My Profile</a>
-                        <a href="#">Log Out</a>
-                        <!-- Logout should lead to non-admin homepage -->
-                      </div>
-                    </div>
+                  <a href="../../User/criminals.php"><strong>Log Out</strong></a>
                   </div>
                 </div>
               </div>

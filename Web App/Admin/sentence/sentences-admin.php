@@ -55,11 +55,8 @@
                   
                   <!-- Right Side of Navigation Bar -->
                   <div class="navbar-nav">
-                    <!-- Dropdown menu on Profile Button -->
                     <div >
-                      <a>
-                        Log Out
-                      </a>
+                      <a href="../../User/criminals.php"><strong>Log Out</strong></a>
                       </div>
                     </div>
                   </div>
