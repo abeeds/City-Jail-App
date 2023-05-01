@@ -1006,35 +1006,33 @@ function update_criminal($id, $lname, $fname, $street ,$city, $state, $zip, $pho
     
     $aQuery = " UPDATE criminal SET";
     if($lname !== "") {
-        $aQuery .= " c_last  =  \"$lname\" ";
+        $aQuery .= " c_last  =  \"$lname\", ";
     }
     if($fname !== "") {
-        $aQuery .= " c_first  =  \"$fname\" ";
+        $aQuery .= " c_first  =  \"$fname\", ";
     }
     if($street !== "") {
-        $aQuery .= " c_street  = \"$street\" ";
+        $aQuery .= " c_street  = \"$street\", ";
     }
     if($city !== "") {
-        $aQuery .= " c_city  = \"$city\" ";
+        $aQuery .= " c_city  = \"$city\" ,";
     }
     if($state !== "") {
-        $aQuery .= " c_state  = \"$state\" ";
+        $aQuery .= " c_state  = \"$state\", ";
     }
     if($zip !== "") {
-        $aQuery .= " c_zip  = $zip ";
+        $aQuery .= " c_zip  = $zip, ";
     }
     if($phonenum !== "") {
-        $aQuery .= " c_phone_num  =  $phonenum ";
+        $aQuery .= " c_phone_num  =  $phonenum ,";
     }
     if($Vstat !== "") {
-        $aQuery .= " V_status  =  \"$Vstat\" ";
+        $aQuery .= " V_status  =  \"$Vstat\", ";
     }
     if($Pstat !== "") {
-        $aQuery .= " P_status  =  \"$Pstat\" ";
+        $aQuery .= " P_status  =  \"$Pstat\", ";
     }
-    if($id !== "") {
-        $aQuery .= " WHERE c_id = " . $id;
-    }
+    $aQuery = rtrim($aQuery, ', ') . " WHERE c_id = $id";
     $aQuery .= " ; ";
     echo "<p>$aQuery</p>";
     // adds a row to the HTML for each row on the table
