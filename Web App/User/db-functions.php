@@ -15,10 +15,10 @@ function formatInput(&$string){
 
 // returns the MYSQL connection if success
 function connectToDB_guest() {
-    $servername = "18.188.82.70"; 
+    $servername = "18.188.82.70";
     $username = "guest";
     $password = "guest";
-    $dbname = "cityjail";  
+    $dbname = "cityjail";
 
     $conn = new mysqli($servername, $username, $password, $dbname);
     if($conn->connect_error) {
@@ -260,10 +260,11 @@ function makeTable_sentence($name, $start_date, $end_date, $type, $database=NULL
 
 
     // will show everything if no fields are entered
-    $aQuery = "SELECT s.*, cr.c_first AS criminal_first, cr.c_last AS criminal_last FROM sentence s JOIN criminal cr ON s.c_id = cr.c_id";
+    $aQuery = "SELECT * FROM sentence s, criminal cr";
 
     // Add to query if any fields are entered
-    $aQuery .= " WHERE CONCAT(cr.c_first, ' ',  cr.c_last) LIKE '%" . $name . "%' ";
+    $aQuery .= " WHERE s.c_id = cr.c_id ";
+    $aQuery .= "AND CONCAT(cr.c_first, ' ',  cr.c_last) LIKE '%" . $name . "%' ";
     if($start_date !== "" && $end_date === "") {
         $aQuery .= " AND s.start_date = '" . $start_date . "'";
     }
@@ -291,8 +292,8 @@ function makeTable_sentence($name, $start_date, $end_date, $type, $database=NULL
             echo "<tr>";
             echo "<th>" . $row["sentence_id"] . "</th>";
             echo "<th>" . $row["c_id"] . "</th>";
-            echo "<th>" . $row["c_last"] . "</th>";
             echo "<th>" . $row["c_first"] . "</th>";
+            echo "<th>" . $row["c_last"] . "</th>";
             echo "<th>" . $row["start_date"] . "</th>";
             echo "<th>" . $row["end_date"] . "</th>";
             echo "<th>" . $row["num_violations"] . "</th>";
@@ -429,8 +430,8 @@ function makeTable_appeal($cname, $appeal_date, $resultStat, $database=NULL) {
                 <tr class=\"row-labels\">
                     <th>Case ID</th>
                     <th>ID</th>
-                    <th>Last</th>
                     <th>First</th>
+                    <th>Last</th>
                     <th>Filing Date</th>
                     <th>Appeal Hearing Date</th>
                     <th>Attempt Number</th>
@@ -458,8 +459,8 @@ function makeTable_appeal($cname, $appeal_date, $resultStat, $database=NULL) {
             echo "<tr>";
             echo "<th>" . $row["case_id"] . "</th>";
             echo "<th>" . $row["c_id"] . "</th>";
-            echo "<th>" . $row["c_last"] . "</th>";
             echo "<th>" . $row["c_first"] . "</th>";
+            echo "<th>" . $row["c_last"] . "</th>";
             echo "<th>" . $row["filing_date"] . "</th>";
             echo "<th>" . $row["appeal_hearing_date"] . "</th>";
             echo "<th>" . $row["attempt_num"] . "</th>";
