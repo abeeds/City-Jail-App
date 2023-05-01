@@ -553,6 +553,8 @@ function show_sentence($database=NULL) {
                 <tr class=\"row-labels\">
                     <th>Sentence ID</th>
                     <th>Criminal ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
                     <th>Probation Officer ID</th>
                     <th>Start Date</th>
                     <th>End Date</th>
@@ -562,7 +564,7 @@ function show_sentence($database=NULL) {
 
     
     // will show everything if no fields are entered
-    $aQuery = " SELECT s.*, a.alias AS Alias FROM sentence s , alias a WHERE a.c_id = s.c_id";
+    $aQuery = " SELECT s.* , c.c_first AS first, c.c_last AS last FROM sentence s, criminal c  WHERE s.c_id =c.c_id  ";
     $aQuery .= ";";
 
     //echo "<p>$aQuery</p>";
@@ -573,7 +575,9 @@ function show_sentence($database=NULL) {
         while($row = $result->fetch_assoc()) {
             echo "<tr>";
             echo "<th>" . $row["sentence_id"] . "</th>";
-            echo "<th>" . $row["Alias"] . "</th>";
+            echo "<th>" . $row["c_id"] . "</th>";
+            echo "<th>" . $row["first"] . "</th>";
+            echo "<th>" . $row["last"] . "</th>";
             echo "<th>" . $row["p_id"] . "</th>";
             echo "<th>" . $row["start_date"] . "</th>";
             echo "<th>" . $row["end_date"] . "</th>";
@@ -1151,30 +1155,27 @@ function update_sentence($sid, $cid, $probid, $start_date ,$end_date, $numVio, $
     formatInput($type);
     
     $aQuery = " UPDATE sentence SET";
-    if($caseid !== "") {
-        $aQuery .= " case_id  =  $caseid, ";
+    if($cid !== "") {
+        $aQuery .= " c_id  =  $cid, ";
     }
-    if($chargeStat !== "") {
-        $aQuery .= " charge_status  =  \"$chargeStat\", ";
+    if($probid !== "") {
+        $aQuery .= " p_id  =  $probid ,";
     }
-    if($codenum !== "") {
-        $aQuery .= " code_num  =  $codenum ,";
+    if($start_date !== "") {
+        $aQuery .= "start_date  =  \"$start_date\" , ";
     }
-    if($fine !== "") {
-        $aQuery .= "fine_amount  =  $fine, ";
+    if($end_date !== "") {
+        $aQuery .= " end_date  =  \"$end_date\", ";
     }
-    if($court !== "") {
-        $aQuery .= " court_fee  =  $court, ";
+    if($numVio !== "") {
+        $aQuery .= " num_violations  =  $numVio ,";
     }
-    if($paid !== "") {
-        $aQuery .= " amount_paid  =  $paid ,";
+    if($type !== "") {
+        $aQuery .= " type  =  \"$type\", ";
     }
-    if($paymentdate !== "") {
-        $aQuery .= " payment_date  =  \"$paymentdate\", ";
-    }
-    $aQuery = rtrim($aQuery, ', ') . " WHERE charge_id= $chargeid";
+    $aQuery = rtrim($aQuery, ', ') . " WHERE sentence_id= $sid";
     $aQuery .= " ; ";
-    echo "<p>$aQuery</p>";
+    //echo "<p>$aQuery</p>";
     // adds a row to the HTML for each row on the table
     // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
     if (mysqli_query($database, $aQuery)) {
