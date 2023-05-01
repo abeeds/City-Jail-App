@@ -56,7 +56,7 @@
                   <!-- Right Side of Navigation Bar -->
                   <div class="navbar-nav">
                     <div >
-                      <a href="../../User/criminals.php"><strong>Log Out</strong></a>
+                      <a href="../logout.php"><strong>Log Out</strong></a>
                       </div>
                     </div>
                   </div>
