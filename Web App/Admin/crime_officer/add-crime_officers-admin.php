@@ -46,8 +46,8 @@
                         <a class ="dropbtn">Officers</a>
                       </div>
                       <div class="dropdown-content">
-                        <a href="officers-admin.php">Officer</a>
-                        <a href="../crime_officer/crime_officers-admin.php">Crime per Officer</a> 
+                        <a href="../officer/officers-admin.php">Officer</a>
+                        <a href="crime_officers-admin.php">Crime per Officer</a> 
                         <a href="../prob_officer/prob_officers-admin.php">Probation Officer</a> 
                         <!-- Logout should lead to non-admin homepage -->
                       </div>
@@ -74,32 +74,12 @@
                     </div>
                       <form>
                         <div class="form-group">
-                            <label for="bNum">Badge Number</label>
-                            <input id="bNum" type="number" name="bNum" maxlenght="4"/>
+                            <label for="caseid">Case ID</label>
+                            <input id="caseid" type="number" name="caseid" maxlenght="4" required />
                         </div>
                         <div class="form-group">
-                            <label for="fname">First Name</label>
-                            <input id="fname" type="text" name="fname" maxlength="41"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="lname">Last Name</label>
-                            <input id="lname" type="text" name="lname" maxlength="41"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="precinct">Precinct</label>
-                            <input id="precinct" type="number" name="precinct" min="0"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="phonenum">Phone Number</label>
-                            <input id="phonenum" type="number" name="phonenum" min="1" max="9999999999"/>
-                        </div>
-                        <div class="form-group">
-                          <label for="status">Status</label>
-                          <select name="status" id="status">
-                            <option value=""></option>
-                            <option value="a">Active</option>
-                            <option value="i">Inactive</option>
-                          </select>
+                            <label for="bnum">Badge_number</label>
+                            <input id="bnum" type="text" name="bnum" maxlength="41" required/>
                         </div>
                         <div class="form-group">
                             <button type="submit">Submit</button>
@@ -112,7 +92,7 @@
                 // When a field is submitted, it will run this code
                 if($_GET){
                     $db = connectToDB_admin();
-                    add_officer($_GET["bNum"], $_GET["fname"], $_GET["lname"], $_GET["precinct"] ,$_GET["phonenum"], $_GET["status"],  $db);
+                    add_crime_officer($_GET["bnum"], $_GET["caseid"],  $db);
                 }
             ?>
 

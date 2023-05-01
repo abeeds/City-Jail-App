@@ -808,6 +808,33 @@ function show_crime($database=NULL) {
     }
     echo "</table>";
 }// show_officer
+
+function add_crime_officer($bNum, $caseid, $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    // Ensure that no improper characters are being used
+    formatInput($classification);
+    
+    $aQuery = " INSERT INTO crime_officer (badge_number, case_id)
+    VALUES";
+
+    // Add to query if any fields are entered
+    $aQuery .= " (  $bNum  , ";
+    $aQuery .= " $caseid )";
+
+    $aQuery .= ";";
+    //echo "<p>$aQuery</p>";
+    if (mysqli_query($database, $aQuery)) {
+        //$rows = mysqli_affected_rows($database);
+        echo "<p> Insert successful.</p>";
+    } else {
+        //echo "Error: " . mysqli_error($database);
+        echo "<p>Error: </p>";
+    }
+}
 // This function will add officers
 function add_officer($bNum, $fname, $lname, $precinct ,$phonenum, $status,  $database=NULL) {
     if(!$database) {
