@@ -928,8 +928,8 @@ function add_criminal($id, $lname, $fname, $street ,$city, $state, $zip, $phonen
     $aQuery .= "  \"$state\"  ,";
     $aQuery .= " $zip ,";
     $aQuery .= " $phonenum ,";
-    $aQuery .= " \"$Vstats\" ,";
-    $aQuery .= " \"$Pstats\" )";
+    $aQuery .= " \"$Vstat\" ,";
+    $aQuery .= " \"$Pstat\" )";
 
     $aQuery .= ";";
     //echo "<p>$aQuery</p>";
