@@ -1209,6 +1209,40 @@ function update_sentence($sid, $cid, $probid, $start_date ,$end_date, $numVio, $
     }
 }
 
+function update_appeal($numAtt, $caseid, $fdate, $appeal_date, $result, $database=NULL){
+  if(!$database) {
+      echo "<p> Failed to connect to database. </p>";
+      return;
+  }
+
+  // Ensure that no improper characters are being used
+  formatInput($result);
+
+  $aQuery = " UPDATE appeal SET";
+  if($start_date !== "") {
+      $aQuery .= " filing_date  =  \"$fdate\" , ";
+  }
+  if($end_date !== "") {
+      $aQuery .= " appeal_hearing_date  =  \"$appeal_date\", ";
+  }
+  if($type !== "") {
+      $aQuery .= " result_status  =  \"$result\", ";
+  }
+  $aQuery = rtrim($aQuery, ', ') . " WHERE case_id= $caseid AND attempt_num = $numAtt";
+  $aQuery .= " ; ";
+  //echo "<p>$aQuery</p>";
+  // adds a row to the HTML for each row on the table
+  // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+  if (mysqli_query($database, $aQuery)) {
+      //$rows = mysqli_affected_rows($database);
+      echo "<p> Update successful.</p>";
+  } else {
+      //echo "Error: " . mysqli_error($database);
+      echo "<p>Error </p>";
+  }
+}
+
+
 function delete_officer($bNum, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
