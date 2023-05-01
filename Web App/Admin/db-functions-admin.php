@@ -1335,6 +1335,26 @@ function delete_criminal($cid, $database=NULL) {
         echo "<p>Error: </p>";
     }
 }
+function delete_crime($caseid, $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    $aQuery = " DELETE FROM crime ";
+    $aQuery .= " WHERE case_id = " . $caseid;
+    $aQuery .= " ; ";
+    //echo "<p>$aQuery</p>";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    if (mysqli_query($database, $aQuery)) {
+        //$rows = mysqli_affected_rows($database);
+        echo "<p> Delete successful.</p>";
+    } else {
+        //echo "Error: " . mysqli_error($database);
+        echo "<p>Error: </p>";
+    }
+}
 function delete_sentence($sid, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
