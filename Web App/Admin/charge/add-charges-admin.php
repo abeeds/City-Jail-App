@@ -1,5 +1,5 @@
 <?php 
-    include "../db-functions-admin.php";
+    include "../db-function-2.php";
     if (!isset($_COOKIE['username'])) {
       header('Location: ../../User/criminals.php');
       exit;
@@ -69,16 +69,16 @@
                     
                 <div class="form-panel one">
                     <div class="form-header">
-                    <h1>Update Charge Details</h1>
+                    <h1>Add Charge</h1>
                     </div>
                     <form>
                     <div class="form-group">
-                      <label for="chargeid">Update Charge with Case ID</label>
+                      <label for="chargeid">Charge ID</label>
                       <input id="chargeid" type="number" name="chargeid" min="0" required="required"/>
                     </div>
                     <div class="form-group">
                       <label for="caseid">Case ID</label>
-                      <input id="caseid" type="number" name="caseid" min="0"/>
+                      <input id="caseid" type="number" name="caseid" min="0" required="required"/>
                     </div>
                     <div class="form-group">
                       <label for="codenum">Crime Code</label>
@@ -98,7 +98,6 @@
                     <div class="form-group">
                       <label for="chargeStat">Charge Status</label>
                       <select name="chargeStat" id="chargeStat">
-                      <option value=""></option>
                         <option value="p">Pending</option>
                         <option value="g">Guilty</option>
                         <option value="n">Not Guilty</option>
@@ -106,19 +105,19 @@
                     </div>
                     <div class="form-group">
                       <label for="fine">Fine amount </label>
-                      <input id="fine" type="num" name="fine"/>
+                      <input id="fine" type="num" name="fine" required="required"/>
                     </div>
                     <div class="form-group">
                       <label for="court">Court Fee </label>
-                      <input id="court" type="num" name="court"/>
+                      <input id="court" type="num" name="court" required="required"/>
                     </div>
                     <div class="form-group">
                       <label for="paid">Amount Paid </label>
-                      <input id="paid" type="num" name="paid"/>
+                      <input id="paid" type="num" name="paid" required="required"/>
                     </div>
                     <div class="form-group">
                       <label for="paymentdate">Payment Date </label>
-                      <input id="paymentdate" type="date" name="paymentdate"/>
+                      <input id="paymentdate" type="date" name="paymentdate" required="required"/>
                     </div>
                       <div class="form-group">
                           <button type="submit">Submit</button>
@@ -130,7 +129,7 @@
               // When a field is submitted, it will run this code
               if($_GET){
                 $db = connectToDB_admin();
-                update_charge($_GET["chargeid"], $_GET["caseid"], $_GET["codenum"], $_GET["chargeStat"], $_GET["fine"],$_GET["court"], $_GET["paid"],$_GET["paymentdate"],  $db);
+                add_charge($_GET["chargeid"], $_GET["caseid"], $_GET["codenum"], $_GET["chargeStat"], $_GET["fine"],$_GET["court"], $_GET["paid"],$_GET["paymentdate"],  $db);
               }
             ?>
             
