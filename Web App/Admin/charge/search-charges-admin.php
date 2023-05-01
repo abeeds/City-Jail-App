@@ -69,31 +69,20 @@
                     
                 <div class="form-panel one">
                     <div class="form-header">
-                    <h1>Update Charge Details</h1>
+                    <h1>Charge Search</h1>
                     </div>
                     <form>
                     <div class="form-group">
-                      <label for="chargeid">Update Charge with Case ID</label>
-                      <input id="chargeid" type="number" name="chargeid" min="0" required="required"/>
+                      <label for="chargeid">Charge ID</label>
+                      <input id="chargeid" type="number" name="chargeid" min="0"/>
                     </div>
                     <div class="form-group">
                       <label for="caseid">Case ID</label>
                       <input id="caseid" type="number" name="caseid" min="0"/>
                     </div>
                     <div class="form-group">
-                      <label for="codenum">Crime Code</label>
-                      <select name="codenum" id="codenum">
-                      <option VALUE="5127">Burglary</OPTION>
-                      <option VALUE="3849">Assault</OPTION>
-                      <option VALUE="6471">Vandalism</OPTION>
-                      <option VALUE="1938">Fraud</OPTION>
-                      <option VALUE="8906">Robbery</OPTION>
-                      <option VALUE="4562">Drug Possession</OPTION>
-                      <option VALUE="3298">Speeding</OPTION>
-                      <option VALUE="7165">Identity Theft</OPTION>
-                      <option VALUE="2475">Arson</OPTION>
-                      <option VALUE="5723">Embezzlement</OPTION>
-                      </select>
+                      <label for="name">Name</label>
+                      <input id="name" type="text" name="name" maxlength="41"/>
                     </div>
                     <div class="form-group">
                       <label for="chargeStat">Charge Status</label>
@@ -103,22 +92,6 @@
                         <option value="g">Guilty</option>
                         <option value="n">Not Guilty</option>
                       </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="fine">Fine amount </label>
-                      <input id="fine" type="num" name="fine"/>
-                    </div>
-                    <div class="form-group">
-                      <label for="court">Court Fee </label>
-                      <input id="court" type="num" name="court"/>
-                    </div>
-                    <div class="form-group">
-                      <label for="paid">Amount Paid </label>
-                      <input id="paid" type="num" name="paid"/>
-                    </div>
-                    <div class="form-group">
-                      <label for="paymentdate">Payment Date </label>
-                      <input id="paymentdate" type="date" name="paymentdate"/>
                     </div>
                       <div class="form-group">
                           <button type="submit">Submit</button>
@@ -130,7 +103,7 @@
               // When a field is submitted, it will run this code
               if($_GET){
                 $db = connectToDB_admin();
-                update_charge($_GET["chargeid"], $_GET["caseid"], $_GET["codenum"], $_GET["chargeStat"], $_GET["fine"],$_GET["court"], $_GET["paid"],$_GET["paymentdate"],  $db);
+                makeTable_charge($_GET["chargeid"], $_GET["caseid"], $_GET["name"],  $_GET["chargeStat"], $db);
               }
             ?>
             
