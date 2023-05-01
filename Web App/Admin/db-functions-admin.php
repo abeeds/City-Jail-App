@@ -484,6 +484,7 @@ function show_criminal($database=NULL) {
     // Initialize table
     echo    "<table id=\"Criminals\">
                 <tr class=\"row-labels\">
+                    <th>Known Alias</th>
                     <th>Criminal ID</th>
                     <th>Last</th>
                     <th>First Name</th>
@@ -498,10 +499,10 @@ function show_criminal($database=NULL) {
 
     
     // will show everything if no fields are entered
-    // $aQuery = " SELECT c.*, a.alias AS Alias FROM criminal c LEFT JOIN alias a ON a.c_id = c.c_id";
-    // $aQuery .= ";";
-    $aQuery = " SELECT c.* FROM criminal c ";
+    $aQuery = " SELECT  c.*,  GROUP_CONCAT(DISTINCT a.alias) AS Alias FROM criminal c LEFT JOIN alias a ON a.c_id = c.c_id GROUP BY c.c_id";
     $aQuery .= ";";
+    //$aQuery = " SELECT c.* FROM criminal c ";
+    //$aQuery .= ";";
     //echo "<p>$aQuery</p>";
     // adds a row to the HTML for each row on the table
     // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
@@ -509,6 +510,12 @@ function show_criminal($database=NULL) {
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             echo "<tr>";
+            if($row["Alias"] !== NULL) {
+                echo "<th>" . "Yes" . "</th>";
+            }
+            else {
+                echo "<th>" . "No" . "</th>";
+            }
             echo "<th>" . $row["c_id"] . "</th>";
             echo "<th>" . $row["c_last"] . "</th>";
             echo "<th>" . $row["c_first"] . "</th>";
@@ -974,6 +981,62 @@ function update_officer($bNum, $fname, $lname, $precinct ,$phonenum, $status,  $
     }
     $aQuery .= " ; ";
     //echo "<p>$aQuery</p>";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    if (mysqli_query($database, $aQuery)) {
+        //$rows = mysqli_affected_rows($database);
+        echo "<p> Update successful.</p>";
+    } else {
+        //echo "Error: " . mysqli_error($database);
+        echo "<p>Error: </p>";
+    }
+}
+function update_criminal($id, $lname, $fname, $street ,$city, $state, $zip, $phonenum, $Pstat, $Vstat,  $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    // Ensure that no improper characters are being used
+    formatInput($fname);
+    formatInput($lname);
+    formatInput($street);
+    formatInput($city);
+    formatInput($state);
+    
+    $aQuery = " UPDATE criminal SET";
+    if($lname !== "") {
+        $aQuery .= " c_last  =  \"$lname\" ";
+    }
+    if($fname !== "") {
+        $aQuery .= " c_first  =  \"$fname\" ";
+    }
+    if($street !== "") {
+        $aQuery .= " c_street  = \"$street\" ";
+    }
+    if($city !== "") {
+        $aQuery .= " c_city  = \"$city\" ";
+    }
+    if($state !== "") {
+        $aQuery .= " c_state  = \"$state\" ";
+    }
+    if($zip !== "") {
+        $aQuery .= " c_zip  = $zip ";
+    }
+    if($phonenum !== "") {
+        $aQuery .= " c_phone_num  =  $phonenum ";
+    }
+    if($Vstat !== "") {
+        $aQuery .= " V_status  =  \"$Vstat\" ";
+    }
+    if($Pstat !== "") {
+        $aQuery .= " P_status  =  \"$Pstat\" ";
+    }
+    if($id !== "") {
+        $aQuery .= " WHERE c_id = " . $id;
+    }
+    $aQuery .= " ; ";
+    echo "<p>$aQuery</p>";
     // adds a row to the HTML for each row on the table
     // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
     if (mysqli_query($database, $aQuery)) {
