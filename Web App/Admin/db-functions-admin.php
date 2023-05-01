@@ -962,19 +962,19 @@ function update_officer($bNum, $fname, $lname, $precinct ,$phonenum, $status,  $
     
     $aQuery = " UPDATE officer SET";
     if($lname !== "") {
-        $aQuery .= " o_last  =  \"$lname\" ";
+        $aQuery .= " o_last  =  \"$lname\", ";
     }
     if($fname !== "") {
-        $aQuery .= " o_first  =  \"$fname\" ";
+        $aQuery .= " o_first  =  \"$fname\", ";
     }
     if($precinct !== "") {
-        $aQuery .= " o_precinct  =  $precinct ";
+        $aQuery .= " o_precinct  =  $precinct, ";
     }
     if($phonenum !== "") {
-        $aQuery .= " o_phone_number  =  $phonenum ";
+        $aQuery .= " o_phone_number  =  $phonenum ,";
     }
     if($status !== "") {
-        $aQuery .= " o_status  =  \"$status\" ";
+        $aQuery .= " o_status  =  \"$status\", ";
     }
     $aQuery = rtrim($aQuery, ', ') . " WHERE badge_number= $bNum";
     $aQuery .= " ; ";
@@ -1058,31 +1058,31 @@ function update_prob_officer($pid, $lname, $fname, $street ,$city, $state, $zip,
     
     $aQuery = " UPDATE prob_officer SET";
     if($lname !== "") {
-        $aQuery .= " p_last  =  \"$lname\" ";
+        $aQuery .= " p_last  =  \"$lname\", ";
     }
     if($fname !== "") {
-        $aQuery .= " p_first  =  \"$fname\" ";
+        $aQuery .= " p_first  =  \"$fname\", ";
     }
     if($street !== "") {
-        $aQuery .= " p_street  = \"$street\" ";
+        $aQuery .= " p_street  = \"$street\", ";
     }
     if($city !== "") {
-        $aQuery .= " p_city  = \"$city\" ";
+        $aQuery .= " p_city  = \"$city\" ,";
     }
     if($state !== "") {
-        $aQuery .= " p_state  = \"$state\" ";
+        $aQuery .= " p_state  = \"$state\", ";
     }
     if($zip !== "") {
-        $aQuery .= " p_zip  = $zip ";
+        $aQuery .= " p_zip  = $zip, ";
     }
     if($phonenum !== "") {
-        $aQuery .= " p_phone_number  =  $phonenum ";
+        $aQuery .= " p_phone_number  =  $phonenum ,";
     }
     if($email !== "") {
-        $aQuery .= " p_email  =  \"$email\" ";
+        $aQuery .= " p_email  =  \"$email\" ,";
     }
     if($status !== "") {
-        $aQuery .= " p_status  =  \"$status\" ";
+        $aQuery .= " p_status  =  \"$status\" ,";
     }
     $aQuery = rtrim($aQuery, ', ') . " WHERE p_id= $pid";
     $aQuery .= " ; ";
@@ -1108,25 +1108,69 @@ function update_charge($chargeid, $caseid, $codenum, $chargeStat ,$fine, $court,
     
     $aQuery = " UPDATE charge SET";
     if($caseid !== "") {
-        $aQuery .= " case_id  =  $caseid ";
+        $aQuery .= " case_id  =  $caseid, ";
     }
     if($chargeStat !== "") {
-        $aQuery .= " charge_status  =  \"$chargeStat\" ";
+        $aQuery .= " charge_status  =  \"$chargeStat\", ";
     }
     if($codenum !== "") {
-        $aQuery .= " code_num  =  $codenum ";
+        $aQuery .= " code_num  =  $codenum, ";
     }
     if($fine !== "") {
-        $aQuery .= "fine_amount  =  $fine ";
+        $aQuery .= "fine_amount  =  $fine ,";
     }
     if($court !== "") {
-        $aQuery .= " court_fee  =  $court ";
+        $aQuery .= " court_fee  =  $court, ";
     }
     if($paid !== "") {
-        $aQuery .= " amount_paid  =  $paid ";
+        $aQuery .= " amount_paid  =  $paid, ";
     }
     if($paymentdate !== "") {
-        $aQuery .= " payment_date  =  \"$paymentdate\" ";
+        $aQuery .= " payment_date  =  \"$paymentdate\", ";
+    }
+    $aQuery = rtrim($aQuery, ', ') . " WHERE charge_id= $chargeid";
+    $aQuery .= " ; ";
+    echo "<p>$aQuery</p>";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    if (mysqli_query($database, $aQuery)) {
+        //$rows = mysqli_affected_rows($database);
+        echo "<p> Update successful.</p>";
+    } else {
+        //echo "Error: " . mysqli_error($database);
+        echo "<p>Error </p>";
+    }
+}
+function update_sentence($sid, $cid, $probid, $start_date ,$end_date, $numVio, $type,  $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    // Ensure that no improper characters are being used
+    formatInput($type);
+    
+    $aQuery = " UPDATE sentence SET";
+    if($caseid !== "") {
+        $aQuery .= " case_id  =  $caseid, ";
+    }
+    if($chargeStat !== "") {
+        $aQuery .= " charge_status  =  \"$chargeStat\", ";
+    }
+    if($codenum !== "") {
+        $aQuery .= " code_num  =  $codenum ,";
+    }
+    if($fine !== "") {
+        $aQuery .= "fine_amount  =  $fine, ";
+    }
+    if($court !== "") {
+        $aQuery .= " court_fee  =  $court, ";
+    }
+    if($paid !== "") {
+        $aQuery .= " amount_paid  =  $paid ,";
+    }
+    if($paymentdate !== "") {
+        $aQuery .= " payment_date  =  \"$paymentdate\", ";
     }
     $aQuery = rtrim($aQuery, ', ') . " WHERE charge_id= $chargeid";
     $aQuery .= " ; ";
@@ -1149,9 +1193,7 @@ function delete_officer($bNum, $database=NULL) {
     }
 
     $aQuery = " DELETE FROM officer ";
-    if($bNum !== "") {
-        $aQuery .= " WHERE badge_number = " . $bNum;
-    }
+    $aQuery .= " WHERE badge_number = " . $bNum;
     $aQuery .= " ; ";
     //echo "<p>$aQuery</p>";
     // adds a row to the HTML for each row on the table
@@ -1171,9 +1213,7 @@ function delete_prob_officer($pid, $database=NULL) {
     }
 
     $aQuery = " DELETE FROM prob_officer ";
-    if($pid !== "") {
-        $aQuery .= " WHERE p_id = " . $pid;
-    }
+    $aQuery .= " WHERE p_id = " . $pid;
     $aQuery .= " ; ";
     //echo "<p>$aQuery</p>";
     // adds a row to the HTML for each row on the table
@@ -1193,9 +1233,7 @@ function delete_criminal($cid, $database=NULL) {
     }
 
     $aQuery = " DELETE FROM criminal ";
-    if($cid !== "") {
-        $aQuery .= " WHERE c_id = " . $cid;
-    }
+    $aQuery .= " WHERE c_id = " . $cid;
     $aQuery .= " ; ";
     //echo "<p>$aQuery</p>";
     // adds a row to the HTML for each row on the table
