@@ -1,5 +1,9 @@
 <?php 
     include "../db-functions-admin.php";
+    if (!isset($_COOKIE['username'])) {
+      header('Location: ../../User/criminals.php');
+      exit;
+  }
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,7 +35,6 @@
                 <!-- Main Navigation Pages -->
                 <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
-                    <a class="nav-item nav-link" href="">Admin</a>
                     <a class="nav-item nav-link" href="../criminal/criminals-admin.php">Criminals</a>
                     <a class="nav-item nav-link" href="../crime/crimes-admin.php">Crimes</a>
                     <a class="nav-item nav-link" href="../charge/charges-admin.php">Charges</a>
@@ -53,18 +56,7 @@
                   
                   <!-- Right Side of Navigation Bar -->
                   <div class="navbar-nav">
-                    <!-- Dropdown menu on Profile Button -->
-                    <div class="dropdown">
-                      <a class ="dropbtn" href="">
-                        <img tag="profile" src="../../../Images/profile.png" alt="My Profile">
-                      </a>
-
-                      <div class="dropdown-content">
-                        <a href="#">My Profile</a>
-                        <a href="#">Log Out</a> 
-                        <!-- Logout should lead to non-admin homepage -->
-                      </div>
-                    </div>
+                  <a href="../../User/criminals.php"><strong>Log Out</strong></a>
                   </div>
                 </div>
               </div>
