@@ -814,17 +814,12 @@ function add_crime_officer($bNum, $caseid, $database=NULL) {
         echo "<p> Failed to connect to database. </p>";
         return;
     }
-
-    // Ensure that no improper characters are being used
-    formatInput($classification);
     
-    $aQuery = " INSERT INTO crime_officer (badge_number, case_id)
-    VALUES";
+    $aQuery = " INSERT INTO crime_officer (badge_number, case_id) VALUES ";
 
     // Add to query if any fields are entered
     $aQuery .= " (  $bNum  , ";
     $aQuery .= " $caseid )";
-
     $aQuery .= ";";
     //echo "<p>$aQuery</p>";
     if (mysqli_query($database, $aQuery)) {
