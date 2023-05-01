@@ -976,9 +976,7 @@ function update_officer($bNum, $fname, $lname, $precinct ,$phonenum, $status,  $
     if($status !== "") {
         $aQuery .= " o_status  =  \"$status\" ";
     }
-    if($bNum !== "") {
-        $aQuery .= " WHERE badge_number = " . $bNum;
-    }
+    $aQuery = rtrim($aQuery, ', ') . " WHERE badge_number= $bNum";
     $aQuery .= " ; ";
     //echo "<p>$aQuery</p>";
     // adds a row to the HTML for each row on the table
@@ -1086,9 +1084,7 @@ function update_prob_officer($pid, $lname, $fname, $street ,$city, $state, $zip,
     if($status !== "") {
         $aQuery .= " p_status  =  \"$status\" ";
     }
-    if($pid !== "") {
-        $aQuery .= " WHERE p_id = " . $pid;
-    }
+    $aQuery = rtrim($aQuery, ', ') . " WHERE p_id= $pid";
     $aQuery .= " ; ";
     //echo "<p>$aQuery</p>";
     // adds a row to the HTML for each row on the table
@@ -1132,9 +1128,7 @@ function update_charge($chargeid, $caseid, $codenum, $chargeStat ,$fine, $court,
     if($paymentdate !== "") {
         $aQuery .= " payment_date  =  \"$paymentdate\" ";
     }
-    if($chargeid !== "") {
-        $aQuery .= " WHERE charge_id = " . $chargeid;
-    }
+    $aQuery = rtrim($aQuery, ', ') . " WHERE charge_id= $chargeid";
     $aQuery .= " ; ";
     echo "<p>$aQuery</p>";
     // adds a row to the HTML for each row on the table
@@ -1362,9 +1356,8 @@ function update_crime($caseid, $crid, $classification, $datecharged, $appealStat
     if($appealcut !== "") {
         $aQuery .= " appeal_cutoff_date  =  $appealcut ";
     }
-    if($caseid !== "") {
-        $aQuery .= " WHERE case_id = " . $caseid;
-    }
+    $aQuery = rtrim($aQuery, ', ') . " WHERE case_id= $caseid";
+
     $aQuery .= " ; ";
     //echo "<p>$aQuery</p>";
     // adds a row to the HTML for each row on the table

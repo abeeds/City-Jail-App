@@ -73,7 +73,7 @@
                     <form>
                         <div class="form-group">
                             <label for="cid">Delete Criminal with Criminal ID</label>
-                            <input id="cid" type="number" name="cid" maxlenght="4"/>
+                            <input id="cid" type="number" name="cid" maxlenght="4" required/>
                         </div>
                           <div class="form-group">
                           <button type="submit">Submit</button>

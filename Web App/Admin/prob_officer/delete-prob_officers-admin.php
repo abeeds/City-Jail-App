@@ -73,7 +73,7 @@
                     <form>
                         <div class="form-group">
                             <label for="pid">Delete Probation Officer with ID</label>
-                            <input id="pid" type="number" name="pid" maxlenght="4"/>
+                            <input id="pid" type="number" name="pid" maxlenght="4" required/>
                         </div>
                           <div class="form-group">
                           <button type="submit">Submit</button>

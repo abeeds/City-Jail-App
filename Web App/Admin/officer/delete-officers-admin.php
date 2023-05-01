@@ -74,7 +74,7 @@
                     <form>
                         <div class="form-group">
                             <label for="bNum">Delete Officer with Badge Number</label>
-                            <input id="bNum" type="number" name="bNum" maxlenght="4"/>
+                            <input id="bNum" type="number" name="bNum" maxlenght="4" required/>
                         </div>
                           <div class="form-group">
                           <button type="submit">Submit</button>

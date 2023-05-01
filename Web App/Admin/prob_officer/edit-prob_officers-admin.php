@@ -72,7 +72,7 @@
                     <form>
                                 <div class="form-group">
                                     <label for="pid">Update Probation Officer with Id</label>
-                                    <input id="pid" type="number" name="pid" maxlenght="4"/>
+                                    <input id="pid" type="number" name="pid" maxlenght="4" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="fname">First Name</label>
