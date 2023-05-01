@@ -1,5 +1,5 @@
-<?php 
-    include "../db-function-2.php";
+<?php
+    include "../db-functions.php";
     if (!isset($_COOKIE['username'])) {
       header('Location: ../../User/criminals.php');
       exit;
@@ -20,13 +20,13 @@
 
         <title>City Jail - admin</title>
     </head>
-    <body> 
+    <body>
 
         <header class="site-header">
             <nav class="navbar navbar-expand-md navbar-dark navigBG fixed-top">
               <div class="container">
                 <!-- Should lead to whatever the homepage is-->
-                <a class="navbar-brand mr-4" href=""><strong>City Jail</strong></a> 
+                <a class="navbar-brand mr-4" href=""><strong>City Jail</strong></a>
                 </button>
                 <!-- Navbar Toggler -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,13 +48,13 @@
                       </div>
                       <div class="dropdown-content">
                         <a href="../officier/officers-admin.php">Officer</a>
-                        <a href="../crime_officer/crime_officers-admin.php">Crime per Officer</a> 
-                        <a href="../prob_officer/prob_officers-admin.php">Probation Officer</a> 
+                        <a href="../crime_officer/crime_officers-admin.php">Crime per Officer</a>
+                        <a href="../prob_officer/prob_officers-admin.php">Probation Officer</a>
                         <!-- Logout should lead to non-admin homepage -->
                       </div>
                     </div>
                   </div>
-                  
+
                   <!-- Right Side of Navigation Bar -->
                   <div class="navbar-nav">
                   <a href="../../User/criminals.php"><strong>Log Out</strong></a>
@@ -62,34 +62,38 @@
                 </div>
               </div>
             </nav>
-        </header>      
+        </header>
         <center>
-                    
+
             <div method="get" class="form">
-                    
+
                 <div class="form-panel one">
                     <div class="form-header">
-                    <h1>Delete Charge Details</h1>
+                    <h1>Delete Appeal Details</h1>
                     </div>
                     <form>
-                    <div class="form-group">
-                      <label for="chargeid">Charge ID</label>
-                      <input id="chargeid" type="number" name="chargeid" min="0" required="required"/>
-                    </div>
+                      <div class="form-group">
+                          <label for="numAtt">Attempt Number</label>
+                          <input id="numAtt" type="number" name="numAtt" min="0" required/>
+                      </div>
+                      <div class="form-group">
+                          <label for="caseid">Case ID</label>
+                          <input id="caseid" type="number" name="caseid" min="0" required/>
+                      </div>
                       <div class="form-group">
                           <button type="submit">Submit</button>
                         </div>
                     </form>
                 </div>
             </div>
-            <?php 
+            <?php
               // When a field is submitted, it will run this code
               if($_GET){
                 $db = connectToDB_admin();
-                delete_charge($_GET["chargeid"], $db);
+                delete_appeal($_GET["chargeid"], $db);
               }
             ?>
-            
+
         </center>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
