@@ -85,7 +85,7 @@
                 // When a field is submitted, it will run this code
                 if($_GET){
                   $db = connectToDB_admin();
-                  delete_setence($_GET["sid"],  $db);
+                  delete_sentence($_GET["sid"],  $db);
                 }
             ?>
             
