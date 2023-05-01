@@ -70,7 +70,7 @@
                     <button style="width:150px;"> <a style="color:inherit;font-size: inherit;line-height: inherit;" href="add-crime_officers-admin.php">Add Record</a></button>
                 </div>
                 <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
-                    <button style="width:150px;"><a style="color:inherit;font-size: inherit;line-height:inherit;" href="delete-crime_officers-admin.php">Delete Record</a></button>
+                    <button style="width:150px;"> <a style="color:inherit;font-size: inherit;line-height:inherit;" href="delete-crime_officers-admin.php">Delete Record</a></button>
                 </div>
             </div>
        

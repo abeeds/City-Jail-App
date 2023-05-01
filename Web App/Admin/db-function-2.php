@@ -1,7 +1,7 @@
 <?php
     include "db-functions-admin.php";
 
-    function delete_charge($chargeid, $database=NULL) {
+function delete_charge($chargeid, $database=NULL) {
         if(!$database) {
             echo "<p> Failed to connect to database. </p>";
             return;

@@ -1,5 +1,5 @@
-<?php 
-    include "../db-functions-admin.php";
+<?php
+    include "../db-functions.php";
     if (!isset($_COOKIE['username'])) {
       header('Location: ../../User/criminals.php');
       exit;
@@ -20,13 +20,13 @@
 
         <title>City Jail - admin</title>
     </head>
-    <body> 
+    <body>
 
         <header class="site-header">
             <nav class="navbar navbar-expand-md navbar-dark navigBG fixed-top">
               <div class="container">
                 <!-- Should lead to whatever the homepage is-->
-                <a class="navbar-brand mr-4" href=""><strong>City Jail</strong></a> 
+                <a class="navbar-brand mr-4" href=""><strong>City Jail</strong></a>
                 </button>
                 <!-- Navbar Toggler -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,9 +35,10 @@
                 <!-- Main Navigation Pages -->
                 <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
+
                     <a class="nav-item nav-link" href="../criminal/criminals-admin.php">Criminals</a>
                     <a class="nav-item nav-link" href="../crime/crimes-admin.php">Crimes</a>
-                    <a class="nav-item nav-link" href="../charge/charges-admin.php">Charges</a>
+                    <a class="nav-item nav-link" href="charges-admin.php">Charges</a>
                     <a class="nav-item nav-link" href="../sentence/sentences-admin.php">Sentences</a>
                     <a class="nav-item nav-link" href="../appeal/appeals-admin.php">Appeals</a>
                     <!-- <a class="nav-item nav-link" href="officers-admin.php">Officers</a> -->
@@ -46,14 +47,14 @@
                         <a class ="dropbtn">Officers</a>
                       </div>
                       <div class="dropdown-content">
-                        <a href="../officer/officers-admin.php">Officer</a>
-                        <a href="crime_officers-admin.php">Crime per Officer</a> 
-                        <a href="../prob_officer/prob_officers-admin.php">Probation Officer</a> 
+                        <a href="../officier/officers-admin.php">Officer</a>
+                        <a href="../crime_officer/crime_officers-admin.php">Crime per Officer</a>
+                        <a href="../prob_officer/prob_officers-admin.php">Probation Officer</a>
                         <!-- Logout should lead to non-admin homepage -->
                       </div>
                     </div>
                   </div>
-                  
+
                   <!-- Right Side of Navigation Bar -->
                   <div class="navbar-nav">
                   <a href="../../User/criminals.php"><strong>Log Out</strong></a>
@@ -61,42 +62,38 @@
                 </div>
               </div>
             </nav>
-        </header>      
+        </header>
         <center>
-                    
-            <div method="get" class="form">
-                    
-                <div class="form-panel one">
-            
-                    <div class="form-header">
 
-                    <h1>Add Crime Officer</h1>
+            <div method="get" class="form">
+
+                <div class="form-panel one">
+                    <div class="form-header">
+                    <h1>Delete Appeal Details</h1>
                     </div>
-                      <form>
-                        <div class="form-group">
-                            <label for="caseid">Case ID</label>
-                            <input id="caseid" type="number" name="caseid" maxlenght="4" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="bnum">Badge_number</label>
-                            <input id="bnum" type="text" name="bnum" maxlength="41" required/>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit">Submit</button>
+                    <form>
+                      <div class="form-group">
+                          <label for="numAtt">Attempt Number</label>
+                          <input id="numAtt" type="number" name="numAtt" min="0" required/>
+                      </div>
+                      <div class="form-group">
+                          <label for="caseid">Case ID</label>
+                          <input id="caseid" type="number" name="caseid" min="0" required/>
+                      </div>
+                      <div class="form-group">
+                          <button type="submit">Submit</button>
                         </div>
                     </form>
                 </div>
             </div>
-
-            <?php 
-                // When a field is submitted, it will run this code
-                if($_GET){
-                    $db = connectToDB_admin();
-                    add_crime_officer($_GET["bnum"], $_GET["caseid"],  $db);
-                }
+            <?php
+              // When a field is submitted, it will run this code
+              if($_GET){
+                $db = connectToDB_admin();
+                delete_appeal($_GET["numAtt"], $_GET["caseid"] $db);
+              }
             ?>
 
-            
         </center>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

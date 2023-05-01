@@ -1209,6 +1209,40 @@ function update_sentence($sid, $cid, $probid, $start_date ,$end_date, $numVio, $
     }
 }
 
+function update_appeal($numAtt, $caseid, $fdate, $appeal_date, $result, $database=NULL){
+  if(!$database) {
+      echo "<p> Failed to connect to database. </p>";
+      return;
+  }
+
+  // Ensure that no improper characters are being used
+  formatInput($result);
+
+  $aQuery = " UPDATE appeal SET";
+  if($start_date !== "") {
+      $aQuery .= " filing_date  =  \"$fdate\" , ";
+  }
+  if($end_date !== "") {
+      $aQuery .= " appeal_hearing_date  =  \"$appeal_date\", ";
+  }
+  if($type !== "") {
+      $aQuery .= " result_status  =  \"$result\", ";
+  }
+  $aQuery = rtrim($aQuery, ', ') . " WHERE case_id= $caseid AND attempt_num = $numAtt";
+  $aQuery .= " ; ";
+  //echo "<p>$aQuery</p>";
+  // adds a row to the HTML for each row on the table
+  // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+  if (mysqli_query($database, $aQuery)) {
+      //$rows = mysqli_affected_rows($database);
+      echo "<p> Update successful.</p>";
+  } else {
+      //echo "Error: " . mysqli_error($database);
+      echo "<p>Error </p>";
+  }
+}
+
+
 function delete_officer($bNum, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
@@ -1278,6 +1312,27 @@ function delete_sentence($sid, $database=NULL) {
     $aQuery = " DELETE FROM sentence ";
     $aQuery .= " WHERE s_id = " . $sid;
     $aQuery .= " ; ";
+    //echo "<p>$aQuery</p>";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    if (mysqli_query($database, $aQuery)) {
+        //$rows = mysqli_affected_rows($database);
+        echo "<p> Delete successful.</p>";
+    } else {
+        //echo "Error: " . mysqli_error($database);
+        echo "<p>Error: </p>";
+    }
+}
+function delete_crime_officer($bnum, $caseid, $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    $aQuery = " DELETE FROM crime_officer ";
+    $aQuery .= " WHERE case_id = " . $caseid ;
+    $aQuery .= " AND badge_number = " . $bnum ;
+    $aQuery .= "  ; ";
     //echo "<p>$aQuery</p>";
     // adds a row to the HTML for each row on the table
     // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
@@ -1553,6 +1608,71 @@ function makeTable_charge($chargeid, $caseid, $cname, $chargeStat, $database=NUL
     echo "</table>";
 } // makeTable_charge
 
+function makeTable_crime_officer($bnum, $caseid, $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    // Display the search prompt
+    echo "<p> Showing Results For: <br>";
+    if($bnum !== "") {
+        echo "Badge Number: " . $bnum . "<br>";
+    }
+    if($caseid !== "") {
+        echo "Case ID: " . $caseid . "<br>";
+    }
+    echo "</p>";
+// Initialize table
+   // Initialize table
+   echo    "<table class =\"show-table\" id=\"officer\">
+                <tr class=\"row-labels\">
+                    <th> Case ID </th>
+                    <th> Badge Number</th>
+                    <th> First Name </th>
+                    <th> Last Name </th>
+                    <th> Classification </th>
+                </tr>";
+
+
+    // will show everything if no fields are entered
+    $aQuery = " SELECT co.* , o.o_last AS last, o.o_first AS first, c.classification AS class FROM crime_officer co, officer o, crime c WHERE o.badge_number = co.badge_number AND c.case_id = co.case_id ";
+    if($bnum !== "") {
+        $aQuery .= " AND co.badge_number = " . $bnum;
+    }
+    if($caseid !== "") {
+        $aQuery .= " AND co.case_id = " . $caseid;
+    }
+    $aQuery .= ";";
+
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    $result = $database->query($aQuery);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<th>" . $row["case_id"] . "</th>";
+            echo "<th>" . $row["badge_number"] . "</th>";
+            echo "<th>" . $row["first"] . "</th>";
+            echo "<th>" . $row["last"] . "</th>";
+            switch($row["class"]) {
+                case "o":
+                    echo "<th>Other</th>";
+                    break;
+
+                case "m":
+                    echo "<th>Misdemeanor</th>";
+                    break;
+
+                case "f":
+                    echo "<th>Felony</th>";
+                    break;
+            }
+            echo "</tr>";
+        }
+    }
+    echo "</table>";
+} // makeTable_charge
 function makeTable_sentence($sid, $cid, $probid, $start_date ,$end_date, $numVio, $type, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
@@ -1671,6 +1791,7 @@ function makeTable_sentence($sid, $cid, $probid, $start_date ,$end_date, $numVio
     }
     echo "</table>";
 }// makeTable_sentence
+
 
 function makeTable_appeal($cname, $appeal_date, $resultStat, $database=NULL) {
     if(!$database) {

@@ -71,7 +71,7 @@
 
                 <div class="form-panel one">
                     <div class="form-header">
-                    <h1>Update Criminal's Details</h1>
+                    <h1>Update Appeal Details</h1>
                     </div>
                     <form>
                         <div class="form-group">
@@ -89,10 +89,6 @@
                         <div class="form-group">
                             <label for="appeal_date">Appeal Hearing Date</label>
                             <input id="appeal_date" type="date" name="appeal_date"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="street">Street</label>
-                            <input id="street" type="text" name="street" maxlength="64"/>
                         </div>
                         <div class="form-group">
                           <label for="result">Result</label>
@@ -114,7 +110,7 @@
                 // When a field is submitted, it will run this code
                 if($_GET){
                     $db = connectToDB_admin();
-                    makeTable_criminal($_GET["id"], $_GET["name"], $_GET["street"] ,$_GET["city"], $_GET["state"], $_GET["zip"], $_GET["phonenum"],  $db);
+                    update_appeal($_GET["numAtt"], $_GET["caseid"], $_GET["fdate"] ,$_GET["appeal_date"], $_GET["result"],  $db);
                 }
             ?>
 
