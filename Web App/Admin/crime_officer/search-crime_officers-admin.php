@@ -35,6 +35,7 @@
                 <!-- Main Navigation Pages -->
                 <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
+
                     <a class="nav-item nav-link" href="../criminal/criminals-admin.php">Criminals</a>
                     <a class="nav-item nav-link" href="../crime/crimes-admin.php">Crimes</a>
                     <a class="nav-item nav-link" href="../charge/charges-admin.php">Charges</a>
@@ -56,7 +57,7 @@
                   
                   <!-- Right Side of Navigation Bar -->
                   <div class="navbar-nav">
-                  <a href="../../User/criminals.php"><strong>Log Out</strong></a>
+                    <a href="../../User/criminals.php"><strong>Log Out</strong></a>
                   </div>
                 </div>
               </div>
@@ -70,16 +71,16 @@
             
                     <div class="form-header">
 
-                    <h1>Add Crime Officer</h1>
+                    <h1>Crime Officer Search</h1>
                     </div>
-                      <form>
+                    <form>
                         <div class="form-group">
-                            <label for="caseid">Case ID</label>
-                            <input id="caseid" type="number" name="caseid" maxlenght="4" required />
+                            <label for="bNum">Badge Number</label>
+                            <input id="bNum" type="number" name="bNum" maxlenght="4"/>
                         </div>
                         <div class="form-group">
-                            <label for="bnum">Badge_number</label>
-                            <input id="bnum" type="text" name="bnum" maxlength="41" required/>
+                            <label for="caseid">Case ID</label>
+                            <input id="caseid" type="text" name="caseid" maxlength="41"/>
                         </div>
                         <div class="form-group">
                             <button type="submit">Submit</button>
@@ -92,7 +93,7 @@
                 // When a field is submitted, it will run this code
                 if($_GET){
                     $db = connectToDB_admin();
-                    add_crime_officer($_GET["bnum"], $_GET["caseid"],  $db);
+                    makeTable_crime_officer($_GET["bNum"], $_GET["caseid"],  $db);
                 }
             ?>
 

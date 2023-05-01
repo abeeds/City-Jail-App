@@ -35,6 +35,7 @@
                 <!-- Main Navigation Pages -->
                 <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
+
                     <a class="nav-item nav-link" href="../criminal/criminals-admin.php">Criminals</a>
                     <a class="nav-item nav-link" href="../crime/crimes-admin.php">Crimes</a>
                     <a class="nav-item nav-link" href="../charge/charges-admin.php">Charges</a>
@@ -67,35 +68,31 @@
             <div method="get" class="form">
                     
                 <div class="form-panel one">
-            
                     <div class="form-header">
-
-                    <h1>Add Crime Officer</h1>
+                    <h1>Delete Crime Officer's Details</h1>
                     </div>
-                      <form>
+                    <form>
                         <div class="form-group">
-                            <label for="caseid">Case ID</label>
-                            <input id="caseid" type="number" name="caseid" maxlenght="4" required />
+                            <label for="caseid">Delete Crime Officer with Case ID </label>
+                            <input id="caseid" type="number" name="caseid" maxlenght="4" required/>
                         </div>
                         <div class="form-group">
-                            <label for="bnum">Badge_number</label>
-                            <input id="bnum" type="text" name="bnum" maxlength="41" required/>
+                            <label for="bNum">Delete Crime Officer with Badge Number </label>
+                            <input id="bNum" type="number" name="bNum" maxlenght="4" required/>
                         </div>
-                        <div class="form-group">
-                            <button type="submit">Submit</button>
+                          <div class="form-group">
+                          <button type="submit">Submit</button>
                         </div>
                     </form>
                 </div>
             </div>
-
             <?php 
                 // When a field is submitted, it will run this code
                 if($_GET){
-                    $db = connectToDB_admin();
-                    add_crime_officer($_GET["bnum"], $_GET["caseid"],  $db);
+                  $db = connectToDB_admin();
+                  delete_crime_officer($_GET["bNum"], $_GET["caseid"],  $db);
                 }
             ?>
-
             
         </center>
 
