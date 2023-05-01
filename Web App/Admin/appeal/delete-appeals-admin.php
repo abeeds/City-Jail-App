@@ -1,5 +1,5 @@
 <?php
-    include "../db-functions-admin.php";
+    include "../db-functions.php";
     if (!isset($_COOKIE['username'])) {
       header('Location: ../../User/criminals.php');
       exit;
@@ -36,9 +36,9 @@
                 <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
 
-                    <a class="nav-item nav-link" href="criminals-admin.php">Criminals</a>
+                    <a class="nav-item nav-link" href="../criminal/criminals-admin.php">Criminals</a>
                     <a class="nav-item nav-link" href="../crime/crimes-admin.php">Crimes</a>
-                    <a class="nav-item nav-link" href="../charge/charges-admin.php">Charges</a>
+                    <a class="nav-item nav-link" href="charges-admin.php">Charges</a>
                     <a class="nav-item nav-link" href="../sentence/sentences-admin.php">Sentences</a>
                     <a class="nav-item nav-link" href="../appeal/appeals-admin.php">Appeals</a>
                     <!-- <a class="nav-item nav-link" href="officers-admin.php">Officers</a> -->
@@ -47,7 +47,7 @@
                         <a class ="dropbtn">Officers</a>
                       </div>
                       <div class="dropdown-content">
-                        <a href="../officer/officers-admin.php">Officer</a>
+                        <a href="../officier/officers-admin.php">Officer</a>
                         <a href="../crime_officer/crime_officers-admin.php">Crime per Officer</a>
                         <a href="../prob_officer/prob_officers-admin.php">Probation Officer</a>
                         <!-- Logout should lead to non-admin homepage -->
@@ -57,63 +57,42 @@
 
                   <!-- Right Side of Navigation Bar -->
                   <div class="navbar-nav">
-                    <!-- Dropdown menu on Profile Button -->
-                    <div class="dropdown">
-                    <a href="../../User/criminals.php"><strong>Log Out</strong></a>
-                    </div>
+                  <a href="../../User/criminals.php"><strong>Log Out</strong></a>
                   </div>
                 </div>
               </div>
             </nav>
         </header>
         <center>
-           <div method="get" class="form">
+
+            <div method="get" class="form">
 
                 <div class="form-panel one">
                     <div class="form-header">
-                    <h1>Update Appeal Details</h1>
+                    <h1>Delete Appeal Details</h1>
                     </div>
                     <form>
-                        <div class="form-group">
-                            <label for="numAtt">Update Attempt</label>
-                            <input id="numAtt" type="number" name="numAtt" min="0" required/>
+                      <div class="form-group">
+                          <label for="numAtt">Attempt Number</label>
+                          <input id="numAtt" type="number" name="numAtt" min="0" required/>
+                      </div>
+                      <div class="form-group">
+                          <label for="caseid">Case ID</label>
+                          <input id="caseid" type="number" name="caseid" min="0" required/>
+                      </div>
+                      <div class="form-group">
+                          <button type="submit">Submit</button>
                         </div>
-                        <div class="form-group">
-                            <label for="caseid">of Appeal with Case ID</label>
-                            <input id="caseid" type="number" name="caseid" min="0" required/>
-                        </div>
-                        <div class="form-group">
-                            <label for="fdate">Filing Date</label>
-                            <input id="fdate" type="date" name="fdate"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="appeal_date">Appeal Hearing Date</label>
-                            <input id="appeal_date" type="date" name="appeal_date"/>
-                        </div>
-                        <div class="form-group">
-                          <label for="result">Result</label>
-                          <select name="result" id="result">
-                            <option value=""></option>
-                            <option value="p">Pending</option>
-                            <option value="a">Approved</option>
-                            <option value="d">Disapproved</option>
-                          </select>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit">Submit</button>
-                        </div>
-                      </form>
+                    </form>
                 </div>
             </div>
-
             <?php
-                // When a field is submitted, it will run this code
-                if($_GET){
-                    $db = connectToDB_admin();
-                    update_appeal($_GET["numAtt"], $_GET["caseid"], $_GET["fdate"] ,$_GET["appeal_date"], $_GET["result"],  $db);
-                }
+              // When a field is submitted, it will run this code
+              if($_GET){
+                $db = connectToDB_admin();
+                delete_appeal($_GET["chargeid"], $db);
+              }
             ?>
-
 
         </center>
 
