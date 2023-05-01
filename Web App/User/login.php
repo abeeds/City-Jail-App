@@ -14,7 +14,8 @@
       $conn = new mysqli("localhost", $username, $password, "cityjail");
 
       // available on entire domain for a week
-      setcookie("username", $username, time() + (86400 & 7), "/"); 
+      setcookie('username', $username, time() + (86400 * 7), '/'); 
+      $_COOKIE['username'] = $username;
       header("location: ../Admin/criminal/criminals-admin.php");
     } catch (Exception $e) {
       // connection failed, handle the error
