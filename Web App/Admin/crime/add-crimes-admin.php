@@ -68,25 +68,20 @@
                     
                 <div class="form-panel one">
                     <div class="form-header">
-                    <h1>Crime Search</h1>
+                    <h1>Add Crime</h1>
                     </div>
                     <form>
                     <div class="form-group">
                       <label for="caseID">Case ID</label>
-                      <input id="caseID" type="number" name="caseID" min="0"/>
+                      <input id="caseID" type="number" name="caseID" min="0" required="required"/>
                     </div>
                     <div class="form-group">
                       <label for="crID">Criminal ID</label>
-                      <input id="crID" type="number" name="crID" min="0"/>
-                    </div>
-                    <div class="form-group">
-                      <label for="cname">Name</label>
-                      <input id="cname" type="text" name="cname" maxlength="41"/>
+                      <input id="crID" type="number" name="crID" min="0" required="required"/>
                     </div>
                     <div class="form-group">
                       <label for="classification">Classification</label>
                       <select name="classification" id="classification">
-                      <option value=""></option>
                         <option value="f">Felony</option>
                         <option value="m">Misdemeanor</option>
                         <option value="o">Other</option>
@@ -94,7 +89,23 @@
                     </div>
                     <div class="form-group">
                       <label for="datecharged">Date Charged After </label>
-                      <input id="datcharged" type="date" name="datecharged"/>
+                      <input id="datcharged" type="date" name="datecharged" required="required"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="appealStat">Appeal Status</label>
+                      <select name="appealStat" id="appealStat">
+                        <option value="ia">In Appeal</option>
+                        <option value="ca">Can Appeal</option>
+                        <option value="c">Closed</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="hearingdate">Hearing Date </label>
+                      <input id="hearingdate" type="date" name="hearingdate"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="appealcut">Appeal Cutoff Date </label>
+                      <input id="appealcut" type="date" name="appealcut"/>
                     </div>
                       <div class="form-group">
                           <button type="submit">Submit</button>
@@ -106,7 +117,7 @@
               // When a field is submitted, it will run this code
               if($_GET){
                 $db = connectToDB_admin();
-                makeTable_crime($_GET["caseID"], $_GET["crID"], $_GET["cname"], $_GET["classification"], $_GET["datecharged"], $db);
+                // update_crime($_GET["caseID"], $_GET["crID"], $_GET["classification"], $_GET["datecharged"], $_GET["appealStat"],$_GET["hearingdate"], $_GET["appealcut"], $db);
               }
             ?>
             
