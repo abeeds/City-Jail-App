@@ -266,10 +266,10 @@ function makeTable_sentence($name, $start_date, $end_date, $type, $database=NULL
     $aQuery .= " WHERE s.c_id = cr.c_id ";
     $aQuery .= "AND CONCAT(cr.c_first, ' ',  cr.c_last) LIKE '%" . $name . "%' ";
     if($start_date !== "" && $end_date === "") {
-        $aQuery .= " AND s.start_date = '" . $start_date . "'";
+        $aQuery .= " AND s.start_date >= '" . $start_date . "'";
     }
     elseif($end_date !== "" && $start_date === "") {
-        $aQuery .= " AND s.end_date = '" . $end_date . "'";
+        $aQuery .= " AND s.end_date <= '" . $end_date . "'";
     }
     elseif($start_date !== "" && $end_date !== "") {
         $aQuery .= " AND s.start_date >= '" . $start_date . "'";
