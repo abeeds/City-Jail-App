@@ -15,7 +15,6 @@
 
       // available on entire domain for a week
       setcookie("username", $username, time() + (86400 & 7), "/"); 
-      setcookie("password", $username, time() + (86400 & 7), "/"); 
       header("location: ../Admin/criminal/criminals-admin.php");
     } catch (Exception $e) {
       // connection failed, handle the error
