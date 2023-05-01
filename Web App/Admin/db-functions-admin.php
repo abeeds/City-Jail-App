@@ -136,6 +136,116 @@ function makeTable_criminal($id, $name, $street ,$city, $state, $zip, $phonenum,
     }
     echo "</table>";
 }
+// This function will make the criminals table
+function makeTable_prob_officer($pid, $name, $street ,$city, $state, $zip, $phonenum,$email, $status,  $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    // Ensure that no improper characters are being used
+    formatInput($name);
+    formatInput($street);
+    formatInput($city);
+    formatInput($state);
+    formatInput($status);
+
+    // Display the search prompt
+    echo "<p> Showing Results For: <br>";
+    if($pid !== "") {
+        echo "ID: " . $pid . "<br>";
+    }
+    if($name !== "") {
+        echo "Name: " . $name . "<br>";
+    }
+    if($street !== "") {
+        echo "Street: " . $street . "<br>";
+    }
+    if($city !== "") {
+        echo "City: " . $city . "<br>";
+    }
+    if($state !== "") {
+        echo "State: " . $state . "<br>";
+    }
+    if($zip !== "") {
+        echo "Zip Code: " . $zip . "<br>";
+    }
+    if($email !== "") {
+        echo "Email " . $email . "<br>";
+    }
+    if($status !== "") {
+        echo "Status: " . $status . "<br>";
+    }
+    if($phonenum !== "") {
+        echo "Phone Number: " . $phonenum . "<br>";
+    }
+    echo "</p>";
+
+    // Initialize table
+    echo    "<table class =\"show-table\" id=\"officer\">
+                <tr class=\"row-labels\">
+                    <th> Probation Officer ID </th>
+                    <th> First Name </th>
+                    <th> Last Name </th>
+                    <th> Phone Number </th>
+                    <th> Street</th>
+                    <th> City </th>
+                    <th> State </th>
+                    <th> Zip </th>
+                    <th> Email </th>
+                    <th> Status </th>
+                </tr>";
+
+    
+    // will show everything if no fields are entered
+    $aQuery = "SELECT po.* FROM prob_officer po";
+
+    // Add to query if any fields are entered
+    $aQuery .= " WHERE ";
+    $aQuery .= " CONCAT(po.p_first, ' ',  po.p_last) LIKE '%" . $name . "%' AND ";
+    $aQuery .= "po.p_city LIKE '%" . $city . "%' " ;
+    $aQuery .= " AND po.p_street LIKE '%" . $street . "%'" ;
+    $aQuery .= " AND po.p_state LIKE '%" . $state . "%'" ;
+    $aQuery .= " AND po.p_email LIKE '%" . $email . "%'" ;
+    $aQuery .= " AND po.p_status LIKE '%" . $status . "%'" ;
+    if($pid !== "") {
+        $aQuery .= " AND po.p_id = " . $pid;
+    }
+    if($zip !== "") {
+        $aQuery .= " AND po.p_zip = " . $zip;
+    }
+    if($phonenum !== "") {
+        $aQuery .= " AND po.p_phone_number = " . $phonenum;
+    }
+    $aQuery .= ";";
+
+    //echo "<p>$aQuery</p>";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    $result = $database->query($aQuery);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<th>" . $row["p_id"] . "</th>";
+            echo "<th>" . $row["p_first"] . "</th>";
+            echo "<th>" . $row["p_last"] . "</th>";
+            echo "<th>" . $row["p_phone_number"] . "</th>";
+            echo "<th>" . $row["p_street"] . "</th>";
+            echo "<th>" . $row["p_city"] . "</th>";
+            echo "<th>" . $row["p_state"] . "</th>";
+            echo "<th>" . $row["p_zip"] . "</th>";
+            echo "<th>" . $row["p_email"] . "</th>";
+            if($row["p_status"] === "a") {
+                echo "<th>" . "Active" . "</th>";
+            }
+            else {
+                echo "<th>" . "Inactive" . "</th>";
+            }  
+            echo "</tr>";
+        }
+    }
+    echo "</table>";
+}
 
 // This function will make the officer table
 function makeTable_officer($bNum, $name, $precinct ,$phonenum, $status,  $database=NULL) {
@@ -531,7 +641,6 @@ function show_charge($database=NULL) {
     }
     echo "</table>";
 }// show_charge
-
 function show_appeal($database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
@@ -721,6 +830,46 @@ function add_officer($bNum, $fname, $lname, $precinct ,$phonenum, $status,  $dat
         echo "<p>Error: </p>";
     }
 }
+// This function will add Probation officers
+function add_prob_officer($pid, $lname, $fname, $street ,$city, $state, $zip, $phonenum, $email, $status,  $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    // Ensure that no improper characters are being used
+    formatInput($fname);
+    formatInput($lname);
+    formatInput($street);
+    formatInput($city);
+    formatInput($state);
+    formatInput($status);
+    
+    $aQuery = " INSERT INTO prob_officer (p_id, p_last, p_first, p_phone_number, p_street,p_city, p_state, p_zip, p_email, p_status)
+    VALUES";
+
+    // Add to query if any fields are entered
+    $aQuery .= " (  $pid  , ";
+    $aQuery .= " \"$lname\" ,";
+    $aQuery .= " \"$fname\" ,";
+    $aQuery .= " $phonenum  ,";
+    $aQuery .= "  \"$street\"  ,";
+    $aQuery .= " \"$city\" ,";
+    $aQuery .= "  \"$state\"  ,";
+    $aQuery .= "  $zip ,";
+    $aQuery .= "  \"$email\"  ,";
+    $aQuery .= "  \"$status\"  )";
+
+    $aQuery .= ";";
+    echo "<p>$aQuery</p>";
+    if (mysqli_query($database, $aQuery)) {
+        //$rows = mysqli_affected_rows($database);
+        echo "<p> Insert successful.</p>";
+    } else {
+        //echo "Error: " . mysqli_error($database);
+        echo "<p>Error: </p>";
+    }
+}
 //This function will add criminals
 function add_criminal($id, $lname, $fname, $street ,$city, $state, $zip, $phonenum, $Pstat, $Vstat,  $database=NULL) {
     if(!$database) {
@@ -793,7 +942,6 @@ function add_sentence($sid, $cid, $probid, $start_date ,$end_date, $numVio, $typ
         echo "<p>Error: </p>";
     }
 }
-
 function update_officer($bNum, $fname, $lname, $precinct ,$phonenum, $status,  $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
@@ -823,6 +971,62 @@ function update_officer($bNum, $fname, $lname, $precinct ,$phonenum, $status,  $
     }
     if($bNum !== "") {
         $aQuery .= " WHERE badge_number = " . $bNum;
+    }
+    $aQuery .= " ; ";
+    //echo "<p>$aQuery</p>";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    if (mysqli_query($database, $aQuery)) {
+        //$rows = mysqli_affected_rows($database);
+        echo "<p> Update successful.</p>";
+    } else {
+        //echo "Error: " . mysqli_error($database);
+        echo "<p>Error: </p>";
+    }
+}
+function update_prob_officer($pid, $lname, $fname, $street ,$city, $state, $zip, $phonenum, $email, $status,  $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    // Ensure that no improper characters are being used
+    formatInput($fname);
+    formatInput($lname);
+    formatInput($street);
+    formatInput($city);
+    formatInput($state);
+    
+    $aQuery = " UPDATE prob_officer SET";
+    if($lname !== "") {
+        $aQuery .= " p_last  =  \"$lname\" ";
+    }
+    if($fname !== "") {
+        $aQuery .= " p_first  =  \"$fname\" ";
+    }
+    if($street !== "") {
+        $aQuery .= " p_street  = \"$street\" ";
+    }
+    if($city !== "") {
+        $aQuery .= " p_city  = \"$city\" ";
+    }
+    if($state !== "") {
+        $aQuery .= " p_state  = \"$state\" ";
+    }
+    if($zip !== "") {
+        $aQuery .= " p_zip  = $zip ";
+    }
+    if($phonenum !== "") {
+        $aQuery .= " p_phone_number  =  $phonenum ";
+    }
+    if($email !== "") {
+        $aQuery .= " p_email  =  \"$email\" ";
+    }
+    if($status !== "") {
+        $aQuery .= " p_status  =  \"$status\" ";
+    }
+    if($pid !== "") {
+        $aQuery .= " WHERE p_id = " . $pid;
     }
     $aQuery .= " ; ";
     //echo "<p>$aQuery</p>";
@@ -882,6 +1086,7 @@ function update_charge($chargeid, $caseid, $codenum, $chargeStat ,$fine, $court,
         echo "<p>Error </p>";
     }
 }
+
 function delete_officer($bNum, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
@@ -891,6 +1096,28 @@ function delete_officer($bNum, $database=NULL) {
     $aQuery = " DELETE FROM officer ";
     if($bNum !== "") {
         $aQuery .= " WHERE badge_number = " . $bNum;
+    }
+    $aQuery .= " ; ";
+    //echo "<p>$aQuery</p>";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    if (mysqli_query($database, $aQuery)) {
+        //$rows = mysqli_affected_rows($database);
+        echo "<p> Delete successful.</p>";
+    } else {
+        //echo "Error: " . mysqli_error($database);
+        echo "<p>Error: </p>";
+    }
+}
+function delete_prob_officer($pid, $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    $aQuery = " DELETE FROM prob_officer ";
+    if($pid !== "") {
+        $aQuery .= " WHERE p_id = " . $pid;
     }
     $aQuery .= " ; ";
     //echo "<p>$aQuery</p>";

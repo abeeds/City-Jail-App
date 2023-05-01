@@ -46,10 +46,10 @@
                         <a href="../officer/officers-admin.php">Officer</a>
                         <a href="../crime_officer/crime_officers-admin.php">Crime per Officer</a> 
                         <a href="prob_officers-admin.php">Probation Officer</a> 
+                        <!-- Logout should lead to non-admin homepage -->
                       </div>
                     </div>
                   </div>
-
                   
                   <!-- Right Side of Navigation Bar -->
                   <div class="navbar-nav">
@@ -70,28 +70,34 @@
                 </div>
               </div>
             </nav>
-        </header>
+        </header>      
         <center>
-            <div style="width:1000px;">
-                <div  class="edit-search" style ="margin: 10px auto; display:inline-block;">
-                    <button style="width:150px;"> <a style="color:inherit;font-size: inherit;line-height: inherit;" href="search-prob_officers-admin.php">Search Table</a></button>
-                </div>
-                <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
-                    <button style="width:150px;"> <a style="color:inherit;font-size: inherit;line-height: inherit;" href="edit-prob_officers-admin.php">Update Table</a></button>
-                </div>
-                <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
-                    <button style="width:150px;"><a style="color:inherit;font-size: inherit;line-height: inherit;" href="add-prob_officers-admin.php">Add Record</a></button>
-                </div>
-                <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
-                    <button style="width:150px;"><a style="color:inherit;font-size: inherit;line-height: inherit;" href="delete-prob_officers-admin.php">Delete Record</a></button>
+                    
+            <div method="get" class="form">
+                    
+                <div class="form-panel one">
+                    <div class="form-header">
+                    <h1>Delete Probation Officer's Details</h1>
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <label for="pid">Delete Probation Officer with ID</label>
+                            <input id="pid" type="number" name="pid" maxlenght="4"/>
+                        </div>
+                          <div class="form-group">
+                          <button type="submit">Submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-       
             <?php 
                 // When a field is submitted, it will run this code
-                $db = connectToDB_admin();
-                show_prob_officer($db);
-             ?>
+                if($_GET){
+                  $db = connectToDB_admin();
+                  delete_prob_officer($_GET["pid"],  $db);
+                }
+            ?>
+            
         </center>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -53,7 +53,6 @@
                   
                   <!-- Right Side of Navigation Bar -->
                   <div class="navbar-nav">
-
                     <!-- Dropdown menu on Profile Button -->
                     <div class="dropdown">
                       <a class ="dropbtn" href="">
@@ -72,27 +71,77 @@
             </nav>
         </header>
         <center>
-            <div style="width:1000px;">
-                <div  class="edit-search" style ="margin: 10px auto; display:inline-block;">
-                    <button style="width:150px;"> <a style="color:inherit;font-size: inherit;line-height: inherit;" href="search-prob_officers-admin.php">Search Table</a></button>
-                </div>
-                <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
-                    <button style="width:150px;"> <a style="color:inherit;font-size: inherit;line-height: inherit;" href="edit-prob_officers-admin.php">Update Table</a></button>
-                </div>
-                <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
-                    <button style="width:150px;"><a style="color:inherit;font-size: inherit;line-height: inherit;" href="add-prob_officers-admin.php">Add Record</a></button>
-                </div>
-                <div class="edit-search" style ="margin: 10px auto; display:inline-block;">
-                    <button style="width:150px;"><a style="color:inherit;font-size: inherit;line-height: inherit;" href="delete-prob_officers-admin.php">Delete Record</a></button>
-                </div>
-            </div>
-       
-            <?php 
-                // When a field is submitted, it will run this code
-                $db = connectToDB_admin();
-                show_prob_officer($db);
-             ?>
-        </center>
+                    
+                    <div method="get" class="form">
+                            
+                        <div class="form-panel one">
+                    
+                            <div class="form-header">
+        
+                            <h1>Add Probation Officer</h1>
+                            </div>
+                              <form>
+                                <div class="form-group">
+                                    <label for="pid">Probation Officer Id</label>
+                                    <input id="pid" type="number" name="pid" maxlenght="4"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fname">First Name</label>
+                                    <input id="fname" type="text" name="fname" maxlength="41"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lname">Last Name</label>
+                                    <input id="lname" type="text" name="lname" maxlength="41"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phonenum">Phone Number</label>
+                                    <input id="phonenum" type="number" name="phonenum" min="1" max="9999999999"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="street">Street</label>
+                                    <input id="street" type="text" name="street" maxlength="64"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input id="city" type="text" name="city" maxlength="64"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="state">State</label>
+                                    <input id="state" type="text" name="state" maxlength="2"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="zip">Zip Code</label>
+                                    <input type="number" id="zip" name="zip"">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="email"">
+                                </div>
+                                <div class="form-group">
+                                  <label for="status">Status</label>
+                                  <select name="status" id="status">
+                                    <option value=""></option>
+                                    <option value="a">Active</option>
+                                    <option value="i">Inactive</option>
+                                  </select>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+        
+                    <?php 
+                        // When a field is submitted, it will run this code
+                        if($_GET){
+                            $db = connectToDB_admin();
+                            add_prob_officer($_GET["pid"], $_GET["lname"], $_GET["fname"], $_GET["street"] ,$_GET["city"], $_GET["state"], $_GET["zip"], $_GET["phonenum"],$_GET["email"],$_GET["status"], $db);
+                        }
+                    ?>
+        
+                    
+                </center>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
