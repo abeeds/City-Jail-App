@@ -1944,7 +1944,7 @@ function makeTable_appeal($cname, $appeal_date, $resultStat, $database=NULL) {
 
     // Add to query if any fields are entered
     $aQuery .= "WHERE c.c_id = ca.c_id AND ca.case_id = a.case_id ";
-    $aQuery .= "AND CONCAT(c.c_first, ' ',  c.c_last) LIKE '%" . $name . "%' ";
+    $aQuery .= "AND CONCAT(c.c_first, ' ',  c.c_last) LIKE '%" . $cname . "%' ";
     $aQuery .= "AND a.appeal_hearing_date LIKE '%" . $appeal_date . "%' " ;
     if($resultStat !== "") {
         $aQuery .= " AND a.result_status = '${resultStat}' ";
