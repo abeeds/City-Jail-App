@@ -1581,16 +1581,16 @@ function update_crime($caseid, $crid, $classification, $datecharged, $appealStat
         $aQuery .= " classification  =  \"$classification\" ,";
     }
     if($datecharged !== "") {
-        $aQuery .= " datecharged  =  $datecharged ,";
+        $aQuery .= " datecharged  =  \"$datecharged\" ,";
     }
     if($appealStat !== "") {
         $aQuery .= " appeal_status  =  \"$appealStat\", ";
     }
     if($hearingdate !== "") {
-        $aQuery .= " hearing_date  =  $hearingdate, ";
+        $aQuery .= " hearing_date  =  \"$hearingdate\", ";
     }
     if($appealcut !== "") {
-        $aQuery .= " appeal_cutoff_date  =  $appealcut, ";
+        $aQuery .= " appeal_cutoff_date  =  \"$appealcut\", ";
     }
     $aQuery = rtrim($aQuery, ', ') . " WHERE case_id= $caseid";
 
