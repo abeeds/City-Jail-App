@@ -808,6 +808,33 @@ function show_crime($database=NULL) {
     }
     echo "</table>";
 }// show_officer
+
+function add_crime_officer($bNum, $caseid, $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    // Ensure that no improper characters are being used
+    formatInput($classification);
+    
+    $aQuery = " INSERT INTO crime_officer (badge_number, case_id)
+    VALUES";
+
+    // Add to query if any fields are entered
+    $aQuery .= " (  $bNum  , ";
+    $aQuery .= " $caseid )";
+
+    $aQuery .= ";";
+    //echo "<p>$aQuery</p>";
+    if (mysqli_query($database, $aQuery)) {
+        //$rows = mysqli_affected_rows($database);
+        echo "<p> Insert successful.</p>";
+    } else {
+        //echo "Error: " . mysqli_error($database);
+        echo "<p>Error: </p>";
+    }
+}
 // This function will add officers
 function add_officer($bNum, $fname, $lname, $precinct ,$phonenum, $status,  $database=NULL) {
     if(!$database) {
@@ -944,7 +971,7 @@ function add_sentence($sid, $cid, $probid, $start_date ,$end_date, $numVio, $typ
     $aQuery .= " \"$type\" )";
 
     $aQuery .= ";";
-    echo "<p>$aQuery</p>";
+    //echo "<p>$aQuery</p>";
     if (mysqli_query($database, $aQuery)) {
         //$rows = mysqli_affected_rows($database);
         echo "<p> Insert successful.</p>";
@@ -1247,6 +1274,26 @@ function delete_criminal($cid, $database=NULL) {
         echo "<p>Error: </p>";
     }
 }
+function delete_sentence($sid, $database=NULL) {
+    if(!$database) {
+        echo "<p> Failed to connect to database. </p>";
+        return;
+    }
+
+    $aQuery = " DELETE FROM sentence ";
+    $aQuery .= " WHERE s_id = " . $sid;
+    $aQuery .= " ; ";
+    //echo "<p>$aQuery</p>";
+    // adds a row to the HTML for each row on the table
+    // NEED TO ADD A PAGE LIMIT FEATURE IN THE FUTURE
+    if (mysqli_query($database, $aQuery)) {
+        //$rows = mysqli_affected_rows($database);
+        echo "<p> Delete successful.</p>";
+    } else {
+        //echo "Error: " . mysqli_error($database);
+        echo "<p>Error: </p>";
+    }
+}
 function makeTable_crime($caseid, $crid, $cname, $classification, $datecharged, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
@@ -1511,7 +1558,7 @@ function makeTable_charge($chargeid, $caseid, $cname, $chargeStat, $database=NUL
     echo "</table>";
 } // makeTable_charge
 
-function makeTable_sentence($sid, $cid, $name, $start_date, $end_date, $type, $database=NULL) {
+function makeTable_sentence($sid, $cid, $probid, $start_date ,$end_date, $numVio, $type, $database=NULL) {
     if(!$database) {
         echo "<p> Failed to connect to database. </p>";
         return;
@@ -1528,11 +1575,14 @@ function makeTable_sentence($sid, $cid, $name, $start_date, $end_date, $type, $d
     if($cid !== "") {
         echo "Criminal ID: " . $cid . "<br>";
     }
-    if($name !== "") {
-        echo "Name: " . $name . "<br>";
+    if($probid !== "") {
+        echo "Probation ID: " . $probid . "<br>";
     }
     if($start_date !== "") {
         echo "Start Date: " . $start_date . "<br>";
+    }
+    if($numVio !== "") {
+        echo "Number of Violations: " . $numVio . "<br>";
     }
     if($end_date !== "") {
         echo "End Date: " . $end_date . "<br>";
@@ -1590,6 +1640,9 @@ function makeTable_sentence($sid, $cid, $name, $start_date, $end_date, $type, $d
     }
     if($cid !== "") {
         $aQuery .= " AND c.c_id = '${cid}' ";
+    }
+    if($numVio !== "") {
+        $aQuery .= " AND s.num_violations = '${numVio}' ";
     }
 
     $aQuery .= ";";

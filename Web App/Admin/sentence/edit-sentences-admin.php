@@ -97,7 +97,6 @@
                     <div class="form-group">
                       <label for="type">Sentence Type</label>
                       <select name="type" id="type">
-                        <option value=""></option>
                         <option value="p">Probation</option>
                         <option value="h">House Arrest</option>
                         <option value="j">Jail</option>

@@ -75,43 +75,43 @@
                               <form>
                                 <div class="form-group">
                                     <label for="pid">Probation Officer Id</label>
-                                    <input id="pid" type="number" name="pid" maxlenght="4"/>
+                                    <input id="pid" type="number" name="pid" maxlenght="4"requied/>
                                 </div>
                                 <div class="form-group">
                                     <label for="fname">First Name</label>
-                                    <input id="fname" type="text" name="fname" maxlength="41"/>
+                                    <input id="fname" type="text" name="fname" maxlength="41"requied/>
                                 </div>
                                 <div class="form-group">
                                     <label for="lname">Last Name</label>
-                                    <input id="lname" type="text" name="lname" maxlength="41"/>
+                                    <input id="lname" type="text" name="lname" maxlength="41"requied/>
                                 </div>
                                 <div class="form-group">
                                     <label for="phonenum">Phone Number</label>
-                                    <input id="phonenum" type="number" name="phonenum" min="1" max="9999999999"/>
+                                    <input id="phonenum" type="number" name="phonenum" min="1" max="9999999999"requied/>
                                 </div>
                                 <div class="form-group">
                                     <label for="street">Street</label>
-                                    <input id="street" type="text" name="street" maxlength="64"/>
+                                    <input id="street" type="text" name="street" maxlength="64"requied/>
                                 </div>
                                 <div class="form-group">
                                     <label for="city">City</label>
-                                    <input id="city" type="text" name="city" maxlength="64"/>
+                                    <input id="city" type="text" name="city" maxlength="64"requied/>
                                 </div>
                                 <div class="form-group">
                                     <label for="state">State</label>
-                                    <input id="state" type="text" name="state" maxlength="2"/>
+                                    <input id="state" type="text" name="state" maxlength="2"requied/>
                                 </div>
                                 <div class="form-group">
                                     <label for="zip">Zip Code</label>
-                                    <input type="number" id="zip" name="zip"">
+                                    <input type="number" id="zip" name="zip"requied/>
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input type="email" id="email" name="email"">
+                                    <input type="email" id="email" name="email"requied/>
                                 </div>
                                 <div class="form-group">
                                   <label for="status">Status</label>
-                                  <select name="status" id="status">
+                                  <select name="status" id="status"requied>
                                     <option value=""></option>
                                     <option value="a">Active</option>
                                     <option value="i">Inactive</option>

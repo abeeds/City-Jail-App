@@ -72,39 +72,39 @@
                       <form>
                         <div class="form-group">
                             <label for="id">Criminal ID</label>
-                            <input id="id" type="number" name="id" min="0"/>
+                            <input id="id" type="number" name="id" min="0"requied/>
                         </div>
                         <div class="form-group">
                             <label for="fname">First Name</label>
-                            <input id="fname" type="text" name="fname" maxlength="41"/>
+                            <input id="fname" type="text" name="fname" maxlength="41"requied/>
                         </div>
                         <div class="form-group">
                             <label for="lname">Last Name</label>
-                            <input id="lname" type="text" name="lname" maxlength="41"/>
+                            <input id="lname" type="text" name="lname" maxlength="41"requied/>
                         </div>
                         <div class="form-group">
                             <label for="street">Street</label>
-                            <input id="street" type="text" name="street" maxlength="64"/>
+                            <input id="street" type="text" name="street" maxlength="64"requied/>
                         </div>
                         <div class="form-group">
                             <label for="city">City</label>
-                            <input id="city" type="text" name="city" maxlength="64"/>
+                            <input id="city" type="text" name="city" maxlength="64"requied/>
                         </div>
                         <div class="form-group">
                             <label for="state">State</label>
-                            <input id="state" type="text" name="state" maxlength="2"/>
+                            <input id="state" type="text" name="state" maxlength="2"requied/>
                         </div>
                         <div class="form-group">
                             <label for="zip">Zip Code</label>
-                            <input type="number" id="zip" name="zip" min="1" max="99999" pattern="[1-9]{1}\d{4}">
+                            <input type="number" id="zip" name="zip" min="1" max="99999" requied/>
                         </div>
                         <div class="form-group">
                             <label for="phonenum">Phone Number</label>
-                            <input id="phonenum" type="number" name="phonenum" min="1" max="9999999999"/>
+                            <input id="phonenum" type="number" name="phonenum" min="1" max="9999999999"requied/>
                         </div>
                         <div class="form-group">
                           <label for="Vstat">Violent Offender Status</label>
-                          <select name="Vstat" id="Vstat">
+                          <select name="Vstat" id="Vstat" requied>
                             <option value=""></option>
                             <option value="y">Yes</option>
                             <option value="n">No</option>
@@ -112,7 +112,7 @@
                         </div>
                         <div class="form-group">
                           <label for="Pstat">Probation Status</label>
-                          <select name="Pstat" id="Pstat">
+                          <select name="Pstat" id="Pstat" requied>
                           <option value=""></option>
                             <option value="y">Yes</option>
                             <option value="n">No</option>

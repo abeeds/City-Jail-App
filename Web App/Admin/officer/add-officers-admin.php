@@ -75,23 +75,23 @@
                       <form>
                         <div class="form-group">
                             <label for="bNum">Badge Number</label>
-                            <input id="bNum" type="number" name="bNum" maxlenght="4"/>
+                            <input id="bNum" type="number" name="bNum" maxlenght="4" requied />
                         </div>
                         <div class="form-group">
                             <label for="fname">First Name</label>
-                            <input id="fname" type="text" name="fname" maxlength="41"/>
+                            <input id="fname" type="text" name="fname" maxlength="41" requied/>
                         </div>
                         <div class="form-group">
                             <label for="lname">Last Name</label>
-                            <input id="lname" type="text" name="lname" maxlength="41"/>
+                            <input id="lname" type="text" name="lname" maxlength="41" requied/>
                         </div>
                         <div class="form-group">
                             <label for="precinct">Precinct</label>
-                            <input id="precinct" type="number" name="precinct" min="0"/>
+                            <input id="precinct" type="number" name="precinct" min="0"requied/>
                         </div>
                         <div class="form-group">
                             <label for="phonenum">Phone Number</label>
-                            <input id="phonenum" type="number" name="phonenum" min="1" max="9999999999"/>
+                            <input id="phonenum" type="number" name="phonenum" min="1" max="9999999999"requied/>
                         </div>
                         <div class="form-group">
                           <label for="status">Status</label>
