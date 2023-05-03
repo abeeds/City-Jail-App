@@ -9,19 +9,16 @@
     // Ensure invalid characters do not get through
     formatInput($username);
     formatInput($password);
-
-    try {
-      $conn = new mysqli("localhost", $username, $password, "cityjail");
-
+    if($username === "admin123" && $password == "admin321") {
       // available on entire domain for a week
       setcookie('username', $username, time() + (86400 * 7), '/'); 
       $_COOKIE['username'] = $username;
       header("location: ../Admin/criminal/criminals-admin.php");
-    } catch (Exception $e) {
-      // connection failed, handle the error
-      $failed = "Your username or password is incorrect.";
-
     }
+    else {
+      $failed = "Your username or password is incorrect.";
+    }
+    
   }
   error_reporting(E_ALL); // re-enable error reporting
 
