@@ -75,44 +75,43 @@
                               <form>
                                 <div class="form-group">
                                     <label for="pid">Probation Officer Id</label>
-                                    <input id="pid" type="number" name="pid" maxlenght="4"requied/>
+                                    <input id="pid" type="number" name="pid" min="0" max="999999999" required="required"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="fname">First Name</label>
-                                    <input id="fname" type="text" name="fname" maxlength="41"requied/>
+                                    <input id="fname" type="text" name="fname" maxlength="41" required="required"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="lname">Last Name</label>
-                                    <input id="lname" type="text" name="lname" maxlength="41"requied/>
+                                    <input id="lname" type="text" name="lname" maxlength="41" required="required"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="phonenum">Phone Number</label>
-                                    <input id="phonenum" type="number" name="phonenum" min="1" max="9999999999"requied/>
+                                    <input id="phonenum" type="number" name="phonenum" min="1" max="9999999999" required="required"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="street">Street</label>
-                                    <input id="street" type="text" name="street" maxlength="64"requied/>
+                                    <input id="street" type="text" name="street" maxlength="64" required="required"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="city">City</label>
-                                    <input id="city" type="text" name="city" maxlength="64"requied/>
+                                    <input id="city" type="text" name="city" maxlength="64" required="required"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="state">State</label>
-                                    <input id="state" type="text" name="state" maxlength="2"requied/>
+                                    <input id="state" type="text" name="state" maxlength="2" required="required"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="zip">Zip Code</label>
-                                    <input type="number" id="zip" name="zip"requied/>
+                                    <input type="number" id="zip" name="zip" required="required"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input type="email" id="email" name="email"requied/>
+                                    <input type="email" id="email" name="email" required="required"/>
                                 </div>
                                 <div class="form-group">
                                   <label for="status">Status</label>
-                                  <select name="status" id="status"requied>
-                                    <option value=""></option>
+                                  <select name="status" id="status" required="required">
                                     <option value="a">Active</option>
                                     <option value="i">Inactive</option>
                                   </select>

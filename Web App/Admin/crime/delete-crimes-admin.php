@@ -74,7 +74,7 @@
                     <form>
                     <div class="form-group">
                       <label for="caseid">Crime ID</label>
-                      <input id="caseid" type="number" name="caseid" min="0" required="required"/>
+                      <input id="caseid" type="number" name="caseid" min="0" max="999999999" required="required"/>
                     </div>
                       <div class="form-group">
                           <button type="submit">Submit</button>

@@ -74,7 +74,7 @@
                     <form>
                     <div class="form-group">
                       <label for="chargeid">Charge ID</label>
-                      <input id="chargeid" type="number" name="chargeid" min="0" required="required"/>
+                      <input id="chargeid" type="number" name="chargeid" min="0" max="999999999" required="required"/>
                     </div>
                       <div class="form-group">
                           <button type="submit">Submit</button>

@@ -73,7 +73,7 @@
                     <form>
                         <div class="form-group">
                             <label for="sid">Delete Sentence  with ID</label>
-                            <input id="sid" type="number" name="sid" maxlenght="4" required/>
+                            <input id="sid" type="number" name="sid" min="0" max="999999999" required/>
                         </div>
                           <div class="form-group">
                           <button type="submit">Submit</button>

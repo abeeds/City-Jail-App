@@ -74,7 +74,7 @@
                     <form>
                         <div class="form-group">
                             <label for="bNum">Update Officer with Badge Number</label>
-                            <input id="bNum" type="number" name="bNum" maxlenght="4" required/>
+                            <input id="bNum" type="number" name="bNum" min="0" max="999999999" required="required"/>
                         </div>
                         <div class="form-group">
                           <label for="fname">First Name</label>
@@ -86,7 +86,7 @@
                         </div>
                         <div class="form-group">
                           <label for="precinct">Precinct</label>
-                          <input id="precinct" type="number" name="precinct" min="0"/>
+                          <input id="precinct" type="number" name="precinct" min="0" max="999999999"/>
                         </div>
                         <div class="form-group">
                           <label for="phonenum">Phone Number</label>

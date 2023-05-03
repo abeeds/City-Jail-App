@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Required meta tags -->
+        <!--  required="required" meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -72,15 +72,15 @@
                     <form>
                     <div class="form-group">
                           <label for="sid">Update Sentence with ID</label>
-                          <input id="sid" type="number" name="sid" min="0" required/>
+                          <input id="sid" type="number" name="sid" min="0" max="999999999"  required="required"/>
                       </div>
                     <div class="form-group">
                           <label for="cid">Criminal ID</label>
-                          <input id="cid" type="number" name="cid" min="0"/>
+                          <input id="cid" type="number" name="cid" min="0" max="999999999"/>
                       </div>
                     <div class="form-group">
                       <label for="probid">Probation Officer ID</label>
-                      <input id="probid" type="number" name="probid" min="0"/>
+                      <input id="probid" type="number" name="probid" min="0" max="999999999"/>
                     </div>
                     <div class="form-group">
                       <label for="start_date">Start Date</label>
@@ -92,7 +92,7 @@
                     </div>
                     <div class="form-group">
                           <label for="numVio">Number of Violations</label>
-                          <input id="numVio" type="number" name="numVio" min="0"/>
+                          <input id="numVio" type="number" name="numVio" min="0" max="999999999"/>
                       </div>
                     <div class="form-group">
                       <label for="type">Sentence Type</label>

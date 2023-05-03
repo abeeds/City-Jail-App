@@ -74,11 +74,11 @@
                     <form>
                     <div class="form-group">
                       <label for="chargeid">Update Charge with Case ID</label>
-                      <input id="chargeid" type="number" name="chargeid" min="0" required="required"/>
+                      <input id="chargeid" type="number" name="chargeid" min="0" max="999999999" required="required"/>
                     </div>
                     <div class="form-group">
                       <label for="caseid">Case ID</label>
-                      <input id="caseid" type="number" name="caseid" min="0"/>
+                      <input id="caseid" type="number" name="caseid" min="0" max="999999999"/>
                     </div>
                     <div class="form-group">
                       <label for="codenum">Crime Code</label>
@@ -106,15 +106,15 @@
                     </div>
                     <div class="form-group">
                       <label for="fine">Fine amount </label>
-                      <input id="fine" type="num" name="fine"/>
+                      <input id="fine" type="num" min="0" max="999999999"name="fine"/>
                     </div>
                     <div class="form-group">
                       <label for="court">Court Fee </label>
-                      <input id="court" type="num" name="court"/>
+                      <input id="court" type="num" min="0" max="999999999" name="court"/>
                     </div>
                     <div class="form-group">
                       <label for="paid">Amount Paid </label>
-                      <input id="paid" type="num" name="paid"/>
+                      <input id="paid" type="num" min="0" max="999999999" name="paid"/>
                     </div>
                     <div class="form-group">
                       <label for="paymentdate">Payment Date </label>

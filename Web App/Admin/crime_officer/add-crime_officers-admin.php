@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Required meta tags -->
+        <!--  required="required" meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -75,11 +75,11 @@
                       <form>
                         <div class="form-group">
                             <label for="caseid">Case ID</label>
-                            <input id="caseid" type="number" name="caseid" maxlenght="4" required />
+                            <input id="caseid" type="number" name="caseid" min="0" max="999999999"  required="required" />
                         </div>
                         <div class="form-group">
                             <label for="bnum">Badge_number</label>
-                            <input id="bnum" type="text" name="bnum" maxlength="41" required/>
+                            <input id="bnum" type="number" name="bnum" min="0" max="999999999"  required="required"/>
                         </div>
                         <div class="form-group">
                             <button type="submit">Submit</button>

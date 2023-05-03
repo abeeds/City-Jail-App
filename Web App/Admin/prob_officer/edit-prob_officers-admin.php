@@ -72,7 +72,7 @@
                     <form>
                                 <div class="form-group">
                                     <label for="pid">Update Probation Officer with Id</label>
-                                    <input id="pid" type="number" name="pid" maxlenght="4" required/>
+                                    <input id="pid" type="number" name="pid" min="0" max="999999999" required="required"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="fname">First Name</label>
@@ -100,11 +100,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="zip">Zip Code</label>
-                                    <input type="number" id="zip" name="zip"">
+                                    <input type="number" id="zip" name="zip" min="1" max="99999">
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input type="email" id="email" name="email"">
+                                    <input type="email" id="email" name="email">
                                 </div>
                                 <div class="form-group">
                                   <label for="status">Status</label>

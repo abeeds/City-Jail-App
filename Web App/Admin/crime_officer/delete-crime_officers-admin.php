@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Required meta tags -->
+        <!--  required="required" meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -74,11 +74,11 @@
                     <form>
                         <div class="form-group">
                             <label for="caseid">Delete Crime Officer with Case ID </label>
-                            <input id="caseid" type="number" name="caseid" maxlenght="4" required/>
+                            <input id="caseid" type="number" name="caseid" min="0" max="999999999"  required="required"/>
                         </div>
                         <div class="form-group">
                             <label for="bNum">Delete Crime Officer with Badge Number </label>
-                            <input id="bNum" type="number" name="bNum" maxlenght="4" required/>
+                            <input id="bNum" type="number" name="bNum" min="0" max="999999999"  required="required"/>
                         </div>
                           <div class="form-group">
                           <button type="submit">Submit</button>

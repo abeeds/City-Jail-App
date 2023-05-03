@@ -76,11 +76,11 @@
                     <form>
                         <div class="form-group">
                             <label for="bNum">Badge Number</label>
-                            <input id="bNum" type="number" name="bNum" maxlenght="4"/>
+                            <input id="bNum" type="number" name="bNum" min="0" max="999999999"/>
                         </div>
                         <div class="form-group">
                             <label for="caseid">Case ID</label>
-                            <input id="caseid" type="text" name="caseid" maxlength="41"/>
+                            <input id="caseid" type="number" name="caseid" min="0" max="999999999"/>
                         </div>
                         <div class="form-group">
                             <button type="submit">Submit</button>

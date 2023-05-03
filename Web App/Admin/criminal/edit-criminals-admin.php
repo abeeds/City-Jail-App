@@ -72,7 +72,7 @@
                     <form>
                         <div class="form-group">
                             <label for="id">Update Criminal with ID</label>
-                            <input id="id" type="number" name="id" min="0" required/>
+                            <input id="id" type="number" name="id" min="0" max="999999999" required="required"/>
                         </div>
                         <div class="form-group">
                             <label for="fname">First Name</label>

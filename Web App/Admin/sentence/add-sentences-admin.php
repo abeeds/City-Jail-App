@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Required meta tags -->
+        <!--  required="required" meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -70,31 +70,31 @@
                   <form>
                     <div class="form-group">
                           <label for="sid">Sentence ID</label>
-                          <input id="sid" type="number" name="sid" min="0" required/>
+                          <input id="sid" type="number" name="sid" min="0" max="999999999"  required="required"/>
                       </div>
                     <div class="form-group">
                           <label for="cid">Criminal ID</label>
-                          <input id="cid" type="number" name="cid" min="0" required/>
+                          <input id="cid" type="number" name="cid" min="0" max="999999999"  required="required"/>
                       </div>
                     <div class="form-group">
                       <label for="probid">Probation Officer ID</label>
-                      <input id="probid" type="number" name="probid" min="0" required/>
+                      <input id="probid" type="number" name="probid" min="0" max="999999999"  required="required"/>
                     </div>
                     <div class="form-group">
                       <label for="start_date">Start Date</label>
-                      <input id="start_date" type="date" name="start_date" required/>
+                      <input id="start_date" type="date" name="start_date"  required="required"/>
                     </div>
                     <div class="form-group">
                       <label for="end_date">End Date</label>
-                      <input id="end_date" type="date" name="end_date" required/>
+                      <input id="end_date" type="date" name="end_date"  required="required"/>
                     </div>
                     <div class="form-group">
                           <label for="numVio">Number of Violations</label>
-                          <input id="numVio" type="number" name="numVio" min="0" required/>
+                          <input id="numVio" type="number" name="numVio" min="0" max="999999999"  required="required"/>
                       </div>
                     <div class="form-group">
                       <label for="type">Sentence Type</label>
-                      <select name="type" id="type" required>
+                      <select name="type" id="type"  required="required">
                         <option value="p">Probation</option>
                         <option value="h">House Arrest</option>
                         <option value="j">Jail</option>

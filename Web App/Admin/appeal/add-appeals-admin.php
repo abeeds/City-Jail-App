@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Required meta tags -->
+        <!--  required="required" meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -80,23 +80,23 @@
                   <form>
                     <div class="form-group">
                           <label for="caseid">Case ID</label>
-                          <input id="caseid" type="number" name="caseid" min="0" required/>
+                          <input id="caseid" type="number" name="caseid" min="0" max="999999999"  required="required"/>
                     </div>
                     <div class="form-group">
                           <label for="numAtt">Number of Attempts</label>
-                          <input id="numAtt" type="number" name="numAtt" min="0" required/>
+                          <input id="numAtt" type="number" name="numAtt" min="0" max="3"  required="required"/>
                     </div>
                     <div class="form-group">
                       <label for="filing_date">Filing Date</label>
-                      <input id="filing_date" type="date" name="filing_date"required/>
+                      <input id="filing_date" type="date" name="filing_date" required="required"/>
                     </div>
                     <div class="form-group">
                       <label for="appeal_date">Appeal Hearing Date</label>
-                      <input id="appeal_date" type="date" name="appeal_date" required/>
+                      <input id="appeal_date" type="date" name="appeal_date"  required="required"/>
                     </div>
                     <div class="form-group">
                       <label for="resultStat">Result Status</label>
-                      <select name="resultStat" id="resultStat" required>
+                      <select name="resultStat" id="resultStat"  required="required">
                         <option value="p">Pending</option>
                         <option value="a">Approved</option>
                         <option value="d">Disapproved</option>

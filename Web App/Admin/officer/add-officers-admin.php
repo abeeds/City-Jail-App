@@ -75,28 +75,27 @@
                       <form>
                         <div class="form-group">
                             <label for="bNum">Badge Number</label>
-                            <input id="bNum" type="number" name="bNum" maxlenght="4" requied />
+                            <input id="bNum" type="number" name="bNum" min="0" max="999999999" required="required" />
                         </div>
                         <div class="form-group">
                             <label for="fname">First Name</label>
-                            <input id="fname" type="text" name="fname" maxlength="41" requied/>
+                            <input id="fname" type="text" name="fname" maxlength="41" required="required"/>
                         </div>
                         <div class="form-group">
                             <label for="lname">Last Name</label>
-                            <input id="lname" type="text" name="lname" maxlength="41" requied/>
+                            <input id="lname" type="text" name="lname" maxlength="41" required="required"/>
                         </div>
                         <div class="form-group">
                             <label for="precinct">Precinct</label>
-                            <input id="precinct" type="number" name="precinct" min="0"requied/>
+                            <input id="precinct" type="number" name="precinct" min="0" max="999999999" required="required"/>
                         </div>
                         <div class="form-group">
                             <label for="phonenum">Phone Number</label>
-                            <input id="phonenum" type="number" name="phonenum" min="1" max="9999999999"requied/>
+                            <input id="phonenum" type="number" name="phonenum" min="1" max="9999999999" required="required"/>
                         </div>
                         <div class="form-group">
                           <label for="status">Status</label>
                           <select name="status" id="status">
-                            <option value=""></option>
                             <option value="a">Active</option>
                             <option value="i">Inactive</option>
                           </select>

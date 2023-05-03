@@ -73,11 +73,11 @@
                     <form>
                     <div class="form-group">
                       <label for="caseID">Update Crime with Case ID</label>
-                      <input id="caseID" type="number" name="caseID" min="0"/>
+                      <input id="caseID" type="number" name="caseID" min="0" max="999999999" required="required"/>
                     </div>
                     <div class="form-group">
                       <label for="crID">Criminal ID</label>
-                      <input id="crID" type="number" name="crID" min="0"/>
+                      <input id="crID" type="number" name="crID" min="0" max="999999999"/>
                     </div>
                     <div class="form-group">
                       <label for="classification">Classification</label>

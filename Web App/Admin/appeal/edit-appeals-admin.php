@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Required meta tags -->
+        <!--  required="required" meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -76,11 +76,11 @@
                     <form>
                         <div class="form-group">
                             <label for="numAtt">Update Attempt</label>
-                            <input id="numAtt" type="number" name="numAtt" min="0" required/>
+                            <input id="numAtt" type="number" name="numAtt" min="0" max="3"  required="required"/>
                         </div>
                         <div class="form-group">
                             <label for="caseid">of Appeal with Case ID</label>
-                            <input id="caseid" type="number" name="caseid" min="0" required/>
+                            <input id="caseid" type="number" name="caseid" min="0" max="999999999"  required="required"/>
                         </div>
                         <div class="form-group">
                             <label for="fdate">Filing Date</label>
