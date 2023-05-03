@@ -928,8 +928,8 @@ function add_criminal($id, $lname, $fname, $street ,$city, $state, $zip, $phonen
     $aQuery .= "  \"$state\"  ,";
     $aQuery .= " $zip ,";
     $aQuery .= " $phonenum ,";
-    $aQuery .= " \"$Vstats\" ,";
-    $aQuery .= " \"$Pstats\" )";
+    $aQuery .= " \"$Vstat\" ,";
+    $aQuery .= " \"$Pstat\" )";
 
     $aQuery .= ";";
     //echo "<p>$aQuery</p>";
@@ -1387,7 +1387,7 @@ function delete_sentence($sid, $database=NULL) {
     }
 
     $aQuery = " DELETE FROM sentence ";
-    $aQuery .= " WHERE s_id = " . $sid;
+    $aQuery .= " WHERE sentence_id = " . $sid;
     $aQuery .= " ; ";
     //echo "<p>$aQuery</p>";
     // adds a row to the HTML for each row on the table
@@ -1581,16 +1581,16 @@ function update_crime($caseid, $crid, $classification, $datecharged, $appealStat
         $aQuery .= " classification  =  \"$classification\" ,";
     }
     if($datecharged !== "") {
-        $aQuery .= " datecharged  =  $datecharged ,";
+        $aQuery .= " datecharged  =  \"$datecharged\" ,";
     }
     if($appealStat !== "") {
         $aQuery .= " appeal_status  =  \"$appealStat\", ";
     }
     if($hearingdate !== "") {
-        $aQuery .= " hearing_date  =  $hearingdate, ";
+        $aQuery .= " hearing_date  =  \"$hearingdate\", ";
     }
     if($appealcut !== "") {
-        $aQuery .= " appeal_cutoff_date  =  $appealcut, ";
+        $aQuery .= " appeal_cutoff_date  =  \"$appealcut\", ";
     }
     $aQuery = rtrim($aQuery, ', ') . " WHERE case_id= $caseid";
 
@@ -1838,10 +1838,10 @@ function makeTable_sentence($sid, $cid, $probid, $start_date ,$end_date, $numVio
     $aQuery .= " WHERE c.c_id = s.c_id ";
     $aQuery .= "AND CONCAT(c.c_first, ' ',  c.c_last) LIKE '%" . $name . "%' ";
     if($start_date !== "" && $end_date === "") {
-        $aQuery .= " AND s.start_date = '" . $start_date . "'";
+        $aQuery .= " AND s.start_date >= '" . $start_date . "'";
     }
     elseif($end_date !== "" && $start_date === "") {
-        $aQuery .= " AND s.end_date = '" . $end_date . "'";
+        $aQuery .= " AND s.end_date <= '" . $end_date . "'";
     }
     elseif($start_date !== "" && $end_date !== "") {
         $aQuery .= " AND s.start_date >= '" . $start_date . "'";

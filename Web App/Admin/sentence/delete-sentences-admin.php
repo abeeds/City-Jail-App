@@ -56,7 +56,7 @@
                   
                   <!-- Right Side of Navigation Bar -->
                   <div class="navbar-nav">
-                  <a href="../../User/criminals.php"><strong>Log Out</strong></a>
+                  <a href="../logout.php"><strong>Log Out</strong></a>
                   </div>
                 </div>
               </div>
@@ -85,7 +85,7 @@
                 // When a field is submitted, it will run this code
                 if($_GET){
                   $db = connectToDB_admin();
-                  delete_setence($_GET["sid"],  $db);
+                  delete_sentence($_GET["sid"],  $db);
                 }
             ?>
             

@@ -59,7 +59,7 @@
                   <div class="navbar-nav">
                     <!-- Dropdown menu on Profile Button -->
                     <div class="dropdown">
-                    <a href="../../User/criminals.php"><strong>Log Out</strong></a>
+                    <a href="../logout.php"><strong>Log Out</strong></a>
                     </div>
                   </div>
                 </div>
