@@ -16,7 +16,7 @@ function formatInput(&$string){
 // returns the MYSQL connection if success
 // need to change this so it takes in a parameter once we add in cookies
 function connectToDB_admin() {
-    $servername = "18.188.82.70"; 
+    $servername = "localhost"; 
     $username = "admin123"; // temporary
     $password = "admin321";
     $dbname = "cityjail";  

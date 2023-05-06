@@ -15,7 +15,7 @@ function formatInput(&$string){
 
 // returns the MYSQL connection if success
 function connectToDB_guest() {
-    $servername = "18.188.82.70";
+    $servername = "localhost";
     $username = "guest";
     $password = "guest";
     $dbname = "cityjail";
