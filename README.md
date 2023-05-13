@@ -1,5 +1,34 @@
-# City-Jail-App
-Final Schema statements: <br /> 
+<h1>City-Jail-App</h1>
+  <p>
+    City Jail App is a web application that allows users to access a MYSQL database.<br>
+    This app features a public view that allows users to search criminal and crime related data.<br>
+    There is also an admin view, accessed through the login, that allows for more detailed searches,<br>
+    inserting new data entries, and updating existing entries.
+  </p>
+  <p> 
+    This app was written using the following languages<br>
+    <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=php,html,css,mysql" alt="php, html, css, mysql"/>
+    </a>
+  </p>
+  
+ <h2>Previews</h2>
+  <a>
+    <img src="https://i.imgur.com/34quePz.png"/>
+    <img src="https://i.imgur.com/c3kKOC8.png"/>
+    <img src="https://i.imgur.com/m3ZYHsK.png"/>
+    <img src="https://i.imgur.com/cM8HYFX.png"/>
+    <img src="https://i.imgur.com/17nFgJG.png"/>
+    <img src="https://i.imgur.com/hYbykwm.png"/>
+    <img src="https://i.imgur.com/662ownY.png"/>
+  </a>
+
+
+<h2>Entity Relationship Diagram</h2>
+
+![Entity Relationship Diagram](https://user-images.githubusercontent.com/84909990/230780979-7adecf93-a58a-4179-9342-caf466d2635a.jpg)
+
+<h2>Schema Statements</h2>
 criminal(c_id, c_last, c_first, c_street, c_city, c_state, c_zip, c_phone_num, V_status, P_status) <br /> 
 alias(alias_id, @c_id, alias) <br /> 
 crime(case_id, @c_id, classification, date_charged, appeal_status, appeal_cutoff_date) <br /> 
@@ -9,7 +38,4 @@ officer(badge_number, o_last, o_first, o_precinct, o_phone_number, o_status) <br
 crime_officer(@badge_number, @case_id) <br /> 
 crime_code(code_num, code_desc) <br /> 
 charge(charge_id, @case_id, @code_num, charge_status, fine_amount, court_fee, amount_paid, payement_date) <br /> 
-appeal(attempt_num, @case_id, filling_date, appeal_hearing_date, result_status) <br /> 
-
-
-![Project_1_Milestone](https://user-images.githubusercontent.com/84909990/230780979-7adecf93-a58a-4179-9342-caf466d2635a.jpg)
+appeal(attempt_num, @case_id, filling_date, appeal_hearing_date, result_status) <br />
