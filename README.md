@@ -1,6 +1,6 @@
 <h1>City-Jail-App</h1>
   <p>
-    City Jail App is a web application that allows users to access a MYSQL database. This app features a public view that allows users to search criminal and crime related data. There is also an admin view, accessed through the login, that allows for more detailed searches, inserting new data entries, updating existing entries, and deleting existing entries.
+    City Jail App is a web application that allows users to access a MYSQL database. This app features a public view that allows users to search criminal and crime related data. There is also an admin view, accessed through the login, that allows for more detailed searches, inserting new data entries, updating existing entries, and deleting existing entries. We did host this app on AWS shortly, but we have taken it down.
   </p>
   <p> 
     This app was written using the following languages<br>
