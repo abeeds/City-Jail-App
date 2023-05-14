@@ -1,9 +1,6 @@
 <h1>City-Jail-App</h1>
   <p>
-    City Jail App is a web application that allows users to access a MYSQL database.<br>
-    This app features a public view that allows users to search criminal and crime related data.<br>
-    There is also an admin view, accessed through the login, that allows for more detailed searches,<br>
-    inserting new data entries, and updating existing entries.
+    City Jail App is a web application that allows users to access a MYSQL database. This app features a public view that allows users to search criminal and crime related data. There is also an admin view, accessed through the login, that allows for more detailed searches, inserting new data entries, updating existing entries, and deleting existing entries.
   </p>
   <p> 
     This app was written using the following languages<br>
@@ -11,6 +8,12 @@
     <img src="https://skillicons.dev/icons?i=php,html,css,mysql" alt="php, html, css, mysql"/>
     </a>
   </p>
+  
+  <h2>General Documentation</h2>
+  <p>
+    Each of the individual webpages are stored in the User or Admin folders. Both folders rely on the CSS that is in the CSS folder. Within each folder there are files named 'db-functions.php' and 'db-functions-admin.php'. Inside these files are all database calls and queries that are being run based on the fields entered in each page. In 'db-functions-admin.php', there are only 4 different types of functions: search, insert, update, and delete.
+  </p>
+
   
  <h2>Previews</h2>
   <a>
@@ -22,7 +25,6 @@
     <img src="https://i.imgur.com/hYbykwm.png"/>
     <img src="https://i.imgur.com/662ownY.png"/>
   </a>
-
 
 <h2>Entity Relationship Diagram</h2>
 
